@@ -6,4 +6,6 @@ Explication du projet en 3 phrases.
 
 Voici l'explication pour chaque dossier:
 
-* ### a
+* ### WEB
+
+Ce dossier comprend le site web d'administration pour l'administrateur qui sera en mesure de gérer le robot livreur et de suivre son avancement.
