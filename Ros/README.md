@@ -1,8 +1,5 @@
 # ROS CODE ROBOT INDOOR #
 
-# Synchro fichier du git et fichier de catkin_ws #
-rsync -r /home/lucas/catkin_ws/src/ros_indoor_robot-main/ /home/lucas/ProjetInter/RescueIndoor/Ros/
-
 
 ## Presentation ##
 

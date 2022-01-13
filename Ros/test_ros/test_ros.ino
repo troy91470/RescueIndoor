@@ -1,6 +1,6 @@
-#include <Sabertooth.h>
 #include <SoftwareSerial.h>
 #include <SabertoothSimplified.h>
+#include <Sabertooth.h>
 
 #include <ros.h>
 #include <std_msgs/Empty.h>
