@@ -5,15 +5,15 @@
 ?>
 
 <table>
-		<thead>
+		<!-- <thead>
 			<tr>
 				<th>Prénom de l'employé</th>
 				<th>Nom de l'employé</th>
 				<th>Bureau de l'employé</th>
 			</tr>
-		</thead>
-		<tbody>
-			<?php
+		</thead> 
+		<tbody> -->
+			<?php	
 				// Connexion à la BDDs 
 				$connexionBDD = new mysqli($servername,$username,$password);
 				mysqli_select_db($connexionBDD, $gw_databaseName);
@@ -37,29 +37,36 @@
 						}
 					}
 
-					if($bureauUtilisateur == NULL){
-						echo '<tr onclick="ouvrePopup()"><td>'.$ligneUtilisateur['first_name'].'</td><td>'.$ligneUtilisateur['second_name'].'</td><td> NON DEFINI </td></tr>';
-					}
-					else{
-						echo '<tr onclick="ouvrePopup()"><td>'.$ligneUtilisateur['first_name'].'</td><td>'.$ligneUtilisateur['second_name'].'</td><td>'.$bureauUtilisateur.'</td></tr>';
-					}
-				}				
-				
+			?>
+					
+					<tr>
+						<details>
+							<summary><?php echo $ligneUtilisateur['first_name'].'  '.$ligneUtilisateur['second_name'] ?></summary>
+							<form method="post">
+							    <div>
+									<label for="first_name">Prénom:</label>
+									<input type="text" value="<?php echo $ligneUtilisateur['first_name'] ?> "> 
+								</div>
+								<div>
+									<label for="second_name">Nom:</label>
+									<input type="text" value="<?php echo $ligneUtilisateur['second_name'] ?> ">
+								</div>
+								<div>
+									<label for="bureau">Bureau:</label>
+									<input type="text" value="<?php echo $bureauUtilisateur ?> ">
+								</div>
+							</form>
+						</details>
+					</tr>
+					
+			<?php	
+				}
 				mysqli_close($connexionBDD);
 			?>
+				
+			
 	</tbody>
 </table>
 
-<form method="post" action="">
 
-
-<form>
-
-
-<script type="text/javascript">
-	function ouvrePopup()
-	{
-		window.open("about:blank", "hello", "width=200,height=200");	
-	}
-</script>
 
