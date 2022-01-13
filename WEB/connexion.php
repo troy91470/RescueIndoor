@@ -28,7 +28,7 @@
 			die("Connection failed: " . $connexionBDD->connect_error);
 		}
 
-		if( isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['password']) && !empty($_POST['first_name']) && !empty($_POST['second_name']) && !empty($_POST['password']) ) {
+		if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['password']) && !empty($_POST['first_name']) && !empty($_POST['second_name']) && !empty($_POST['password']) ) {
 			$first_name = $_POST['first_name'];
 			$second_name = $_POST['second_name'];
 			$password = $_POST['password'];

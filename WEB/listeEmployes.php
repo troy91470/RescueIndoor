@@ -30,14 +30,14 @@
 ?>
 
 
-<form>
+<form method="post" action="">
 	<table>
 		<thead>
 			<tr>
 				<th>Bureau à livrer</th>
 				<th>Prénom de l'employé</th>
 				<th>Nom de l'employé</th>
-				<th>QRCode de l'employé</th>
+				<th>QRCode du bureau</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,31 +51,34 @@
 				if($connexionBDD->connect_error) {
 					die("Connection failed: " . $connexionBDD->connect_error);
 				}
-			
-				$requeteUtilisateurs = "SELECT * FROM utilisateurs";
-				$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
-				while ($ligneUtilisateurs = $resultatUtilisateurs -> fetch_assoc()) {
-					$bureau = NULL;
+								
+				$requeteBureau = "SELECT * FROM bureau";
+				$resultatBureau = $connexionBDD -> query($requeteBureau);
+				while ($ligneBureau = $resultatBureau -> fetch_assoc()) {
+					$first_name_utilisateur = NULL;
+					$second_name_utilisateur = NULL;
 					$qrCode = NULL;
 
-					$requeteBureau = "SELECT * FROM bureau";
-					$resultatBureau = $connexionBDD -> query($requeteBureau);
-					while ($ligneBureau = $resultatBureau -> fetch_assoc()) {
-						if($ligneUtilisateurs['Id'] == $ligneBureau['Id']) {
-							$bureau = $ligneBureau['label'];
+					$requeteUtilisateurs = "SELECT * FROM utilisateurs";
+					$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
+					while ($ligneUtilisateurs = $resultatUtilisateurs -> fetch_assoc()) {
+						if($ligneBureau['Id'] == $ligneUtilisateurs['Id']) {
+							$first_name_utilisateur = $ligneUtilisateurs['first_name'];
+							$second_name_utilisateur = $ligneUtilisateurs['second_name'];
+
 						}
 					}
 					
 					$requeteQrCode = "SELECT * FROM qrcode";
 					$resultatQrCode = $connexionBDD -> query($requeteQrCode);
 					while ($ligneQrCode = $resultatQrCode -> fetch_assoc()) {
-						if($ligneUtilisateurs['Id'] == $ligneQrCode['id']) {
+						if($ligneBureau['Id'] == $ligneQrCode['id']) {
 							$qrCode = $ligneQrCode['valeur'];
 						}
 					}
 					
-					echo '<tr><td><input type="checkbox" id="'.$qrCode.'" name="'.$qrCode.'"><label for="'.$qrCode.'">'.$bureau.'</label></td>
-				<td>'.$ligneUtilisateurs['first_name'].'</td><td>'.$ligneUtilisateurs['second_name'].'</td><td>'.$qrCode.'</tr>';
+					echo '<tr><td><input type="checkbox" name="bureaux[]" value="'.$ligneBureau['label'].'">'.$ligneBureau['label'].'</td>
+				<td>'.$first_name_utilisateur.'</td><td>'.$second_name_utilisateur.'</td><td>'.$qrCode.'</tr>';
 				}
 				
 				mysqli_close($connexionBDD);
@@ -83,10 +86,19 @@
 		<tbody>
 	</table>
 
-	<button type="submit">Livrer ces bureaux</button>
+	<input type="submit" value="Livrer ces bureaux">
 <form>
 
-<!-- FONCTION RECUPERANT LES BUREAUX SELECTIONNER -->
+<!-- FONCTION RECUPERANT LES BUREAUX SELECTIONNES -->
+<?php
+	if(!empty($_POST['bureaux'])){
+		foreach($_POST['bureaux'] as $valeur){
+			echo $valeur; //ligne à changer (donnée à injecter)
+		}
+	}
+?>
+
+
 <!-- PASSAGE A L'OUVERTURE DE LA REMORQUE -->
 
 <!-- FONCTION RECUPERANT LES BUREAUX SELECTIONNER -->
