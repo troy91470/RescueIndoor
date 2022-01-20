@@ -36,7 +36,6 @@
 			$total = mysqli_num_rows($result);
 			echo(mysqli_error(($connexionBDD)));
 			if ($total!=0) {
-				echo("<br/>connexion reussie");
 				$_SESSION[$first_name]=$first_name;
 				$_SESSION[$second_name]=$second_name;
 				header('Location: listeEmployes.php');
