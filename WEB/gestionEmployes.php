@@ -61,7 +61,6 @@
 				<label for="second_name">Administrateur?:</label>
 				<input type="checkbox" id="is_admin" name="is_admin" checked>
 				<input type="submit" value="Ajouter" name="option">
-
 				<?php
 				if ($_POST["option"] == "Modifier") {
 					echo("modification\n");
