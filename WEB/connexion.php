@@ -7,7 +7,7 @@
 
 <form method='post'>
 	<label>Prénom</label>
-	<input type="text" placeholder="Entrer le prenom" name="first_name" required><br>
+	<input type="text" placeholder="Entrer le prénom" name="first_name" required><br>
 
 	<label>Nom</label>
 	<input type="text" placeholder="Entrer le nom" name="second_name" required> <br>
@@ -31,7 +31,6 @@
 		if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['password']) && !empty($_POST['first_name']) && !empty($_POST['second_name']) && !empty($_POST['password']) ) {
 			$first_name = $_POST['first_name'];
 			$second_name = $_POST['second_name'];
-			$password = $_POST['password'];
 			$sql = "SELECT * FROM utilisateurs WHERE first_name='$first_name' AND second_name='$second_name' AND password='$password'";
 			$result = mysqli_query($connexionBDD,$sql);
 			$total = mysqli_num_rows($result);
@@ -47,5 +46,6 @@
 		}
 		mysqli_close($connexionBDD);
 	?>
-
 </form>
+
+
