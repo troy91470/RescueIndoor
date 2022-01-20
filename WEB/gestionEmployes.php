@@ -50,16 +50,16 @@
 			?>
 				
 			<form method="post">
-				<label for="first_name">Prénom:</label>
-				<input type="text" placeholder="Prénom de l'employé" name="first_name" required>
-				<label for="second_name">Nom:</label>
-				<input type="text" placeholder="Nom de l'employé" name="second_name" required>
-				<label for="bureau">Bureau:</label>
+				<label for="firstName">Prénom:</label>
+				<input type="text" placeholder="Prénom de l'employé" name="firstName" required>
+				<label for="secondName">Nom:</label>
+				<input type="text" placeholder="Nom de l'employé" name="secondName" required>
+				<label for="office">Bureau:</label>
 				<input type="number" placeholder="Bureau de l'employé" name="office">
-				<label for="second_name">Mot de passe:</label>
+				<label for="password">Mot de passe:</label>
 				<input type="text" placeholder="Mot de passe de l'employé" name="password" required>
-				<label for="second_name">Administrateur?:</label>
-				<input type="checkbox" id="is_admin" name="is_admin" checked>
+				<label for="isAdmin">Administrateur?:</label>
+				<input type="checkbox" id="is_admin" name="isAdmin" checked>
 				<input type="submit" value="Ajouter" name="option">
 				
 				<?php
@@ -76,30 +76,39 @@
 
 						//insertion de l'employé saisi dans la BDD
 						elseif ($_POST["option"] == "Ajouter") {   
-							if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['office']) && isset($_POST['password']) && !empty($_POST['first_name'])) {
+							if(isset($_POST['firstName']) && isset($_POST['secondName']) && isset($_POST['office']) && isset($_POST['password'])) {
 								
-								if(isset($_POST['is_admin'])){
-									$is_admin = 1; 
+								$requeteSelectSamePerson = "SELECT count(*) FROM utilisateurs WHERE first_name='".$_POST['firstName']."' and second_name='".$_POST['secondName']."'";
+								$result = $connexionBDD -> query($requeteSelectSamePerson);
+								$result = $result -> fetch_array();
+								$existsAlready = (bool) ($result[0]);
+								if($existsAlready){
+									echo "<script>alert(\"Cette personne existe déjà dans la base de donnée.\")</script>";
 								}
 								else{
-									$is_admin = 0;
+									if(isset($_POST['isAdmin'])){
+										$isAdmin = 1; 
+									}
+									else{
+										$isAdmin = 0;
+									}
+									$requeteInsertEmployes = "INSERT INTO utilisateurs (first_name,second_name,password,is_admin) VALUES ('".$_POST['firstName']."','".$_POST['secondName']."','".$_POST['password']."',".$isAdmin.")"; 	
+									$connexionBDD -> query($requeteInsertEmployes);
+									
+									//éventuelle insertion de l'employé à un bureau dans la BDD
+									if(isset($_POST['office']) && !empty($_POST['office'])){
+										$requeteSelectIdEmployee = "SELECT id FROM utilisateurs WHERE first_name='".$_POST['firstName']."' and second_name='".$_POST['secondName']."' and password='".$_POST['password']."'"; 	
+										$result = $connexionBDD -> query($requeteSelectIdEmployee);
+										$result = $result -> fetch_array();
+										$idUser = intval($result[0]);
+										//$requeteInsertEmployesForOffice = "INSERT INTO offices (id_utilisateur) VALUES ('".$idUser."')"; 	
+										//$connexionBDD -> query($requeteInsertEmployesForOffice);
+									}
+									
+									if(!headers_sent()){
+										//exit(header("Refresh:0"));
+									}
 								}
-								$requeteInsertEmployes = "INSERT INTO utilisateurs (first_name,second_name,password,is_admin) VALUES ('".$_POST['first_name']."','".$_POST['second_name']."','".$_POST['password']."',".$is_admin.")"; 	
-								$connexionBDD -> query($requeteInsertEmployes);
-								
-								if(isset($_POST['office']) && !empty($_POST['office'])){
-									$requeteSelectIdEmployee = "SELECT id FROM utilisateurs WHERE first_name='".$_POST['first_name']."' and second_name='".$_POST['second_name']."' and password='".$_POST['password']."'"; 	
-									$result = $connexionBDD -> query($requeteSelectIdEmployee);
-									$result = $result -> fetch_array();
-									$id_user = intval($result[0]);
-									//$requeteInsertEmployesForOffice = "INSERT INTO offices (id_utilisateur) VALUES ('".$id_user."')"; 	
-									//$connexionBDD -> query($requeteInsertEmployesForOffice);
-								}
-								
-								if(!headers_sent()){
-									exit(header("Refresh:0"));
-								}
-								
 							}
 						}
 					}
