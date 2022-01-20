@@ -16,9 +16,10 @@
         return $connexionBDD;
     }
 
-    function suppression($first_name, $second_name, $password, $office)
+    function suppression_employe($first_name, $second_name, $password, $office)
     {
         $connexionBDD = bd_connexion();
+        mysqli_close();
     }
 
     function add_employee($first_name, $second_name, $password, $office)
