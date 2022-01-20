@@ -92,6 +92,7 @@
 						
 						if(!headers_sent()){
 							exit(header("Refresh:0"));
+							;
 						}
 					}
 				}
