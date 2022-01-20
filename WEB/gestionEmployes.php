@@ -40,8 +40,8 @@
 					<input type="text" value="<?php echo $ligneUtilisateur['second_name']?> ">
 					<label for="bureau">Bureau:</label>
 					<input type="text" value="<?php echo $bureauUtilisateur?> ">								
-					<input type="submit" value="Modifier">
-					<input type="submit" value="Supprimer">								
+					<input type="submit" value="Modifier" name="option">
+					<input type="submit" value="Supprimer" name="option">
 				</form>
 			</details>				
 					
@@ -58,12 +58,17 @@
 				<input type="number" placeholder="Bureau de l'employé" name="office">
 				<label for="second_name">Mot de passe:</label>
 				<input type="text" placeholder="Mot de passe de l'employé" name="password" required>
-				<label for="second_name">Administrateur:</label>
+				<label for="second_name">Administrateur?:</label>
 				<input type="checkbox" id="is_admin" name="is_admin" checked>
-				<input type="submit" value="Ajouter">		
+				<input type="submit" value="Ajouter" name="option">
 
-				<?php	
-					//insertion de l'employé saisi dans la BDD
+				<?php
+				if ($_POST["option"] == "Modifier") {
+					echo("modification\n");
+				} elseif ($_POST["option"] == "Supprimer") {
+					echo("suppression\n");
+				} elseif ($_POST["option"] == "Ajouter") {
+				//insertion de l'employé saisi dans la BDD
 
 					if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['office']) && isset($_POST['password']) && !empty($_POST['first_name'])) {
 						if(isset($_POST['is_admin'])){
@@ -77,9 +82,9 @@
 						$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
 						echo "bizarre";
 					}
+				}
 				?>
-	
-			</form>
+			</form> <!-- ajout employe -->
 			
 			
 			<?php	
