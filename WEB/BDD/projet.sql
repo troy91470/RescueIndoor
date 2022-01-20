@@ -33,14 +33,14 @@ DROP TABLE IF EXISTS `office`;
 CREATE TABLE `office` (
   `id_office` int(11) NOT NULL,
   `label` varchar(10) DEFAULT NULL,
-  `id_utilisateur` int(3) NOT NULL
+  `id_user` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `office`
 --
 
-INSERT INTO `office` (`id_office`, `label`, `id_utilisateur`) VALUES
+INSERT INTO `office` (`id_office`, `label`, `id_user`) VALUES
 (1, '312', 8);
 
 -- --------------------------------------------------------
@@ -95,7 +95,7 @@ INSERT INTO `user` (`id_user`, `first_name`, `second_name`, `password`, `is_admi
 --
 ALTER TABLE `office`
   ADD PRIMARY KEY (`id_office`),
-  ADD KEY `id_utilisateur` (`id_utilisateur`);
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Index pour la table `qrcode`
@@ -139,7 +139,7 @@ ALTER TABLE `user`
 -- Contraintes pour la table `office`
 --
 ALTER TABLE `office`
-  ADD CONSTRAINT `office_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `office_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
