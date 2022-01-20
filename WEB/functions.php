@@ -1,33 +1,31 @@
 <?php
+	require("logs.php");
 
-
-function test()
-{
-    echo("ok;");
-}
-
-	$servername = 'localhost';
-	$username = 'root';
-	$password = '';
-	$gw_databaseName = 'appliprojetinterfiliere';
-
-function bd_connexion(){
-    require("logs.php");
-    $connexionBDD = new mysqli($servername,$username,$password);
-    mysqli_select_db($connexionBDD, $gw_databaseName);
-    // Vérifier la connexion
-    if($connexionBDD->connect_error) {
-        die("Connection failed: " . $connexionBDD->connect_error);
+    function test()
+    {
+        echo("ok;");
     }
-    return $connexionBDD;
-}
 
-function suppression_employe($first_name, $second_name, $password, $office)
-{
-    $connexionBDD = bd_connexion();
-    echo "fn: $first_name, sn: $second_name , pswd: $password";
-    mysqli_close();
-}
+    function bd_connexion(){
+        $connexionBDD = new mysqli($servername,$username,$password);
+        mysqli_select_db($connexionBDD, $gw_databaseName);
+        // Vérifier la connexion
+        if($connexionBDD->connect_error) {
+            die("Connection failed: " . $connexionBDD->connect_error);
+        }
+        return $connexionBDD;
+    }
+
+    function suppression_employe($first_name, $second_name, $password, $office)
+    {
+        $connexionBDD = bd_connexion();
+        mysqli_close();
+    }
+
+    function add_employee($first_name, $second_name, $password, $office)
+    {
+        echo "TODO";
+    }
 
 function verification_same_person($first_name, $second_name){
     $connexionBDD = bd_connexion();

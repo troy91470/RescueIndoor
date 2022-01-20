@@ -1,7 +1,7 @@
 <?php
 	//Les informations de la BDD
 	session_start();
-	include("logs.php");
+	require("logs.php");
 ?>
 
 

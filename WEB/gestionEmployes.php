@@ -1,8 +1,8 @@
 <?php
 	//Les informations de la BDD
 	session_start();
-	include("logs.php");
-	include("functions.php");
+	require("logs.php");
+	require("functions.php");
 ?>
 
 
@@ -89,6 +89,9 @@
 
 						//insertion de l'employé saisi dans la BDD
 						elseif ($_POST["option"] == "Ajouter") {   
+							/////VERIFIER QUE LE BUREAU EXISTE
+							/////VERIFIER QUE LE BUREAU N'EST PAS DEJA OCCUPE
+
 							if(isset($_POST['firstName']) && isset($_POST['secondName']) && isset($_POST['office']) && isset($_POST['password'])) {
 								
 								$requeteSelectSamePerson = "SELECT count(*) FROM user WHERE first_name='".$_POST['firstName']."' and second_name='".$_POST['secondName']."'";
@@ -114,8 +117,8 @@
 										$result = $connexionBDD -> query($requeteSelectIdEmployee);
 										$result = $result -> fetch_array();
 										$idUser = intval($result[0]);
-										//$requeteInsertEmployesForOffice = "INSERT INTO office(id_user) VALUES ('".$idUser."')"; 	
-										//$connexionBDD -> query($requeteInsertEmployesForOffice);
+										$requeteInsertEmployesForOffice = "INSERT INTO office(id_user) VALUES ('".$idUser."')"; 	
+										$connexionBDD -> query($requeteInsertEmployesForOffice);
 									}
 									
 									if(!headers_sent()){
