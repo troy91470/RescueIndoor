@@ -79,7 +79,7 @@
 							if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['office']) && isset($_POST['password']) && !empty($_POST['first_name'])) {
 								
 								if(isset($_POST['is_admin'])){
-									$is_admin = 1;
+									$is_admin = 1; 
 								}
 								else{
 									$is_admin = 0;
