@@ -2,6 +2,7 @@
 	//Les informations de la BDD
 	session_start();
 	include("logs.php");
+	include("functions.php");
 ?>
 
 
@@ -45,7 +46,7 @@
 				</form>
 			</details>				
 					
-			<?php	
+			<?php
 				}
 			?>
 				
@@ -68,10 +69,14 @@
 						if ($_POST["option"] == "Modifier") {
 							echo("modification\n");
 						} 
-						
+
 						//suppression de l'employé dans la BDD
 						elseif ($_POST["option"] == "Supprimer") {   
 							echo("suppression\n");
+							if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['office']) && isset($_POST['password']) && !empty($_POST['first_name'])) {
+								suppression($_POST['first_name'], $_POST['second_name'], $_POST['password'], $_POST['office']);
+								echo "<script>alert(\"Suppression effectuee.\")</script>";
+							}
 						} 
 
 						//insertion de l'employé saisi dans la BDD
@@ -95,7 +100,7 @@
 									//$requeteInsertEmployesForOffice = "INSERT INTO offices (id_utilisateur) VALUES ('".$id_user."')"; 	
 									//$connexionBDD -> query($requeteInsertEmployesForOffice);
 								}
-								
+
 								if(!headers_sent()){
 									exit(header("Refresh:0"));
 								}
@@ -110,8 +115,3 @@
 			<?php	
 				mysqli_close($connexionBDD);
 			?>
-			
-
-
-
-
