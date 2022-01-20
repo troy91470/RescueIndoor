@@ -1,7 +1,7 @@
 <?php
 	//Les informations de la BDD
 	session_start();
-	include("logs.php");
+	require("logs.php");
 ?>
 
 
@@ -27,17 +27,17 @@
 					die("Connection failed: " . $connexionBDD->connect_error);
 				}
 								
-				$requeteBureau = "SELECT * FROM bureau";
+				$requeteBureau = "SELECT * FROM office";
 				$resultatBureau = $connexionBDD -> query($requeteBureau);
 				while ($ligneBureau = $resultatBureau -> fetch_assoc()) {
 					$first_name_utilisateur = NULL;
 					$second_name_utilisateur = NULL;
 					$qrCode = NULL;
 
-					$requeteUtilisateurs = "SELECT * FROM utilisateurs";
+					$requeteUtilisateurs = "SELECT * FROM user";
 					$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
 					while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
-						if($ligneBureau['Id'] == $ligneUtilisateur['Id']) {
+						if($ligneBureau['id_user'] == $ligneUtilisateur['id_user']) {
 							$first_name_utilisateur = $ligneUtilisateur['first_name'];
 							$second_name_utilisateur = $ligneUtilisateur['second_name'];
 						}
@@ -46,8 +46,8 @@
 					$requeteQrCode = "SELECT * FROM qrcode";
 					$resultatQrCode = $connexionBDD -> query($requeteQrCode);
 					while ($ligneQrCode = $resultatQrCode -> fetch_assoc()) {
-						if($ligneBureau['Id'] == $ligneQrCode['id']) {
-							$qrCode = $ligneQrCode['valeur'];
+						if($ligneBureau['id_qrcode'] == $ligneQrCode['id_qrcode']) {
+							$qrCode = $ligneQrCode['path'];
 						}
 					}
 					

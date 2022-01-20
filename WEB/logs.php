@@ -1,6 +1,7 @@
 <?php
+	
 	$servername = 'localhost';
 	$username = 'root';
 	$password = '';
-	$gw_databaseName = 'appliprojetinterfiliere';   
+	$gw_databaseName = 'appliprojetinterfiliere';
 ?>
