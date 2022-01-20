@@ -107,7 +107,7 @@
 			$second_name = $_POST['second_name'];
 			$password = $_POST['password'];
 
-			$sql = "SELECT * FROM utilisateurs WHERE first_name='$first_name' AND second_name='$second_name' AND password='$password'";
+			$sql = "SELECT * FROM user WHERE first_name='$first_name' AND second_name='$second_name' AND password='$password'";
 			$result = mysqli_query($connexionBDD,$sql);
 			$total = mysqli_num_rows($result);
 			// lever erreur : echo(mysqli_error(($connexionBDD)));
