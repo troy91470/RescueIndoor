@@ -40,10 +40,10 @@
 		<input type="text" value="<?php echo $ligneUtilisateur['second_name']?> ">
 		<label for="bureau">Bureau:</label>
 		<input type="text" value="<?php echo $bureauUtilisateur?> ">								
-		<input type="submit" value="Modifier">
-		<input type="submit" value="Supprimer">								
+		<input type="submit" value="Modifier" name="option">
+		<input type="submit" value="Supprimer" name="option">			
 	</form>
-</details>				
+</details>
 		
 <?php	
 	}
@@ -60,9 +60,10 @@
 	<input type="text" placeholder="Mot de passe de l'employé" name="password" required>
 	<label for="second_name">Administrateur:</label>
 	<input type="checkbox" id="is_admin" name="is_admin" checked>
-	<input type="submit" value="Ajouter">		
+	<input type="submit" value="Ajouter" name="option">
 
-	<?php	
+	<?php
+
 		//insertion de l'employé saisi dans la BDD
 
 		if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['office']) && !empty($_POST['first_name']) && !empty($_POST['second_name']) && !empty($_POST['office']) ) {
