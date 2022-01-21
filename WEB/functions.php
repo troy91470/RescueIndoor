@@ -6,10 +6,6 @@
 
     function bd_connexion(){
         require("logs.php");
-<<<<<<< HEAD
-
-=======
->>>>>>> c9055bf2b266f772ed9b3e61fb8a493367fd45c0
         $connexionBDD = new mysqli($servername,$username,$password);
         mysqli_select_db($connexionBDD, $gw_databaseName);
         // Vérifier la connexion
