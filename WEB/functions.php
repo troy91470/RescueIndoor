@@ -7,6 +7,7 @@
     }
 
     function bd_connexion(){
+        require("logs.php");
         $connexionBDD = new mysqli($servername,$username,$password);
         mysqli_select_db($connexionBDD, $gw_databaseName);
         // Vérifier la connexion
