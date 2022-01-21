@@ -15,25 +15,14 @@ char MotorBackward[9] = "Backward";
 char MotorLeft[5] = "Left";
 char MotorRight[6] = "Right";
 char MotorStop[5] = "Stop";
-char MotorUp[3] = "Up";
-char MotorDown[5] = "Down";
 
-
-void speedUp(const std_msgs::Empty& toggle_msg)
+/*void motorChoice(const std_msgs::Empty& toggle_msg)
 {
- if (motorSpeed < 110){
-  motorSpeed += 10;
- }
- OurMotorState.data = MotorUp;
-}
-
-void speedDown(const std_msgs::Empty& toggle_msg)
-{
- if (motorSpeed > 20){
-  motorSpeed -= 10;
- }
-  OurMotorState.data = MotorDown;
-}
+  switch (toggle_msg){
+    case "UP":
+      motorSpeed
+  }
+}*/
 
 
 void Forward(const std_msgs::Empty& toggle_msg) 
@@ -76,14 +65,11 @@ ros::Subscriber<std_msgs::Empty> subBackward("backward", &Backward );
 ros::Subscriber<std_msgs::Empty> subLeft("left", &Left );
 ros::Subscriber<std_msgs::Empty> subRight("right", &Right ); 
 ros::Subscriber<std_msgs::Empty> subStop("stop", &Stop ); 
-ros::Subscriber<std_msgs::Empty> subUp("up", &speedUp ); 
-ros::Subscriber<std_msgs::Empty> subDown("down", &speedDown );
 
 void setup()  
 {
-nh.initNode();
-nh.subscribe(subUp);
-nh.subscribe(subDown);
+  
+nh.initNode(); 
 nh.subscribe(subForward);
 nh.subscribe(subBackward);
 nh.subscribe(subLeft);
