@@ -19,15 +19,20 @@
 								
 				$requeteUtilisateurs = "SELECT * FROM user";
 				$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
+				$idLigne=0;
+				$users=array();
 				while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
+					$idUser = $ligneUtilisateur['id_user'];
 					$bureauUtilisateur = NULL;
 					
 					$requeteBureaux = "SELECT * FROM office";
 					$resultatBureaux = $connexionBDD -> query($requeteBureaux);
 					while ($ligneBureau = $resultatBureaux -> fetch_assoc()) {
+						$idLigne++;
 						if($ligneBureau['id_user'] == $ligneUtilisateur['id_user']) {
 							$bureauUtilisateur = $ligneBureau['label'];
 						}
+						$users[$idLigne] = array($ligneUtilisateur['first_name'], $ligneUtilisateur['second_name'], $ligneUtilisateur['password']);
 					}
 
 			?>
@@ -36,11 +41,12 @@
 				<summary><?php echo $ligneUtilisateur['first_name'].'  '.$ligneUtilisateur['second_name'] ?></summary>
 				<form method="post">
 					<label for="first_name">Prénom:</label>
-					<input type="text" value="<?php echo $ligneUtilisateur['first_name']?> "> 
+					<input type="text" placeholder="<?php echo $ligneUtilisateur['first_name']?> " name="firstName">
 					<label for="second_name">Nom:</label>
-					<input type="text" value="<?php echo $ligneUtilisateur['second_name']?> ">
+					<input type="text" placeholder="<?php echo $ligneUtilisateur['second_name']?> " name="secondName">
 					<label for="bureau">Bureau:</label>
-					<input type="text" value="<?php echo $bureauUtilisateur?> ">								
+					<input type="text" placeholder="<?php echo $bureauUtilisateur?> " name="office">
+					<input type="text" value="<?php echo $idLigne?>" disabled hidden name="idLine">
 					<input type="submit" value="Modifier" name="option">
 					<input type="submit" value="Supprimer" name="option">
 				</form>
@@ -68,15 +74,17 @@
 					if(isset($_POST["option"])){
 						if ($_POST["option"] == "Modifier") {
 							echo("modification\n");
+							modification_employe($users[$_POST['idLine']][0], $users[$_POST['idLine']][1], $users[$_POST['idLine']][1], "312");
+							echo "<script>alert(\"Suppression effectuee.\")</script>";
 						} 
 
 						//suppression de l'employé dans la BDD
 						elseif ($_POST["option"] == "Supprimer") {   
-							echo("suppression\n");
-							if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['office']) && isset($_POST['password']) && !empty($_POST['first_name'])) {
-								suppression($_POST['first_name'], $_POST['second_name'], $_POST['password'], $_POST['office']);
-								echo "<script>alert(\"Suppression effectuee.\")</script>";
-							}
+							//$test = $users[$_POST['idLine']][0];
+							$test = $_POST['idLine'];
+							echo("suppression |$test|");
+							suppression_employe($users[$_POST['idLine']][0], $users[$_POST['idLine']][1], $users[$_POST['idLine']][2], "312");
+							echo "<script>alert(\"Suppression effectuee.\")</script>";
 						} 
 
 						//insertion de l'employé saisi dans la BDD
