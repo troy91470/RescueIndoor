@@ -30,29 +30,31 @@
 				$requeteBureau = "SELECT * FROM office";
 				$resultatBureau = $connexionBDD -> query($requeteBureau);
 				while ($ligneBureau = $resultatBureau -> fetch_assoc()) {
-					$first_name_utilisateur = NULL;
-					$second_name_utilisateur = NULL;
-					$qrCode = NULL;
-
-					$requeteUtilisateurs = "SELECT * FROM user";
-					$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
-					while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
-						if($ligneBureau['id_user'] == $ligneUtilisateur['id_user']) {
-							$first_name_utilisateur = $ligneUtilisateur['first_name'];
-							$second_name_utilisateur = $ligneUtilisateur['second_name'];
+					if($ligneBureau['id_user'] != NULL){
+						$first_name_utilisateur = NULL;
+						$second_name_utilisateur = NULL;
+						$qrCode = NULL;
+	
+						$requeteUtilisateurs = "SELECT * FROM user";
+						$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
+						while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
+							if($ligneBureau['id_user'] == $ligneUtilisateur['id_user']) {
+								$first_name_utilisateur = $ligneUtilisateur['first_name'];
+								$second_name_utilisateur = $ligneUtilisateur['second_name'];
+							}
 						}
-					}
-					
-					$requeteQrCode = "SELECT * FROM qrcode";
-					$resultatQrCode = $connexionBDD -> query($requeteQrCode);
-					while ($ligneQrCode = $resultatQrCode -> fetch_assoc()) {
-						if($ligneBureau['id_qrcode'] == $ligneQrCode['id_qrcode']) {
-							$qrCode = $ligneQrCode['path'];
+						
+						$requeteQrCode = "SELECT * FROM qrcode";
+						$resultatQrCode = $connexionBDD -> query($requeteQrCode);
+						while ($ligneQrCode = $resultatQrCode -> fetch_assoc()) {
+							if($ligneBureau['id_qrcode'] == $ligneQrCode['id_qrcode']) {
+								$qrCode = $ligneQrCode['path'];
+							}
 						}
+						
+						echo '<tr><td><input type="checkbox" name="bureaux[]" value="'.$ligneBureau['label'].'">'.$ligneBureau['label'].'</td>
+					<td>'.$first_name_utilisateur.'</td><td>'.$second_name_utilisateur.'</td><td>'.$qrCode.'</tr>';
 					}
-					
-					echo '<tr><td><input type="checkbox" name="bureaux[]" value="'.$ligneBureau['label'].'">'.$ligneBureau['label'].'</td>
-				<td>'.$first_name_utilisateur.'</td><td>'.$second_name_utilisateur.'</td><td>'.$qrCode.'</tr>';
 				}
 				
 				mysqli_close($connexionBDD);
