@@ -45,7 +45,21 @@
 		<label for="second_name">Nom:</label>
 		<input type="text" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
 		<label for="bureau">Bureau:</label>
-		<input type="text" placeholder="<?php echo $bureauUtilisateur?>">
+		<select>
+		<?php
+			$requeteSelectOffice = "SELECT * FROM office";
+			$resultatOffice = $connexionBDD -> query($requeteSelectOffice);
+			while ($ligneOffice = $resultatOffice -> fetch_assoc()) {
+				if($ligneOffice['label'] == $bureauUtilisateur){
+					echo $bureauUtilisateur;
+					echo "<option value='".$ligneOffice['label']."' selected>".$ligneOffice['label']."</option>";
+				}
+				else{
+					echo "<option value='".$ligneOffice['label']."'>".$ligneOffice['label']."</option>";
+				}
+			}
+		?>
+		</select>
 		<input type="text" value="<?php echo $idLigne?>" disabled hidden name="idLine">								
 		<input type="submit" value="Modifier" name="option">
 		<input type="submit" value="Supprimer" name="option">
