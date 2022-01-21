@@ -30,12 +30,11 @@ ros::Subscriber<geometry_msgs::Vector3> sub2("cmd_mot", &messageCb2 );
 
 void setup()
 { 
-  pinMode(13, OUTPUT);
   nh.initNode();
   nh.subscribe(sub1);
   nh.subscribe(sub2);
 
-  Serial3.begin(9600);
+  //Serial2.begin(9600);
 
   sortie1 = 50;
   sortie0 = 50;
@@ -60,10 +59,10 @@ void commande1(int val, byte mode)
   //fonction d'envoi des commande au pont en H
   byte address = 128;       //adresse du pont en H 001111 sur les selecteurs
 
-  Serial3.write(address);
-  Serial3.write(mode);
-  Serial3.write(val);
-  Serial3.write((address + mode + val) &  0b01111111);  
+  Serial2.write(address);
+  Serial2.write(mode);
+  Serial2.write(val);
+  Serial2.write((address + mode + val) &  0b01111111);  
 }
 
 void output1(int val, byte mot)
@@ -76,6 +75,7 @@ void output1(int val, byte mot)
       commande1(val, 0);
     else if (val > -127)
       commande1(-val, 1);
+      
     else
       commande1(127, 1);
   }
