@@ -22,8 +22,8 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/util_connexion.css">
+	<link rel="stylesheet" type="text/css" href="css/main_connexion.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -50,7 +50,7 @@
 
 					<div class="wrap-input100 validate-input" data-validate = "Nom requis">
 						<input class="input100" type="text" name="second_name" placeholder="Nom">
-						
+						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-user-circle" aria-hidden="true"></i>
 						</span>
@@ -65,7 +65,6 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<!--<input class="login100-form-btn">-->
 						<input  class="login100-form-btn" type="submit" id='submit' value='LOGIN'>
 					</div>
 					
@@ -143,7 +142,7 @@
 		})
 	</script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<script src="js/main_connexion.js"></script>
 
 </body>
 </html>
