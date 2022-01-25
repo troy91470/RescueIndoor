@@ -24,47 +24,48 @@
 	while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
 		$idUser = $ligneUtilisateur['id_user'];
 		$bureauUtilisateur = NULL;
-		
+
+		$users[$idLigne] = array($ligneUtilisateur['first_name'], $ligneUtilisateur['second_name'], $ligneUtilisateur['password']);
+		$idLigne++;
+
 		$requeteBureaux = "SELECT * FROM office";
 		$resultatBureaux = $connexionBDD -> query($requeteBureaux);
 		while ($ligneBureau = $resultatBureaux -> fetch_assoc()) {
-			$idLigne++;
 			if($ligneBureau['id_user'] == $ligneUtilisateur['id_user']) {
 				$bureauUtilisateur = $ligneBureau['label'];
 			}
-			$users[$idLigne] = array($ligneUtilisateur['first_name'], $ligneUtilisateur['second_name'], $ligneUtilisateur['password']);
 		}
 
 ?>
-		
-<details>
-	<summary><?php echo $ligneUtilisateur['first_name'].'  '.$ligneUtilisateur['second_name'] ?></summary>
-	<form method="post">
-		<label for="first_name">Prénom:</label>
-		<input type="text" placeholder="<?php echo $ligneUtilisateur['first_name']?>"> 
-		<label for="second_name">Nom:</label>
-		<input type="text" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
-		<label for="bureau">Bureau:</label>
-		<select>
-		<?php
-			$requeteSelectOffice = "SELECT * FROM office";
-			$resultatOffice = $connexionBDD -> query($requeteSelectOffice);
-			while ($ligneOffice = $resultatOffice -> fetch_assoc()) {
-				if($ligneOffice['label'] == $bureauUtilisateur){
-					echo $bureauUtilisateur;
-					echo "<option value='".$ligneOffice['label']."' selected>".$ligneOffice['label']."</option>";
-				}
-				else{
-					echo "<option value='".$ligneOffice['label']."'>".$ligneOffice['label']."</option>";
-				}
-			}
-		?>
-		</select>
-		<input type="text" value="<?php echo $idLigne?>" disabled hidden name="idLine">								
-		<input type="submit" value="Modifier" name="option">
-		<input type="submit" value="Supprimer" name="option">
-	</form>
-</details>				
+
+		<details>
+			<summary><?php echo $ligneUtilisateur['first_name'].'  '.$ligneUtilisateur['second_name'] ?></summary>
+			<form method="post">
+				<label for="first_name">Prénom:</label>
+				<input type="text" placeholder="<?php echo $ligneUtilisateur['first_name']?>"> 
+				<label for="second_name">Nom:</label>
+				<input type="text" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
+				<label for="bureau">Bureau:</label>
+				<select>
+				<?php
+					$requeteSelectOffice = "SELECT * FROM office";
+					$resultatOffice = $connexionBDD -> query($requeteSelectOffice);
+					while ($ligneOffice = $resultatOffice -> fetch_assoc()) {
+						if($ligneOffice['label'] == $bureauUtilisateur){
+							echo $bureauUtilisateur;
+							echo "<option name='".$ligneOffice['label']."' selected>".$ligneOffice['label']."</option>";
+						}
+						else{
+							echo "<option name='".$ligneOffice['label']."'>".$ligneOffice['label']."</option>";
+						}
+					}
+				?>
+				</select>
+				<input type="text" value="<?php echo $idLigne?>" hidden name="idLine">								
+				<input type="submit" value="Modifier" name="option">
+				<input type="submit" value="Supprimer" name="option">
+			</form>
+		</details>				
 		
 <?php
 	}
@@ -77,11 +78,12 @@
 	<input type="text" placeholder="Nom de l'employé" name="secondName" required>
 	<label for="office">Bureau:</label>
 	<select>
+		<option name="" selected></option>
 		<?php
 			$requeteSelectOffice = "SELECT * FROM office";
 			$resultatOffice = $connexionBDD -> query($requeteSelectOffice);
 			while ($ligneOffice = $resultatOffice -> fetch_assoc()) {
-				echo "<option value='".$ligneOffice['label']."'>".$ligneOffice['label']."</option>";
+				echo "<option name='".$ligneOffice['label']."'>".$ligneOffice['label']."</option>";
 			}
 		?>
 	</select>
@@ -102,8 +104,10 @@
 
 			//suppression de l'employé dans la BDD
 			elseif ($_POST["option"] == "Supprimer") {
-					$test = $users[$_POST['idLine']][0];
-					$test = $_POST['idLine'];
+					$ligne = $_POST['idLine'];
+					echo $ligne;
+					$test = $users[$ligne];
+					echo $test;
 					echo("suppression |$test|");
 					suppression_employe($users[$_POST['idLine']][0], $users[$_POST['idLine']][1], $users[$_POST['idLine']][2], "312");
 					echo "<script>alert(\"Suppression effectuee.\")</script>";
