@@ -25,9 +25,10 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util_liste.css">
 	<link rel="stylesheet" type="text/css" href="css/main_liste.css">
-	<link rel="stylesheet" type="text/css" href="css/util_connexion.css">
 	<link rel="stylesheet" type="text/css" href="css/main_connexion.css">
 <!--===============================================================================================-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
 </head>
 <body>
 	<div class="limiter">
@@ -35,21 +36,19 @@
 			<div class="wrap-table100">
 				<div class="table100">
 					<form method="post" action="">
+					<span class="login100-form-title">
+							Liste des employés
+					</span>
 						<table>
 							<thead>
 								<tr class="table100-head">								
-									<th class="column1">Case</th>
-									<th class="column2">Bureau à livrer</th>
-									<th class="column3">Prénom de l'employé</th>
-									<th class="column4">Nom de l'employé</th>
+									<th class="column1">Livrer</th>
+									<th class="column2">Bureau</th>
+									<th class="column3">Prénom</th>
+									<th class="column4">Nom</th>
 								</tr>
 							</thead>
 							<tbody>
-									<!--<tr>
-										<td class="column1">2017-09-29 01:22</td>
-										<td class="column2">200398</td>
-										<td class="column3">iPhone X 64Gb Grey</td>
-									</tr>-->
 									<?php	
 										// Connexion à la BDDs 
 										$connexionBDD = new mysqli($servername,$username,$password);
@@ -60,43 +59,81 @@
 										if($connexionBDD->connect_error) {
 											die("Connection failed: " . $connexionBDD->connect_error);
 										}
-														
-										$requeteBureau = "SELECT * FROM bureau";
+												
+										$requeteBureau = "SELECT * FROM office";
 										$resultatBureau = $connexionBDD -> query($requeteBureau);
+										$numeroLigne = 1;	
 										while ($ligneBureau = $resultatBureau -> fetch_assoc()) {
 											$first_name_utilisateur = NULL;
 											$second_name_utilisateur = NULL;
 											$qrCode = NULL;
 
-											$requeteUtilisateurs = "SELECT * FROM utilisateurs";
+											$requeteUtilisateurs = "SELECT * FROM user";
 											$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
 											while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
-												if($ligneBureau['Id'] == $ligneUtilisateur['Id']) {
+												if($ligneBureau['id_user'] == $ligneUtilisateur['id_user']) {
 													$first_name_utilisateur = $ligneUtilisateur['first_name'];
 													$second_name_utilisateur = $ligneUtilisateur['second_name'];
 												}
 											}
 											
+											
+											// maybe useless
 											$requeteQrCode = "SELECT * FROM qrcode";
 											$resultatQrCode = $connexionBDD -> query($requeteQrCode);
 											while ($ligneQrCode = $resultatQrCode -> fetch_assoc()) {
-												if($ligneBureau['Id'] == $ligneQrCode['id']) {
-													$qrCode = $ligneQrCode['valeur'];
+												if($ligneBureau['id_qrcode'] == $ligneQrCode['id_qrcode']) {
+													$qrCode = $ligneQrCode['path'];
 												}
 											}
 											
-											// https://www.creativejuiz.fr/blog/tutoriels/personnaliser-aspect-boutons-radio-checkbox-css
 
+											// https://www.creativejuiz.fr/blog/tutoriels/personnaliser-aspect-boutons-radio-checkbox-css
+											
 											echo '<tr>
-												<td><input type="checkbox" name="bureaux[]" value="'.$ligneBureau['label'].'"></td>
+												<td>
+													<input type="checkbox" class="demo" id="demo'.$numeroLigne.'">
+													<label for="demo'.$numeroLigne.'"></label>
+												</td>
 												<td>'.$ligneBureau['label'].'</td>
 												<td>'.$first_name_utilisateur.'</td>
 												<td>'.$second_name_utilisateur.'</td>
 											</tr>';
-										}
-										
+											$numeroLigne++;
+										}												
 										mysqli_close($connexionBDD);
 									?>
+
+									<!--<tr>
+										<td>
+											<input type="checkbox" class="demo" id="demo">
+											<label for="demo"></label>
+										</td>
+										<td>115</td>
+										<td>non</td>
+										<td>oui</td>
+									</tr>
+
+									<tr>
+										<td>
+											<input type="checkbox" class="demo" id="demo1">
+											<label for="demo1"></label>
+										</td>
+										<td>1115</td>
+										<td>noooon</td>
+										<td>oui</td>
+									</tr>
+
+									<tr>
+										<td>
+											<input type="checkbox" class="demo" id="demo2">
+											<label for="demo2"></label>
+										</td>
+										<td>11555</td>
+										<td>non</td>
+										<td>ouiiiiii</td>
+									</tr>-->
+
 							</tbody>
 						</table>
 						<div class="container-login100-form-btn">
@@ -108,11 +145,12 @@
 		</div>
 	</div>
 
-	
+	<!--<input type="checkbox" class="demo5" id="demo5">
+													-->
 	
 
 <!--===============================================================================================-->	
-<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -132,8 +170,8 @@
 </html>
 
 <?php
-	if(!empty($_POST['bureaux'])){
-		foreach($_POST['bureaux'] as $valeur){
+	if(!empty($_POST['office'])){
+		foreach($_POST['office'] as $valeur){
 			echo $valeur;
 		}
 	}
