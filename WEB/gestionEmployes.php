@@ -100,7 +100,7 @@
 				$idUser = $_POST['idUser'];
 				echo("modification\n");
 				modification_employe($idUser, $_POST['first_name'], $_POST['second_name'], $_POST['bureau']);
-				echo "<script>alert(\"Suppression effectuee.\")</script>";
+				echo "<script>alert('Suppression effectuee.')</script>";
 			} 
 
 			//suppression de l'employé dans la BDD
