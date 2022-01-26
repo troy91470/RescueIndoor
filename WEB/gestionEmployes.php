@@ -6,7 +6,7 @@
 ?>
 
 
-<?php	
+<?php
 	// Connexion à la BDDs 
 	$connexionBDD = new mysqli($servername,$username,$password);
 	mysqli_select_db($connexionBDD, $gw_databaseName);
@@ -19,7 +19,6 @@
 					
 	$requeteUtilisateurs = "SELECT * FROM user";
 	$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
-	$idLigne=0;
 	$users=array();
 	while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
 		$idUser = $ligneUtilisateur['id_user'];
@@ -66,7 +65,7 @@
 				<input type="submit" value="Supprimer" name="option">
 			</form>
 		</details>				
-		
+
 <?php
 	}
 ?>
@@ -101,8 +100,7 @@
 				echo("modification\n");
 				modification_employe($idUser, $_POST['first_name'], $_POST['second_name'], $_POST['bureau']);
 				echo "<script>alert('Suppression effectuee.')</script>";
-			} 
-
+			}
 			//suppression de l'employé dans la BDD
 			elseif ($_POST["option"] == "Supprimer") {
 					$idUser = $_POST['idUser'];
