@@ -95,8 +95,6 @@
 			// Connexion à la BDD
 			$connexionBDD = new mysqli($servername,$username,$password);
 			mysqli_select_db($connexionBDD, $gw_databaseName);
-
-
 			// Vérifier la connexion
 			if($connexionBDD->connect_error) {
 				die("Connection failed: " . $connexionBDD->connect_error);
@@ -105,22 +103,33 @@
 			$first_name = $_POST['first_name']; 
 			$second_name = $_POST['second_name'];
 			$password = $_POST['password'];
+			$login=false;
+			$passwordTrouve=false;
 
-			$sql = "SELECT * FROM user WHERE first_name='$first_name' AND second_name='$second_name' AND password='$password'";
-			$result = mysqli_query($connexionBDD,$sql);
-			$total = mysqli_num_rows($result);
-			// lever erreur : echo(mysqli_error(($connexionBDD)));
+			$requeteUtilisateursLogin = "SELECT * FROM user WHERE first_name='$first_name' AND second_name='$second_name'";
+			//$result = mysqli_query($connexionBDD,$requeteUtilisateursLogin); && password_verify($password, password_hash($password, PASSWORD_DEFAULT))
+			$resultatUtilisateursLogin = $connexionBDD-> query($requeteUtilisateursLogin);
+			$total = mysqli_num_rows($resultatUtilisateursLogin);
 			if ($total!=0) {
-				echo("<br/>connexion reussie");
-				$_SESSION[$first_name]=$first_name;
-				$_SESSION[$second_name]=$second_name;
-				mysqli_close($connexionBDD);
-				header('Location: listeEmployes.php');
+				while ($ligneUtilisateur = $resultatUtilisateursLogin -> fetch_assoc()) {
+					$hashedPassword =  var_dump(password_hash($ligneUtilisateur['password'], PASSWORD_DEFAULT));
+					if (password_verify($password, $ligneUtilisateur['password'])) {
+						$_SESSION[$first_name]=$first_name;
+						$_SESSION[$second_name]=$second_name;
+						$login=true;
+						$passwordTrouve=true;
+					}
+				}
+				if ($passwordTrouve==false) {
+					echo("<script>alert('mot de passe incorrect |$hashedPassword|')</script>");
+				}
 			} else {
-				echo("<br/>identifiants incorrects");
+				echo("<script>alert('identifiants incorrects')</script>");
 			}
-			
 			mysqli_close($connexionBDD);
+			if($login==true){
+				header('Location: listeEmployes.php');
+			}
 		}
 	?>
 	

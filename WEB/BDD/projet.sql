@@ -74,7 +74,7 @@
     `id_user` int(3) NOT NULL,
     `first_name` varchar(15) NOT NULL,
     `second_name` varchar(15) NOT NULL,
-    `password` varchar(30) NOT NULL,
+    `password` varchar(255) NOT NULL,
     `is_admin` tinyint(1) NOT NULL DEFAULT 0
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -83,9 +83,9 @@
   --
 
   INSERT INTO `user` (`id_user`, `first_name`, `second_name`, `password`, `is_admin`) VALUES
-  (1, 'admin', 'admin', 'admin', 1),
-  (8, 'John', 'Doe', 'motdepasse', 0),
-  (10, 'exemple', 'example', 'ouioui', 0);
+  (1, 'admin', 'admin', '$2y$10$TMnC/sN5Y4CH9jJnws9oc.UHvasSgJ2X7/BswK9Kh/Kmo3IU7mPSy', 1), -- mot de passe: admin
+  (8, 'John', 'Doe', '$2y$10$fumNZkSKM1wZaU1JftAXBOD8umowNvLgymDR9ymKRZ5xqPlPSJvg.', 0), -- mot de passe: motdepasse
+  (10, 'exemple', 'example', '$2y$10$PbhfABiZhfjm7DG2HaL06efHCkS2DMDTM9vU6GPf5CHqzbBQH4mo6', 0); -- mot de passe: ouioui
 
   --
   -- Index pour les tables déchargées
