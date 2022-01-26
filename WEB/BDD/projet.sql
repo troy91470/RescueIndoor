@@ -33,7 +33,7 @@
   CREATE TABLE `office` (
     `id_office` int(11) NOT NULL,
     `label` varchar(10) DEFAULT NULL,
-    `id_user` int(3) NOT NULL,
+    `id_user` int(3) DEFAULT NULL,
     `id_qrcode` int(3) NOT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

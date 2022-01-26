@@ -26,7 +26,7 @@
 		$bureauUtilisateur = NULL;
 
 		$users[$idLigne] = array($ligneUtilisateur['first_name'], $ligneUtilisateur['second_name'], $ligneUtilisateur['password']);
-		$idLigne++;
+		$idLigne = $idligne+1;
 
 		$requeteBureaux = "SELECT * FROM office";
 		$resultatBureaux = $connexionBDD -> query($requeteBureaux);
@@ -61,7 +61,7 @@
 					}
 				?>
 				</select>
-				<input type="text" value="<?php echo $idLigne?>" hidden name="idLine">								
+				<input type="text" value="<?php echo $idUser?>" hidden name="idUser">								
 				<input type="submit" value="Modifier" name="option">
 				<input type="submit" value="Supprimer" name="option">
 			</form>
@@ -78,7 +78,7 @@
 	<input type="text" placeholder="Nom de l'employé" name="secondName" required>
 	<label for="office">Bureau:</label>
 	<select>
-		<option name="" selected></option>
+		<option name="-- Choisir un bureau ci-dessous --" selected></option>
 		<?php
 			$requeteSelectOffice = "SELECT * FROM office";
 			$resultatOffice = $connexionBDD -> query($requeteSelectOffice);
@@ -97,20 +97,18 @@
 		//modification de l'employé dans la BDD
 		if(isset($_POST["option"])){
 			if ($_POST["option"] == "Modifier") {
+				$idUser = $_POST['idUser'];
 				echo("modification\n");
-				modification_employe($users[$_POST['idLine']][0], $users[$_POST['idLine']][1], $users[$_POST['idLine']][1], "312");
+				modification_employe($idUser, $_POST['first_name'], $_POST['second_name'], $_POST['bureau']);
 				echo "<script>alert(\"Suppression effectuee.\")</script>";
 			} 
 
 			//suppression de l'employé dans la BDD
 			elseif ($_POST["option"] == "Supprimer") {
-					$ligne = $_POST['idLine'];
-					echo $ligne;
-					$test = $users[$ligne];
-					echo $test;
-					echo("suppression |$test|");
-					suppression_employe($users[$_POST['idLine']][0], $users[$_POST['idLine']][1], $users[$_POST['idLine']][2], "312");
-					echo "<script>alert(\"Suppression effectuee.\")</script>";
+					$idUser = $_POST['idUser'];
+					echo("suppression  de |$idUser|");
+					suppression_employe($idUser);
+					echo "<script>alert('Suppression effectuee.')</script>";
 			} 
 
 			//insertion de l'employé saisi dans la BDD
