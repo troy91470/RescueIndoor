@@ -22,6 +22,8 @@
 body, html {
 	height: 100%;
 	font-family: sans-serif;
+  /*font-family: 'Lato', monospace;*/
+  font-size: 'calc(1rem + 1vw)';
 }
 
 /* ------------------------------------ */
@@ -87,9 +89,37 @@ iframe {
 
 
 /*//////////////////////////////////////////////////////////////////
-[ Utiliti ]*/
+[ Checkbox ]*/
 
-
+input[type="checkbox"].demo {
+  display: none;
+}
+input[type="checkbox"].demo + label {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 1.5rem;
+  padding:2px;
+  background-color: #808080 ;
+  transition: all 0.5s ;
+}
+input[type="checkbox"].demo + label::before {
+  box-sizing: border-box;
+  display: block;
+  content: "";
+  height: calc(1.5rem - 4px);
+  width: calc(1.5rem - 4px);
+  border-radius: 50%;
+  background-color: #fff;
+  transition: all 0.5s ;
+}
+input[type="checkbox"].demo:checked + label {
+  background-color: #57b846 ;
+}
+input[type="checkbox"].demo:checked + label::before {
+  margin-left: 1.5rem ;
+}
 
 
 
@@ -123,7 +153,7 @@ iframe {
 }
 
 .wrap-table100 {
-  width: 900px;
+  width: 800px;
 }
 
 table {
@@ -153,7 +183,7 @@ table tbody tr:last-child {
   border: 0;
 }
 table td, table th {
-  text-align: left;
+  text-align: center;
 }
 table td.l, table th.l {
   text-align: right;
@@ -193,34 +223,24 @@ tbody tr:hover {
 }
 
 .column1 {
-  width: 100px;
-  padding-left: 20px;
+  width: 20px;
+  padding-left: 10px;
   text-align: center;
 }
 
 .column2 {
-  width: 160px;
+  width: 80px;
 }
 
 .column3 {
-  width: 150px;
+  width: 100px;
 }
 
 .column4 {
-  width: 110px;
-  text-align: right;
+  width: 0px;
+  text-align: center;
 }
 
-.column5 {
-  width: 170px;
-  text-align: right;
-}
-
-.column6 {
-  width: 222px;
-  text-align: right;
-  padding-right: 62px;
-}
 
 
 @media screen and (max-width: 992px) {
@@ -256,7 +276,7 @@ tbody tr:hover {
     top: 0;
   }
   table tbody tr td:nth-child(1):before {
-    content: "Case";
+    content: "Livrer";
   }
   table tbody tr td:nth-child(2):before {
     content: "Bureau à livrer";
@@ -267,28 +287,20 @@ tbody tr:hover {
   table tbody tr td:nth-child(4):before {
     content: "Nom de l'employé";
   }
-  table tbody tr td:nth-child(5):before {
-    content: "Quantity";
-  }
-  table tbody tr td:nth-child(6):before {
-    content: "Total";
-  }
+
   .column1,
   .column2,
   .column3
-  .column4,
-  .column5,
-  .column6 {
+  .column4
+  {
     text-align: center;
   }
 
   .column4,
-  .column5,
-  .column6,
   .column1,
   .column2,
   .column3 {
-    width: 100%;
+    width: 50%;
   }
 
   tbody tr {
@@ -303,46 +315,100 @@ tbody tr:hover {
   }
 }
 
-
-
-/* Aspect de la case */
-[type="checkbox"]:not(:checked) + label::before,
-[type="checkbox"]:checked + label::before {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 1.4em;
-	height: 1.4em;
-	border: 1px solid #aaa;
-	background: #FFF;
-	border-radius: .2em;
-	box-shadow: inset 0 1px 3px rgba(0,0,0, .1), 0 0 0 rgba(203, 34, 237, .2);
-	transition: all .275s;
+/*
+.label__checkbox {
+  display: none;
 }
 
-/* Aspect de la coche */
-[type="checkbox"]:not(:checked) + label::after,
-[type="checkbox"]:checked + label::after {
-	content: '✕';
-	speak: never; /* Pour être sûr que le lecteur d'écran ne lira pas "fois" */
-	position: absolute;
-	top: .38em;
-	left: .18em;
-	font-size: 1.6em;
-	color: #CB22ED;
-	line-height: 0;
-	transition: all .2s; /* Petite transition */
+.label__check {
+  display: inline-block;
+  border-radius: 50%;
+  border: 5px solid rgba(0,0,0,0.1);
+  background: white;
+  vertical-align: middle;
+  margin-right: 20px;
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border .3s ease;
+  
+  i.icon {
+    opacity: 0.2;
+    font-size: ~'calc(1rem + 1vw)';
+    color: transparent;
+    transition: opacity .3s .1s ease;
+    -webkit-text-stroke: 3px rgba(0,0,0,.5);
+  }
+  
+  &:hover {
+    border: 5px solid rgba(0,0,0,0.2);
+  }
 }
 
-/* Aspect non cochée */
-[type="checkbox"]:not(:checked) + label::after {
-	opacity: 0;
-	transform: scale(0) rotate(45deg);
+.label__checkbox:checked + .label__text .label__check {
+  animation: check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+  
+  .icon {
+    opacity: 1;
+    transform: scale(0);
+    color: white;
+    -webkit-text-stroke: 0;
+    animation: icon .3s cubic-bezier(1.000, 0.008, 0.565, 1.650) .1s 1 forwards;
+  }
 }
 
-/* Aspect cochée */
-[type="checkbox"]:checked + label::after {
-	opacity: 1;
-	transform: scale(1) rotate(0);
+.center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
 }
+
+@keyframes icon {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+
+@keyframes check {
+  0% {
+    width: 1.5em;
+    height: 1.5em;
+    border-width: 5px;
+  }
+  10% {
+    width: 1.5em;
+    height: 1.5em;
+    opacity: 0.1;
+    background: rgba(0,0,0,0.2);
+    border-width: 15px;
+  }
+  12% {
+    width: 1.5em;
+    height: 1.5em;
+    opacity: 0.4;
+    background: rgba(0,0,0,0.1);
+    border-width: 0;
+  }
+  50% {
+    width: 2em;
+    height: 2em;
+    background: #00d478;
+    border: 0;
+    opacity: 0.6;
+  }
+  100% {
+    width: 2em;
+    height: 2em;
+    background: #00d478;
+    border: 0;
+    opacity: 1;
+  }
+}*/
