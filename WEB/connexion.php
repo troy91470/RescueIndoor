@@ -112,7 +112,6 @@
 			$total = mysqli_num_rows($resultatUtilisateursLogin);
 			if ($total!=0) {
 				while ($ligneUtilisateur = $resultatUtilisateursLogin -> fetch_assoc()) {
-					$hashedPassword =  var_dump(password_hash($ligneUtilisateur['password'], PASSWORD_DEFAULT));
 					if (password_verify($password, $ligneUtilisateur['password'])) {
 						$_SESSION[$first_name]=$first_name;
 						$_SESSION[$second_name]=$second_name;
@@ -121,7 +120,7 @@
 					}
 				}
 				if ($passwordTrouve==false) {
-					echo("<script>alert('mot de passe incorrect |$hashedPassword|')</script>");
+					echo("<script>alert('mot de passe incorrect ')</script>");
 				}
 			} else {
 				echo("<script>alert('identifiants incorrects')</script>");
