@@ -81,4 +81,52 @@ function ajout_employe($idUser, $first_name, $second_name, $office, $isAdmin)
     }
 }
 
+function fill_file_route($listOffices){
+    $filename = 'deliveryRoute.txt';
+
+    if (is_writable($filename)) {
+        // verification existence
+        if (!$fp = fopen($filename, 'w')) {
+            echo "Impossible d'ouvrir le fichier ($filename)";
+            exit;
+        }
+
+        // verification ecriture
+        if (fwrite($fp, $listOffices) === FALSE) {
+            echo "Impossible d'écrire dans le fichier ($filename)";
+            exit;
+        }
+        // fermeture du fichier
+        fclose($fp);
+    } else {
+        echo "Le fichier $filename n'est pas accessible en écriture.";
+    }
+}
+
+function send_route($content){
+    set_include_path(get_include_path() . PATH_SEPARATOR . 'phplibs/phpseclib');
+    require('phplibs/phpseclib/Net/SSH2.php');
+    echo "<br/>require done<br/>";
+    $ssh = new Net_SSH2('192.168.43.7');
+    echo "<br/>bba";
+    if (!$ssh->login('pi', 'raspberry')) {
+        exit('Login Failed');
+    }
+    echo "aa";
+    echo $ssh->exec('echo "'.$content.'" > deliveryRoute.txt');
+
+/*
+
+
+echo "route donnng";
+$connection = ssh2_connect('192.168.43.7', 22);
+$o = shell_exec("pwd");
+echo "<br/>oui: $o<br/>";
+ssh2_auth_password($connection, 'pi', 'raspberry');
+
+ssh2_scp_send($connection, './deliveryRoute.txt', '/home/pi', 0664);
+echo "faim pizza burger manger";
+*/
+}
+
 ?>

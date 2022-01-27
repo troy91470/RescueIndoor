@@ -120,7 +120,7 @@
 					}
 				}
 				if ($passwordTrouve==false) {
-					echo("<script>alert('mot de passe incorrect |$hashedPassword|')</script>");
+					echo("<script>alert('mot de passe incorrect ')</script>");
 				}
 			} else {
 				echo("<script>alert('identifiants incorrects')</script>");

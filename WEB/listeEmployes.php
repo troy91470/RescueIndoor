@@ -92,7 +92,7 @@
 											
 											echo '<tr>
 												<td>
-													<input type="checkbox" class="demo" id="demo'.$numeroLigne.'">
+													<input type="checkbox" class="demo" id="demo'.$numeroLigne.'" name="office[]" value='.$ligneBureau['label'].'>
 													<label for="demo'.$numeroLigne.'"></label>
 												</td>
 												<td>'.$ligneBureau['label'].'</td>
@@ -170,9 +170,19 @@
 </html>
 
 <?php
-	if(!empty($_POST['office'])){
+	if(isset($_POST['office']) && is_array($_POST['office'])){
+		$listhOffices="";
+		$flad=0;
 		foreach($_POST['office'] as $valeur){
-			echo $valeur;
+			if ($flag==0) {
+				$listOffices = $listOffices."$valeur";
+				$flag=1;
+			} else {
+				$listOffices = $listOffices.";$valeur";
+			}
+			//echo("<script>alert('aaa |{$valeur}|')</script>");
 		}
+		echo("<script>alert('oui|$listOffices|')</script>");
+
 	}
 ?>

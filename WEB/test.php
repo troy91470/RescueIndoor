@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reda=looser</title>
 </head>
 <body>
     
 <?php
 
-$str="mot";
-echo "le mot: |".$str."|";
+require("functions.php");
+echo "test;";
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-$hachedStr = password_hash($str, PASSWORD_DEFAULT);
+$officesTest='320;415';
+fill_file_route($officesTest);
 
-echo "<br/> le mot hache: |".$hachedStr."|";
-
+send_route($officesTest);
 
 ?>
 </body>
