@@ -1,10 +1,5 @@
 <?php
-    function test()
-    {
-        echo("ok;");
-    }
-
-    function bd_connexion(){
+    function connexion_bd(){
         require("logs.php");
         $connexionBDD = new mysqli($servername,$username,$password);
         mysqli_select_db($connexionBDD, $gw_databaseName);
@@ -17,7 +12,7 @@
 
     function suppression_employe($idUser)
     {
-        $connexionBDD = bd_connexion();
+        $connexionBDD = connexion_bd();
        
         
         $requeteDeleteEmployeeForOffice = "UPDATE office SET id_user=NULL WHERE id_user=".$idUser;
@@ -36,13 +31,8 @@
         mysqli_close($connexionBDD);
     }
 
-    function add_employee($first_name, $second_name, $password, $office)
-    {
-        echo "TOMOVE by gestionEmployes";
-    }
-
 function verification_same_person($first_name, $second_name){
-    $connexionBDD = bd_connexion();
+    $connexionBDD = connexion_bd();
     $requeteSelectSamePerson = "SELECT count(*) FROM user WHERE first_name='".$first_name."' and second_name='".$second_name."'";
     $result = $connexionBDD -> query($requeteSelectSamePerson);
     $result = $result -> fetch_array();
@@ -66,11 +56,29 @@ function ajout_employe($idUser, $first_name, $second_name, $office, $isAdmin)
     $existsAlready = verification_same_person($first_name, $second_name);
     if($existsAlready){
         echo "<script>alert('Cette personne existe déjà dans la base de donnée.')</script>";
+        mysqli_close();
     }
     else{
-        echo "ça passe !";
+        $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."',".$isAdmin.")"; 	
+        $connexionBDD -> query($requeteInsertEmployes);
+        
+        //éventuelle insertion de l'employé à un bureau dans la BDD
+        if(!empty($office)){
+            $requeteSelectIdEmployee = "SELECT id_user FROM user WHERE first_name='".$first_name."' and second_name='".$second_name;
+            while ($ligneUtilisateur = $requeteSelectIdEmployee -> fetch_assoc()) {
+                if (password_verify($password, $ligneUtilisateur['password'])) {
+                    $idUser = intval($ligneUtilisateur['id_user']);
+                    $requeteInsertEmployesForOffice = "INSERT INTO office(id_user) VALUES ('".$idUser."')"; 	
+                    $connexionBDD -> query($requeteInsertEmployesForOffice);
+                }
+            }
+        }
+        mysqli_close();
+        if(!headers_sent()){
+            exit(header("Refresh:0"));
+        }
     }
-    mysqli_close();
 }
 
 ?>
