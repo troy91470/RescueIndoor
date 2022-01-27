@@ -7,6 +7,7 @@ int motorSpeed = 60;
 
 ros::NodeHandle  nh;
 
+int motorAction = 0; // 0 : Stop ; 1 : Forward ; 2 : BackWard ; 3 : Left ; 4 : Right ; 
 std_msgs::String OurMotorState;
 ros::Publisher Motorstate("state", &OurMotorState);
 
@@ -24,7 +25,9 @@ void speedUp(const std_msgs::Empty& toggle_msg)
  if (motorSpeed < 110){
   motorSpeed += 10;
  }
+ restartCommande();
  OurMotorState.data = MotorUp;
+ printState();
 }
 
 void speedDown(const std_msgs::Empty& toggle_msg)
@@ -32,15 +35,39 @@ void speedDown(const std_msgs::Empty& toggle_msg)
  if (motorSpeed > 20){
   motorSpeed -= 10;
  }
+  restartCommande();
   OurMotorState.data = MotorDown;
+  printState();
 }
 
+void restartCommande(){
+  std_msgs::Empty toggle_msg;
+  switch (motorAction) {
+  case 1:
+    Forward(toggle_msg);
+    break;
+  case 2:
+    Backward(toggle_msg);
+    break;
+  case 3:
+    Left(toggle_msg);
+    break;
+  case 4:
+    Right(toggle_msg);
+    break;
+  default:
+    // statements
+    break;
+  }
+}
 
 void Forward(const std_msgs::Empty& toggle_msg) 
 { 
 motorCommande(motorSpeed, 0);
 motorCommande(motorSpeed, 1); 
 OurMotorState.data = MotorForward;
+motorAction = 1;
+printState();
 } 
 
 void Backward(const std_msgs::Empty& toggle_msg) 
@@ -48,6 +75,8 @@ void Backward(const std_msgs::Empty& toggle_msg)
 motorCommande(-motorSpeed, 0);
 motorCommande(-motorSpeed, 1); 
 OurMotorState.data = MotorBackward;
+motorAction = 2;
+printState();
 } 
 
 void Left( const std_msgs::Empty& toggle_msg) 
@@ -55,6 +84,8 @@ void Left( const std_msgs::Empty& toggle_msg)
 motorCommande(-motorSpeed, 0);
 motorCommande(motorSpeed, 1); 
 OurMotorState.data = MotorLeft;
+motorAction = 3;
+printState();
 } 
 
 void Right( const std_msgs::Empty& toggle_msg) 
@@ -62,6 +93,8 @@ void Right( const std_msgs::Empty& toggle_msg)
 motorCommande(motorSpeed, 0);
 motorCommande(-motorSpeed, 1); 
 OurMotorState.data = MotorRight;
+motorAction = 4;
+printState();
 } 
 
 void Stop( const std_msgs::Empty& toggle_msg) 
@@ -69,6 +102,8 @@ void Stop( const std_msgs::Empty& toggle_msg)
 motorCommande(0, 0);
 motorCommande(0, 1); 
 OurMotorState.data = MotorStop;
+motorAction = 0;
+printState();
 } 
 
 ros::Subscriber<std_msgs::Empty> subForward("forward", &Forward );
@@ -95,9 +130,12 @@ Serial2.begin(9600);
 
 void loop()  
 {  
-Motorstate.publish( &OurMotorState );
 nh.spinOnce();  
 delay(100);  
+}
+
+void printState(){
+  Motorstate.publish( &OurMotorState );
 }
 
 void transferData(int val, byte mode)
