@@ -20,12 +20,13 @@
 	$requeteUtilisateurs = "SELECT * FROM user";
 	$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
 	$users=array();
+	$idLigne = 0;
 	while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
 		$idUser = $ligneUtilisateur['id_user'];
 		$bureauUtilisateur = NULL;
 
 		$users[$idLigne] = array($ligneUtilisateur['first_name'], $ligneUtilisateur['second_name'], $ligneUtilisateur['password']);
-		$idLigne = $idligne+1;
+		$idLigne = $idLigne+1;
 
 		$requeteBureaux = "SELECT * FROM office";
 		$resultatBureaux = $connexionBDD -> query($requeteBureaux);
@@ -76,13 +77,13 @@
 	<label for="secondName">Nom:</label>
 	<input type="text" placeholder="Nom de l'employé" name="secondName" required>
 	<label for="office">Bureau:</label>
-	<select>
-		<option name="-- Choisir un bureau ci-dessous --" selected></option>
+	<select name='office'>
+		<option selected>Indefini</option>
 		<?php
 			$requeteSelectOffice = "SELECT * FROM office";
 			$resultatOffice = $connexionBDD -> query($requeteSelectOffice);
 			while ($ligneOffice = $resultatOffice -> fetch_assoc()) {
-				echo "<option name='".$ligneOffice['label']."'>".$ligneOffice['label']."</option>";
+				echo "<option>".$ligneOffice['label']."</option>";
 			}
 		?>
 	</select>
@@ -104,21 +105,20 @@
 			//suppression de l'employé dans la BDD
 			elseif ($_POST["option"] == "Supprimer") {
 					$idUser = $_POST['idUser'];
-					echo("suppression  de |$idUser|");
 					suppression_employe($idUser);
 					echo "<script>alert('Suppression effectuee.')</script>";
 			} 
 
 			//insertion de l'employé saisi dans la BDD
-			elseif ($_POST["option"] == "Ajouter") {   
-				/////VERIFIER QUE LE BUREAU N'EST PAS DEJA OCCUPE -> SINON DEMANDE SI ON DEGAGE L'AUTRE
-				if(isset($_POST['isAdmin'])){
-					$isAdmin = 1; 
+			elseif ($_POST["option"] == "Ajouter") {  
+				if($_POST['office'] == "Indefini")
+				{
+					ajout_employe($_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$_POST['isAdmin']);
 				}
-				else{
-					$isAdmin = 0;
+				else
+				{
+					ajout_employe($_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$_POST['isAdmin']);
 				}
-				ajout_employee($_POST['firstName'], $_POST['secondName'], $isAdmin, $_POST['office']);
 			}
 		}
 	?>
