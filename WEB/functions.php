@@ -62,19 +62,24 @@ function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
     else{
         $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
         $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."',".$isAdmin.")"; 	
-        echo $requeteInsertEmployes;
         $connexionBDD -> query($requeteInsertEmployes);
         
         //éventuelle insertion de l'employé à un bureau dans la BDD
         if($office != NULL){
-            $requeteSelectIdEmployee = "SELECT id_user FROM user WHERE first_name='".$first_name."' and second_name='".$second_name;
-            while ($ligneUtilisateur = $requeteSelectIdEmployee -> fetch_assoc()) {
-                if (password_verify($password, $ligneUtilisateur['password'])) {
-                    $idUser = intval($ligneUtilisateur['id_user']);
-                    $requeteInsertEmployesForOffice = "INSERT INTO office(id_user) VALUES ('".$idUser."')"; 	
-                    $connexionBDD -> query($requeteInsertEmployesForOffice);
+            $requeteSelectIdUser = "SELECT * FROM user WHERE first_name='".$first_name."' and second_name='".$second_name."'";
+            $resultatIdUser = $connexionBDD -> query($requeteSelectIdUser);
+
+            while ($ligneUser = $resultatIdUser -> fetch_assoc()) {
+                if (password_verify($password, $ligneUser['password'])) {
+                    $idUser = $ligneUser['id_user'];
+
+                    $requeteUpdateEmployesForOffice = "UPDATE office SET id_user='".$idUser."' WHERE label='".$office."'";
+                    echo $requeteUpdateEmployesForOffice;
+                    $connexionBDD -> query($requeteUpdateEmployesForOffice);
                 }
             }
+           
+            
         }
         mysqli_close($connexionBDD);
 
