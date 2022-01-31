@@ -111,13 +111,20 @@
 
 			//insertion de l'employé saisi dans la BDD
 			elseif ($_POST["option"] == "Ajouter") {  
+				if(isset($_POST['isAdmin'])){
+					$isAdmin = 1;
+				}
+				else{
+					$isAdmin = 0;
+				}
+
 				if($_POST['office'] == "Indefini")
 				{
-					ajout_employe($_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$_POST['isAdmin']);
+					ajout_employe($_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
 				}
 				else
 				{
-					ajout_employe($_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$_POST['isAdmin']);
+					ajout_employe($_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
 				}
 			}
 		}

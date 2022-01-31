@@ -53,13 +53,8 @@ function modification_employe($idUser, $first_name, $second_name, $office)
 
 function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
 {
-    echo $first_name."\n";
-    echo $second_name."\n";
-    echo $office."\n";
-    echo $password."\n";
-    echo $isAdmin."\n";
+    $connexionBDD = connexion_bd();
 
-    
     $existsAlready = verification_same_person($first_name, $second_name);
     if($existsAlready){
         echo "<script>alert('Cette personne existe déjà dans la base de donnée.')</script>";
@@ -67,6 +62,7 @@ function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
     else{
         $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
         $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."',".$isAdmin.")"; 	
+        echo $requeteInsertEmployes;
         $connexionBDD -> query($requeteInsertEmployes);
         
         //éventuelle insertion de l'employé à un bureau dans la BDD
@@ -80,7 +76,7 @@ function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
                 }
             }
         }
-        mysqli_close();
+        mysqli_close($connexionBDD);
 
         if(!headers_sent()){
             exit(header("Refresh:0"));
