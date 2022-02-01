@@ -87,6 +87,22 @@ iframe {
 
 
 
+.le-title {
+  width: 290px;
+}
+
+.le-title-personnaliser {
+  font-family: Poppins-Bold;
+  font-size: 24px;
+  color: #FFFFFF;
+  line-height: 1.2;
+  text-align: center;
+
+  width: 100%;
+  display: block;
+  padding-bottom: 54px;
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ Checkbox ]*/

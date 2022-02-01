@@ -36,9 +36,9 @@
 			<div class="wrap-table100">
 				<div class="table100">
 					<form method="post" action="">
-					<span class="login100-form-title">
+					<span class="le-title-personnaliser">
 							Liste des employés
-					</span>
+						</span>
 						<table>
 							<thead>
 								<tr class="table100-head">								
