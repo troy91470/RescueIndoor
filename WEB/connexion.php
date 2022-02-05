@@ -1,8 +1,10 @@
 <?php
-	//Les informations de la BDD
-	session_start();
-    require("logs.php");
+require("functions.php");
+if (is_session_active()) {
+	header('Location: listeEmployes.php');
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,6 +92,7 @@
 	</div>
 
 	<?php
+		require("logs.php");
 
 		if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['password']) && !empty($_POST['first_name']) && !empty($_POST['second_name']) && !empty($_POST['password']) ) {
 			// Connexion à la BDD
@@ -99,7 +102,6 @@
 			if($connexionBDD->connect_error) {
 				die("Connection failed: " . $connexionBDD->connect_error);
 			}
-
 			$first_name = $_POST['first_name']; 
 			$second_name = $_POST['second_name'];
 			$password = $_POST['password'];
@@ -113,6 +115,9 @@
 			if ($total!=0) {
 				while ($ligneUtilisateur = $resultatUtilisateursLogin -> fetch_assoc()) {
 					if (password_verify($password, $ligneUtilisateur['password'])) {
+						session_start();
+						session_id($first_name);
+						$_SESSION['count']=1;
 						$_SESSION[$first_name]=$first_name;
 						$_SESSION[$second_name]=$second_name;
 						$login=true;
