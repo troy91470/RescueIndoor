@@ -1,91 +1,138 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8" />
-<script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
-<script src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+  <head>
+    <meta charset="utf-8" />
 
-<script>
-  // Connecting to ROS
-  // -----------------
-  var ros = new ROSLIB.Ros({
-    // set this to false to use the new service interface to
-    // tf2_web_republisher. true is the default and means roslibjs
-    // will use the action interface
-    groovyCompatibility : true
-  });
+    <link rel="stylesheet" type="text/css" href="css/control_ros.css">
 
-  // If there is an error on the backend, an 'error' emit will be emitted.
-  ros.on('error', function(error) {
-    document.getElementById('connecting').style.display = 'none';
-    document.getElementById('connected').style.display = 'none';
-    document.getElementById('closed').style.display = 'none';
-    document.getElementById('error').style.display = 'inline';
-    console.log(error);
-  });
+    <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+    <script src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
 
-  // Find out exactly when we made a connection.
-  ros.on('connection', function() {
-    console.log('Connection made!');
-    document.getElementById('connecting').style.display = 'none';
-    document.getElementById('error').style.display = 'none';
-    document.getElementById('closed').style.display = 'none';
-    document.getElementById('connected').style.display = 'inline';
-  });
 
-  ros.on('close', function() {
-    console.log('Connection closed.');
-    document.getElementById('connecting').style.display = 'none';
-    document.getElementById('connected').style.display = 'none';
-    document.getElementById('closed').style.display = 'inline';
-  });
+    <script>
+      // This function connects to the rosbridge server running on the local computer on port 9090
+      var rosServer = new ROSLIB.Ros({
+          url : 'ws://192.168.43.7:9090'
+      });
 
-  // Create a connection to the rosbridge WebSocket server.
-  ros.connect('ws://192.168.166.7:9090');
+      // If there is an error on the backend, an 'error' emit will be emitted.
+      rosServer.on('error', function(error) {
+        document.getElementById('connecting').style.display = 'none';
+        document.getElementById('connected').style.display = 'none';
+        document.getElementById('closed').style.display = 'none';
+        document.getElementById('error').style.display = 'inline';
+        console.log(error);
+      });
 
-  // TF Client
-  // ---------
-  var tfClient = new ROSLIB.TFClient({
-    ros : ros,
-    fixedFrame : 'world',
-    angularThres : 0.01,
-    transThres : 0.01
-  });
+      // Find out exactly when we made a connection.
+      rosServer.on('connection', function() {
+        console.log('Connection made!');
+        document.getElementById('connecting').style.display = 'none';
+        document.getElementById('error').style.display = 'none';
+        document.getElementById('closed').style.display = 'none';
+        document.getElementById('connected').style.display = 'inline';
+      });
 
-  // Subscribe to a turtle.
-  tfClient.subscribe('turtle1', function(tf) {
-    console.log(tf);
-  });
-</script>
-</head>
+      rosServer.on('close', function() {
+        console.log('Connection closed.');
+        document.getElementById('connecting').style.display = 'none';
+        document.getElementById('connected').style.display = 'none';
+        document.getElementById('closed').style.display = 'inline';
+      });
 
-<body>
-  <h1>Simple TF Example</h1>
-  <p>Run the following commands in the terminal then refresh this page. Check the JavaScript
-    console for the output.</p>
-  <ol>
-    <li><tt>roslaunch turtle_tf turtle_tf_demo.launch</tt>
-    </li>
-    <li><tt>rosrun tf2_web_republisher tf2_web_republisher</tt>
-    </li>
-    <li><tt>roslaunch rosbridge_server rosbridge_websocket.launch</tt>
-    </li>
-    <li>Use your arrow keys on your keyboard to move the turtle (must have <tt>turtle_tf_demo.launch</tt>
-      terminal focused).</li>
-  </ol>
-  <div id="statusIndicator">
-    <p id="connecting">
-      Connecting to rosbridge...
-    </p>
-    <p id="connected" style="color:#00D600; display:none">
-      Connected
-    </p>
-    <p id="error" style="color:#FF0000; display:none">
-      Error in the backend!
-    </p>
-    <p id="closed" style="display:none">
-      Connection closed.
-    </p>
-  </div>
-</body>
+
+    // These lines create a topic object as defined by roslibjs
+    var forwardTopic = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'forward',
+        messageType : 'std_msgs/Empty'
+    });
+    var backwardTopic = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'backward',
+        messageType : 'std_msgs/Empty'
+    });
+    var rightTopic = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'right',
+        messageType : 'std_msgs/Empty'
+    });
+    var leftTopic = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'left',
+        messageType : 'std_msgs/Empty'
+    });
+    var stopTopic = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'stop',
+        messageType : 'std_msgs/Empty'
+    });
+    var upTopic = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'up',
+        messageType : 'std_msgs/Empty'
+    });
+    var downTopic = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'down',
+        messageType : 'std_msgs/Empty'
+    });
+
+    /* This function:
+    - retrieves numeric values from the text boxes
+    - assigns these values to the appropriate values in the twist message
+    - publishes the message to the cmd_vel topic.
+    */
+    function pubMessage(topic) {
+      topic.publish();
+    }
+
+
+    </script>
+
+  </head>
+
+  <body>
+    <div id="statusIndicator">
+      <p id="connecting">
+        Connecting to rosbridge...
+      </p>
+      <p id="connected" style="color:#00D600; display:none">
+        Connected
+      </p>
+      <p id="error" style="color:#FF0000; display:none">
+        Error in the backend!
+      </p>
+      <p id="closed" style="display:none">
+        Connection closed.
+      </p>
+    </div>
+    <br>
+    <form name="ctrlPanel">
+      <div class="main">
+        <div class="sub-main">
+          <button id="sendMsg" type="button" onclick="pubMessage(forwardTopic)" class="button-one">Avancer</button>
+        </div>
+        <div class="sub-main">
+          <button id="sendMsg" type="button" onclick="pubMessage(backwardTopic)" class="button-one">Reculer</button>
+        </div>
+        <div class="sub-main">
+          <button id="sendMsg" type="button" onclick="pubMessage(stopTopic)" class="button-one button-stop">Stop</button>
+        </div>
+        <div class="sub-main">
+          <button id="sendMsg" type="button" onclick="pubMessage(leftTopic)" class="button-one">Gauche</button>
+        </div>
+        <div class="sub-main">
+          <button id="sendMsg" type="button" onclick="pubMessage(rightTopic)" class="button-one">Droite</button>
+        </div>
+        <br><br>
+        <div class="sub-main">
+          <button id="sendMsg" type="button" onclick="pubMessage(upTopic)" class="button-one">V+</button>
+        </div>
+        <div class="sub-main">
+          <button id="sendMsg" type="button" onclick="pubMessage(downTopic)" class="button-one">V-</button>
+        </div>
+      </div>
+    </form>
+  </body>
 </html>
