@@ -1,4 +1,17 @@
 <?php
+
+
+    function is_session_active()
+    {
+        session_start();
+        if (isset($_SESSION['count'])) return TRUE;
+        else {
+            session_destroy();
+            session_unset();
+            return FALSE;
+        }
+    }
+
     function connexion_bd(){
         require("logs.php");
         $connexionBDD = new mysqli($servername,$username,$password);
@@ -96,7 +109,7 @@ function send_route($content){
     echo "<br/>require done<br/>";
     $ssh = new Net_SSH2($ros_ip);
     echo "<br/>connection done";
-    
+
     if (!$ssh->login($ros_username, $ros_password)) {
         exit('Login Failed');
     }
