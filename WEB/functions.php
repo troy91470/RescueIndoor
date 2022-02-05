@@ -13,16 +13,16 @@
     function suppression_employe($idUser)
     {
         $connexionBDD = connexion_bd();
-       
         
-        $requeteDeleteEmployeeForOffice = "UPDATE office SET id_user=NULL WHERE id_user=".$idUser;
-        echo $requeteDeleteEmployeeForOffice;
-        $connexionBDD -> query($requeteDeleteEmployeeForOffice);
+        try {
+            $requeteDeleteEmployeeForOffice = "UPDATE office SET id_user=NULL WHERE id_user=".$idUser;
+            $connexionBDD -> query($requeteDeleteEmployeeForOffice);
 
-        $requeteDeleteEmployee = "DELETE FROM user WHERE id_user=".$idUser; 	
-        echo $requeteDeleteEmployee;
-        $connexionBDD -> query($requeteDeleteEmployee);
-
+            $requeteDeleteEmployee = "DELETE FROM user WHERE id_user=".$idUser; 	
+            $connexionBDD -> query($requeteDeleteEmployee);
+        } catch (Exception $e) {
+            echo 'Exception  reçue: ',  $e->getMessage(), "\n";
+        }
 
         if(!headers_sent()){
            exit(header("Refresh:0"));
@@ -51,12 +51,13 @@ function modification_employe($idUser, $first_name, $second_name, $office)
     mysqli_close();
 }
 
-function ajout_employe($idUser, $first_name, $second_name, $office, $isAdmin)
+function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
 {
+    $connexionBDD = connexion_bd();
+
     $existsAlready = verification_same_person($first_name, $second_name);
     if($existsAlready){
         echo "<script>alert('Cette personne existe déjà dans la base de donnée.')</script>";
-        mysqli_close();
     }
     else{
         $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -64,17 +65,24 @@ function ajout_employe($idUser, $first_name, $second_name, $office, $isAdmin)
         $connexionBDD -> query($requeteInsertEmployes);
         
         //éventuelle insertion de l'employé à un bureau dans la BDD
-        if(!empty($office)){
-            $requeteSelectIdEmployee = "SELECT id_user FROM user WHERE first_name='".$first_name."' and second_name='".$second_name;
-            while ($ligneUtilisateur = $requeteSelectIdEmployee -> fetch_assoc()) {
-                if (password_verify($password, $ligneUtilisateur['password'])) {
-                    $idUser = intval($ligneUtilisateur['id_user']);
-                    $requeteInsertEmployesForOffice = "INSERT INTO office(id_user) VALUES ('".$idUser."')"; 	
-                    $connexionBDD -> query($requeteInsertEmployesForOffice);
+        if($office != NULL){
+            $requeteSelectIdUser = "SELECT * FROM user WHERE first_name='".$first_name."' and second_name='".$second_name."'";
+            $resultatIdUser = $connexionBDD -> query($requeteSelectIdUser);
+
+            while ($ligneUser = $resultatIdUser -> fetch_assoc()) {
+                if (password_verify($password, $ligneUser['password'])) {
+                    $idUser = $ligneUser['id_user'];
+
+                    $requeteUpdateEmployesForOffice = "UPDATE office SET id_user='".$idUser."' WHERE label='".$office."'";
+                    echo $requeteUpdateEmployesForOffice;
+                    $connexionBDD -> query($requeteUpdateEmployesForOffice);
                 }
             }
+           
+            
         }
-        mysqli_close();
+        mysqli_close($connexionBDD);
+
         if(!headers_sent()){
             exit(header("Refresh:0"));
         }
