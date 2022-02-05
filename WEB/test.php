@@ -18,8 +18,17 @@ error_reporting(E_ALL);
 
 $officesTest='320;415';
 
-send_route($officesTest);
+//session_start();
 
+// Example
+
+if ( is_session_active() === FALSE ){
+    echo "session is not started !";
+} else {
+    echo "session is started !";
+}
+//send_route($officesTest);
 ?>
+<button><a href="deconnexion.php">deco</a></button>
 </body>
 </html>
