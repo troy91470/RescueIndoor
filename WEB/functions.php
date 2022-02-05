@@ -106,18 +106,16 @@ function fill_file_route($listOffices){
 function send_route($content){
     set_include_path(get_include_path() . PATH_SEPARATOR . 'phplibs/phpseclib');
     require('phplibs/phpseclib/Net/SSH2.php');
+    require('logs.php');
     echo "<br/>require done<br/>";
-    $ssh = new Net_SSH2('192.168.43.7');
-    echo "<br/>bba";
-    if (!$ssh->login('pi', 'raspberry')) {
+    $ssh = new Net_SSH2($ros_ip);
+    echo "<br/>connection done";
+    if (!$ssh->login($ros_username, $ros_password)) {
         exit('Login Failed');
     }
-    echo "aa";
-    echo $ssh->exec('echo "'.$content.'" > deliveryRoute.txt');
+    echo "<br/>evrything done";
 
 /*
-
-
 echo "route donnng";
 $connection = ssh2_connect('192.168.43.7', 22);
 $o = shell_exec("pwd");
