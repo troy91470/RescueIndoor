@@ -89,28 +89,6 @@ function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
     }
 }
 
-function fill_file_route($listOffices){
-    $filename = 'deliveryRoute.txt';
-
-    if (is_writable($filename)) {
-        // verification existence
-        if (!$fp = fopen($filename, 'w')) {
-            echo "Impossible d'ouvrir le fichier ($filename)";
-            exit;
-        }
-
-        // verification ecriture
-        if (fwrite($fp, $listOffices) === FALSE) {
-            echo "Impossible d'écrire dans le fichier ($filename)";
-            exit;
-        }
-        // fermeture du fichier
-        fclose($fp);
-    } else {
-        echo "Le fichier $filename n'est pas accessible en écriture.";
-    }
-}
-
 function send_route($content){
     set_include_path(get_include_path() . PATH_SEPARATOR . 'phplibs/phpseclib');
     require('phplibs/phpseclib/Net/SSH2.php');
