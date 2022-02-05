@@ -96,9 +96,12 @@ function send_route($content){
     echo "<br/>require done<br/>";
     $ssh = new Net_SSH2($ros_ip);
     echo "<br/>connection done";
+    
     if (!$ssh->login($ros_username, $ros_password)) {
         exit('Login Failed');
     }
+
+    $ssh->exec("echo 'aaa' > ssh_fonctionne.txt");
     echo "<br/>evrything done";
 
 /*
