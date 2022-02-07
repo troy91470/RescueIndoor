@@ -1,6 +1,6 @@
 # RescueIndoor
 
-Explication du projet en 3 phrases.
+Projet inter-filières sur le robot "rescue-indoor".
 
 ## Dossiers
 
@@ -8,20 +8,8 @@ Voici l'explication pour chaque dossier:
 
 * ### WEB
 
-Ce dossier comprend le site web d'administration pour l'administrateur qui sera en mesure de gérer le robot livreur et de suivre son avancement.
+Ce dossier comprend le site web pour l'administrateur qui sera en mesure de gérer le robot livreur, de suivre son avancement et gérer ses utilisateurs.
 
-* ### APPLICATION MOBILE (NOTIFICATION)
+* ### Ros
 
-Application pour notifier.
-
-* ### SERVEUR
-
-Serveur web & Serveur pour notif, bluetooth.
-
-* ### HARDWARE
-
-Hardware.
-
-* ### REMORQUE
-
-Remorque.
+Ros.
