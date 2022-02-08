@@ -106,7 +106,6 @@ if (is_session_active()) {
 			$second_name = $_POST['second_name'];
 			$password = $_POST['password'];
 			$login=false;
-			$passwordTrouve=false;
 
 			$requeteUtilisateursLogin = "SELECT * FROM user WHERE first_name='$first_name' AND second_name='$second_name'";
 			//$result = mysqli_query($connexionBDD,$requeteUtilisateursLogin); && password_verify($password, password_hash($password, PASSWORD_DEFAULT))
@@ -121,10 +120,9 @@ if (is_session_active()) {
 						$_SESSION[$first_name]=$first_name;
 						$_SESSION[$second_name]=$second_name;
 						$login=true;
-						$passwordTrouve=true;
 					}
 				}
-				if ($passwordTrouve==false) {
+				if ($login==false) {
 					echo("<script>alert('mot de passe incorrect ')</script>");
 				}
 			} else {
