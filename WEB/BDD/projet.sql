@@ -26,25 +26,6 @@ USE `appliprojetinterfiliere`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `qrcode`
---
-
-DROP TABLE IF EXISTS `qrcode`;
-CREATE TABLE `qrcode` (
-  `id_qrcode` int(11) NOT NULL,
-  `path` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `qrcode`
---
-
-INSERT INTO `qrcode` (`id_qrcode`, `path`) VALUES
-(1, '/tmp/image.png');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `user`
 --
 
@@ -67,31 +48,10 @@ INSERT INTO `user` (`id_user`, `first_name`, `second_name`, `password`, `office`
 (8, 'John', 'Doe', 'motdepasse', '315', 0);
 
 --
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `qrcode`
---
-ALTER TABLE `qrcode`
-  ADD PRIMARY KEY (`id_qrcode`);
-
---
 -- Index pour la table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `qrcode`
---
-ALTER TABLE `qrcode`
-  MODIFY `id_qrcode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT pour la table `user`
 --
