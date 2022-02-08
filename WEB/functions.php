@@ -90,9 +90,7 @@ function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
                     echo $requeteUpdateEmployesForOffice;
                     $connexionBDD -> query($requeteUpdateEmployesForOffice);
                 }
-            }
-           
-            
+            }            
         }
         mysqli_close($connexionBDD);
 
