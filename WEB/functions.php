@@ -48,14 +48,33 @@ function verification_same_person($first_name, $second_name){
 
 function modification_employe($idUser, $first_name, $second_name, $office)
 {
-    $existsAlready = verification_same_person($first_name, $second_name);
-    if($existsAlready){
-        echo "<script>alert(\"Cette personne existe déjà dans la base de donnée.\")</script>";
+    $connexionBDD = connexion_bd();
+
+    $firstNameModif = $first_name;
+    $secondNameModif = $second_name;
+    $officeModif = $office;
+
+    if($first_name != NULL)
+    {
+        $requeteSelectFirstName = "SELECT first_name FROM user WHERE id_user='".$idUser."'";
+        $firstNameModif = $connexionBDD -> query($requeteSelectFirstName);
     }
-    else{
-        echo "ça passe !";
+    if($second_name != NULL)
+    {
+        $requeteSelectSecondName = "SELECT second_name FROM user WHERE id_user='".$idUser."'";
+        $secondNameModif = $connexionBDD -> query($requeteSelectSecondName);
     }
-    mysqli_close();
+    if($office != NULL)
+    {
+        $requeteSelectOffice = "SELECT office FROM user WHERE id_user='".$idUser."'";
+        $officeModif = $connexionBDD -> query($requeteSelectOffice); 
+    }
+
+
+    $requeteUpdateEmployes = "UPDATE user (first_name,second_name,office) VALUES ('".$firstNameModif."','".$secondNameModif."','".$officeModif."') WHERE id_user='".$idUser."'"; 	
+    $connexionBDD -> query($requeteUpdateEmployes);
+
+    mysqli_close($connexionBDD);
     header("Refresh:0");
 }
 
