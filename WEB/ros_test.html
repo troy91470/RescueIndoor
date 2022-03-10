@@ -106,49 +106,51 @@
   </head>
 
   <body>
-    <div id="statusIndicator">
-      <p id="connecting">
-        Connecting to rosbridge...
-      </p>
-      <p id="connected" style="color:#00D600; display:none">
-        Connected
-      </p>
-      <p id="error" style="color:#FF0000; display:none">
-        Error in the backend!
-      </p>
-      <p id="closed" style="display:none">
-        Connection closed.
-      </p>
-    </div>
-    <br>
-    <form name="ctrlPanel">
-      <div class="main">
-        <div class="sub-main">
-          <button id="sendMsg" type="button" onclick="pubMessage(forwardTopic)" class="button-one">Avancer</button>
-        </div>
-        <div class="sub-main">
-          <button id="sendMsg" type="button" onclick="pubMessage(backwardTopic)" class="button-one">Reculer</button>
-        </div>
-        <div class="sub-main">
-          <button id="sendMsg" type="button" onclick="pubMessage(stopTopic)" class="button-one button-stop">Stop</button>
-        </div>
-        <div class="sub-main">
-          <button id="sendMsg" type="button" onclick="pubMessage(leftTopic)" class="button-one">Gauche</button>
-        </div>
-        <div class="sub-main">
-          <button id="sendMsg" type="button" onclick="pubMessage(rightTopic)" class="button-one">Droite</button>
-        </div>
-        <br><br>
-        <div class="sub-main">
-          <button id="sendMsg" type="button" onclick="pubMessage(upTopic)" class="button-one">V+</button>
-        </div>
-        <div class="sub-main">
-          <button id="sendMsg" type="button" onclick="pubMessage(downTopic)" class="button-one">V-</button>
-        </div>
-        <div class="sub-main">
-          <button id="sendMsg" type="button" onclick="testMSG()" class="button-one">test msg2</button>
-        </div>
+    <div class="divTop">
+      <div id="statusIndicator">
+        <p id="connecting">
+          Connecting to rosbridge...
+        </p>
+        <p id="connected" style="color:#00D600; display:none">
+          Connected
+        </p>
+        <p id="error" style="color:#FF0000; display:none">
+          Error in the backend!
+        </p>
+        <p id="closed" style="display:none">
+          Connection closed.
+        </p>
       </div>
-    </form>
+      <br>
+      </div>
+
+    <div class="divBottom">
+      <form name="ctrlPanel">
+        <div class="main">
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="pubMessage(forwardTopic)" class="button-one">Avancer</button>
+          </div>
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="pubMessage(backwardTopic)" class="button-one">Reculer</button>
+          </div>
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="pubMessage(stopTopic)" class="button-one button-stop">Stop</button>
+          </div>
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="pubMessage(leftTopic)" class="button-one">Gauche</button>
+          </div>
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="pubMessage(rightTopic)" class="button-one">Droite</button>
+          </div>
+          <br><br>
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="pubMessage(upTopic)" class="button-one">V+</button>
+          </div>
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="pubMessage(downTopic)" class="button-one">V-</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
