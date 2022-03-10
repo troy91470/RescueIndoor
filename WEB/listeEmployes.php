@@ -62,48 +62,28 @@
 										if($connexionBDD->connect_error) {
 											die("Connection failed: " . $connexionBDD->connect_error);
 										}
-												
-										$requeteBureau = "SELECT * FROM office";
-										$resultatBureau = $connexionBDD -> query($requeteBureau);
-										$numeroLigne = 1;	
-										while ($ligneBureau = $resultatBureau -> fetch_assoc()) {
-											$first_name_utilisateur = NULL;
-											$second_name_utilisateur = NULL;
-											$qrCode = NULL;
-
-											$requeteUtilisateurs = "SELECT * FROM user";
-											$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
-											while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
-												if($ligneBureau['id_user'] == $ligneUtilisateur['id_user']) {
-													$first_name_utilisateur = $ligneUtilisateur['first_name'];
-													$second_name_utilisateur = $ligneUtilisateur['second_name'];
-												}
-											}
-											
-											
-											// maybe useless
-											$requeteQrCode = "SELECT * FROM qrcode";
-											$resultatQrCode = $connexionBDD -> query($requeteQrCode);
-											while ($ligneQrCode = $resultatQrCode -> fetch_assoc()) {
-												if($ligneBureau['id_qrcode'] == $ligneQrCode['id_qrcode']) {
-													$qrCode = $ligneQrCode['path'];
-												}
-											}
-											
+										$requeteUtilisateurs = "SELECT * FROM user";
+										$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
+										$numeroLigne = 1;
+										while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
+											$first_name_utilisateur = $ligneUtilisateur['first_name'];
+											$second_name_utilisateur = $ligneUtilisateur['second_name'];
+											$office_utilisateur = $ligneUtilisateur['office'];
+										
 
 											// https://www.creativejuiz.fr/blog/tutoriels/personnaliser-aspect-boutons-radio-checkbox-css
-											
-											echo '<tr>
-												<td>
-													<input type="checkbox" class="demo" id="demo'.$numeroLigne.'" name="office[]" value='.$ligneBureau['label'].'>
-													<label for="demo'.$numeroLigne.'"></label>
-												</td>
-												<td>'.$ligneBureau['label'].'</td>
-												<td>'.$first_name_utilisateur.'</td>
-												<td>'.$second_name_utilisateur.'</td>
-											</tr>';
-											$numeroLigne++;
-										}												
+											if ($ligneUtilisateur['is_admin'] !== '1') {
+												echo('<tr>
+													<td>
+														<input type="checkbox" class="demo" id="demo'.$numeroLigne.'" name="office[]" value='.$ligneBureau['label'].'>
+														<label for="demo'.$numeroLigne.'"></label>
+													</td>
+													<td>'.$office_utilisateur.'</td>
+													<td>'.$first_name_utilisateur.'</td>
+													<td>'.$second_name_utilisateur.'</td>
+												</tr>');
+											}
+										}	
 										mysqli_close($connexionBDD);
 									?>
 

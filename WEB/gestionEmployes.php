@@ -1,8 +1,10 @@
 <?php
 	//Les informations de la BDD
-	session_start();
-	require("logs.php");
 	require("functions.php");
+	if (!is_session_active()) {
+		header('Location: index.php');
+	}
+	require("logs.php");
 ?>
 
 
@@ -23,18 +25,8 @@
 	$idLigne = 0;
 	while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
 		$idUser = $ligneUtilisateur['id_user'];
-		$bureauUtilisateur = NULL;
-
-		$users[$idLigne] = array($ligneUtilisateur['first_name'], $ligneUtilisateur['second_name'], $ligneUtilisateur['password']);
+		$bureauUtilisateur = $ligneUtilisateur['id_user'];
 		$idLigne = $idLigne+1;
-
-		$requeteBureaux = "SELECT * FROM office";
-		$resultatBureaux = $connexionBDD -> query($requeteBureaux);
-		while ($ligneBureau = $resultatBureaux -> fetch_assoc()) {
-			if($ligneBureau['id_user'] == $ligneUtilisateur['id_user']) {
-				$bureauUtilisateur = $ligneBureau['label'];
-			}
-		}
 
 ?>
 
@@ -46,21 +38,7 @@
 				<label for="second_name">Nom:</label>
 				<input type="text" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
 				<label for="bureau">Bureau:</label>
-				<select>
-				<?php
-					$requeteSelectOffice = "SELECT * FROM office";
-					$resultatOffice = $connexionBDD -> query($requeteSelectOffice);
-					while ($ligneOffice = $resultatOffice -> fetch_assoc()) {
-						if($ligneOffice['label'] == $bureauUtilisateur){
-							echo $bureauUtilisgateur;
-							echo "<option name='".$ligneOffice['label']."' selected>".$ligneOffice['label']."</option>";
-						}
-						else{
-							echo "<option name='".$ligneOffice['label']."'>".$ligneOffice['label']."</option>";
-						}
-					}
-				?>
-				</select>
+				<input type="text" placeholder="<?php echo $ligneUtilisateur['office']?>">
 				<input type="text" value="<?php echo $idUser?>" hidden name="idUser">								
 				<input type="submit" value="Modifier" name="option">
 				<input type="submit" value="Supprimer" name="option">
@@ -76,21 +54,12 @@
 	<input type="text" placeholder="Prénom de l'employé" name="firstName" required>
 	<label for="secondName">Nom:</label>
 	<input type="text" placeholder="Nom de l'employé" name="secondName" required>
-	<label for="office">Bureau:</label>
-	<select name='office'>
-		<option selected>Indefini</option>
-		<?php
-			$requeteSelectOffice = "SELECT * FROM office";
-			$resultatOffice = $connexionBDD -> query($requeteSelectOffice);
-			while ($ligneOffice = $resultatOffice -> fetch_assoc()) {
-				echo "<option>".$ligneOffice['label']."</option>";
-			}
-		?>
-	</select>
 	<label for="password">Mot de passe:</label>
 	<input type="text" placeholder="Mot de passe de l'employé" name="password" required>
+	<label for="office">Bureau:</label>
+	<input type="text" placeholder="Bureau de l'employé" name="office">
 	<label for="isAdmin">Administrateur?:</label>
-	<input type="checkbox" id="is_admin" name="isAdmin" checked>
+	<input type="checkbox" id="is_admin" name="isAdmin">
 	<input type="submit" value="Ajouter" name="option">
 	
 	<?php
@@ -113,18 +82,15 @@
 			elseif ($_POST["option"] == "Ajouter") {  
 				if(isset($_POST['isAdmin'])){
 					$isAdmin = 1;
-				}
-				else{
+				} else {
 					$isAdmin = 0;
 				}
 
-				if($_POST['office'] == "Indefini")
-				{
-					ajout_employe($_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
-				}
-				else
+				if(!empty($_POST['office']) && isset($_POST['office']))
 				{
 					ajout_employe($_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
+				} else {
+					ajout_employe($_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
 				}
 			}
 		}
