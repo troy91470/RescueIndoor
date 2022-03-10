@@ -54,24 +54,26 @@ function modification_employe($idUser, $first_name, $second_name, $office)
     $secondNameModif = $second_name;
     $officeModif = $office;
 
-    if($first_name != NULL)
+    if($firstNameModif == NULL)
     {
         $requeteSelectFirstName = "SELECT first_name FROM user WHERE id_user='".$idUser."'";
         $firstNameModif = $connexionBDD -> query($requeteSelectFirstName);
+        $firstNameModif = $firstNameModif -> fetch_array()[0];
     }
-    if($second_name != NULL)
+    if($secondNameModif == NULL)
     {
         $requeteSelectSecondName = "SELECT second_name FROM user WHERE id_user='".$idUser."'";
         $secondNameModif = $connexionBDD -> query($requeteSelectSecondName);
+        $secondNameModif = $secondNameModif -> fetch_array()[0];
     }
-    if($office != NULL)
+    if($officeModif == NULL)
     {
         $requeteSelectOffice = "SELECT office FROM user WHERE id_user='".$idUser."'";
         $officeModif = $connexionBDD -> query($requeteSelectOffice); 
+        $officeModif = $officeModif -> fetch_array()[0];
     }
 
-
-    $requeteUpdateEmployes = "UPDATE user (first_name,second_name,office) VALUES ('".$firstNameModif."','".$secondNameModif."','".$officeModif."') WHERE id_user='".$idUser."'"; 	
+    $requeteUpdateEmployes = "UPDATE user SET first_name='".$firstNameModif."', second_name='".$secondNameModif."', office=".$officeModif." WHERE id_user=".$idUser; 	
     $connexionBDD -> query($requeteUpdateEmployes);
 
     mysqli_close($connexionBDD);

@@ -69,24 +69,7 @@
 				$idUser = $_POST['idUser'];
 				echo("modification\n");
 
-				$firstNameModif = NULL;
-				$secondNameModif = NULL;
-				$officeModif = NULL;
-
-				if(!empty($_POST['firstNameModif']))
-				{
-					$firstNameModif = $_POST['firstNameModif'];
-				}
-				if(!empty($_POST['secondNameModif']))
-				{
-					$secondNameModif = $_POST['secondNameModif'];
-				}
-				if(!empty($_POST['officeModif'])) 
-				{
-					$officeModif = $_POST['officeModif'];
-				}
-
-				modification_employe($idUser, $firstNameModif, $secondNameModif, $officeModif);
+				modification_employe($idUser, $_POST['firstNameModif'], $_POST['secondNameModif'], $_POST['officeModif']);
 
 				echo "<script>alert('Modification effectuée.')</script>";
 			}
