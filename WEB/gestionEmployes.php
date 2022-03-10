@@ -33,12 +33,12 @@
 			<summary><?php echo $ligneUtilisateur['first_name'].'  '.$ligneUtilisateur['second_name'] ?></summary>
 			<form method="post">
 				<label for="first_name">Prénom:</label>
-				<input type="text" placeholder="<?php echo $ligneUtilisateur['first_name']?>">
+				<input type="text" name="firstNameModif" placeholder="<?php echo $ligneUtilisateur['first_name']?>"> 
 				<label for="second_name">Nom:</label>
-				<input type="text" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
+				<input type="text" name="secondNameModif" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
 				<label for="bureau">Bureau:</label>
-				<input type="text" placeholder="<?php echo $ligneUtilisateur['office']?>">
-				<input type="text" value="<?php echo $idUser?>" hidden name="idUser">						
+				<input type="number" name="officeModif" placeholder="<?php echo $ligneUtilisateur['office']?>">
+				<input type="text" value="<?php echo $idUser?>" hidden name="idUser">								
 				<input type="submit" value="Modifier" name="option">
 				<input type="submit" value="Supprimer" name="option">
 			</form>
@@ -56,7 +56,7 @@
 	<label for="password">Mot de passe:</label>
 	<input type="text" placeholder="Mot de passe de l'employé" name="password" required>
 	<label for="office">Bureau:</label>
-	<input type="text" placeholder="Bureau de l'employé" name="office">
+	<input type="number" placeholder="Bureau de l'employé" name="office">
 	<label for="isAdmin">Administrateur?:</label>
 	<input type="checkbox" id="is_admin" name="isAdmin">
 	<input type="submit" value="Ajouter" name="option">
@@ -67,15 +67,34 @@
 			if ($_POST["option"] == "Modifier") {
 				$idUser = $_POST['idUser'];
 				echo("modification\n");
-				modification_employe($idUser, $_POST['first_name'], $_POST['second_name'], $_POST['bureau']);
-				echo "<script>alert('Modification effectuee.')</script>";
+
+				$firstNameModif = NULL;
+				$secondNameModif = NULL;
+				$officeModif = NULL;
+
+				if(!empty($_POST['firstNameModif']))
+				{
+					$firstNameModif = $_POST['firstNameModif'];
+				}
+				if(!empty($_POST['secondNameModif']))
+				{
+					$secondNameModif = $_POST['secondNameModif'];
+				}
+				if(!empty($_POST['officeModif'])) 
+				{
+					$officeModif = $_POST['officeModif'];
+				}
+
+				modification_employe($idUser, $firstNameModif, $secondNameModif, $officeModif);
+
+				echo "<script>alert('Modification effectuée.')</script>";
 			}
 			//suppression de l'employé dans la BDD
 			elseif ($_POST["option"] == "Supprimer") {
 					$idUser = $_POST['idUser'];
 					suppression_employe($idUser);
-					echo "<script>alert('Suppression effectuee.')</script>";
-			}
+					echo "<script>alert('Suppression effectuée.')</script>";
+			} 
 
 			//insertion de l'employé saisi dans la BDD
 			elseif ($_POST["option"] == "Ajouter") {  
@@ -88,9 +107,11 @@
 				if(!empty($_POST['office']) && isset($_POST['office']))
 				{
 					ajout_employe($_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
-				} else {
+				} 
+				else {
 					ajout_employe($_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
 				}
+				echo "<script>alert('Ajout effectué.')</script>";
 			}
 		}
 	?>
