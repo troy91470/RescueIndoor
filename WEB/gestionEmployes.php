@@ -29,7 +29,6 @@
 		$idLigne = $idLigne+1;
 
 ?>
-
 		<details>
 			<summary><?php echo $ligneUtilisateur['first_name'].'  '.$ligneUtilisateur['second_name'] ?></summary>
 			<form method="post">

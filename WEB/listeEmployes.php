@@ -8,7 +8,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<title>Admin</title>
 	<meta charset="UTF-8">
@@ -72,7 +72,7 @@
 										
 
 											// https://www.creativejuiz.fr/blog/tutoriels/personnaliser-aspect-boutons-radio-checkbox-css
-											if ($office_utilisateur != NULL) {
+											if ($office_utilisateur !== NULL) {
 												echo('<tr>
 													<td>
 														<input type="checkbox" class="demo" id="demo'.$numeroLigne.'" name="office[]" value='.$office_utilisateur.'>
@@ -83,6 +83,7 @@
 													<td>'.$second_name_utilisateur.'</td>
 												</tr>');
 											}
+											$numeroLigne++;
 										}	
 										mysqli_close($connexionBDD);
 									?>
@@ -149,13 +150,11 @@
 <!--===============================================================================================-->
 	<script src="js/main_liste.js"></script>
 
-</body>
-</html>
 
-<?php
+	<?php
 	if(isset($_POST['office']) && is_array($_POST['office'])){
-		$listhOffices="";
-		$flad=0;
+		$listOffices="";
+		$flag=0;
 		foreach($_POST['office'] as $valeur){
 			if ($flag==0) {
 				$listOffices = $listOffices."$valeur";
@@ -166,6 +165,40 @@
 			//echo("<script>alert('aaa |{$valeur}|')</script>");
 		}
 		echo("<script>alert('oui|$listOffices|')</script>");
-
-	}
 ?>
+
+	<script src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+	<script>
+
+		var rosServer = new ROSLIB.Ros({
+			url : 'ws://192.168.43.7:9090'
+		});
+
+		rosServer.on('connection', function() {
+			console.log('Connected to websocket server.');
+		});
+
+		rosServer.on('error', function(error) {
+			console.log('Error connecting to websocket server: ', error);
+		});
+
+		rosServer.on('close', function() {
+			console.log('Connection to websocket server closed.');
+		});
+
+		var listeBureaux = new ROSLIB.Topic({
+			ros : rosServer,
+			name : '/listeBureaux',
+			messageType : 'std_msgs/String'
+		});
+		// "44;55;66"
+		var messageBureaux = new ROSLIB.Message("<?php echo($listOffices) ?>");
+
+		listeBureaux.publish(messageBureaux);
+	</script>
+	<?php
+}
+	?>
+
+</body>
+</html>
