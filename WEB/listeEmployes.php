@@ -8,7 +8,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<title>Admin</title>
 	<meta charset="UTF-8">
@@ -192,7 +192,7 @@
 			messageType : 'std_msgs/String'
 		});
 		// "44;55;66"
-		var messageBureaux = new ROSLIB.Message(<?php echo($listOffices) ?>);
+		var messageBureaux = new ROSLIB.Message("<?php echo($listOffices) ?>");
 
 		listeBureaux.publish(messageBureaux);
 	</script>
