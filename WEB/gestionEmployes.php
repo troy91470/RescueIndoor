@@ -29,17 +29,16 @@
 		$idLigne = $idLigne+1;
 
 ?>
-
 		<details>
 			<summary><?php echo $ligneUtilisateur['first_name'].'  '.$ligneUtilisateur['second_name'] ?></summary>
 			<form method="post">
 				<label for="first_name">Prénom:</label>
-				<input type="text" placeholder="<?php echo $ligneUtilisateur['first_name']?>"> 
+				<input type="text" placeholder="<?php echo $ligneUtilisateur['first_name']?>">
 				<label for="second_name">Nom:</label>
 				<input type="text" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
 				<label for="bureau">Bureau:</label>
 				<input type="text" placeholder="<?php echo $ligneUtilisateur['office']?>">
-				<input type="text" value="<?php echo $idUser?>" hidden name="idUser">								
+				<input type="text" value="<?php echo $idUser?>" hidden name="idUser">						
 				<input type="submit" value="Modifier" name="option">
 				<input type="submit" value="Supprimer" name="option">
 			</form>
@@ -76,7 +75,7 @@
 					$idUser = $_POST['idUser'];
 					suppression_employe($idUser);
 					echo "<script>alert('Suppression effectuee.')</script>";
-			} 
+			}
 
 			//insertion de l'employé saisi dans la BDD
 			elseif ($_POST["option"] == "Ajouter") {  

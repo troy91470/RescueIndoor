@@ -28,9 +28,6 @@
         $connexionBDD = connexion_bd();
         
         try {
-            $requeteDeleteEmployeeForOffice = "UPDATE office SET id_user=NULL WHERE id_user=".$idUser;
-            $connexionBDD -> query($requeteDeleteEmployeeForOffice);
-
             $requeteDeleteEmployee = "DELETE FROM user WHERE id_user=".$idUser; 	
             $connexionBDD -> query($requeteDeleteEmployee);
         } catch (Exception $e) {
@@ -74,24 +71,8 @@ function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
     }
     else{
         $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."',".$isAdmin.")"; 	
+        $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,office,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."','".$office."','".$isAdmin.")"; 	
         $connexionBDD -> query($requeteInsertEmployes);
-
-        // éventuelle insertion de l'employé à un bureau dans la BDD
-        if($office != NULL){
-            $requeteSelectIdUser = "SELECT * FROM user WHERE first_name='".$first_name."' and second_name='".$second_name."'";
-            $resultatIdUser = $connexionBDD -> query($requeteSelectIdUser);
-
-            while ($ligneUser = $resultatIdUser -> fetch_assoc()) {
-                if (password_verify($password, $ligneUser['password'])) {
-                    $idUser = $ligneUser['id_user'];
-
-                    $requeteUpdateEmployesForOffice = "UPDATE office SET id_user='".$idUser."' WHERE label='".$office."'";
-                    echo $requeteUpdateEmployesForOffice;
-                    $connexionBDD -> query($requeteUpdateEmployesForOffice);
-                }
-            }            
-        }
         mysqli_close($connexionBDD);
 
         if(!headers_sent()){
