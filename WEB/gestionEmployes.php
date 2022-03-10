@@ -52,7 +52,7 @@
 					$resultatOffice = $connexionBDD -> query($requeteSelectOffice);
 					while ($ligneOffice = $resultatOffice -> fetch_assoc()) {
 						if($ligneOffice['label'] == $bureauUtilisateur){
-							echo $bureauUtilisateur;
+							echo $bureauUtilisgateur;
 							echo "<option name='".$ligneOffice['label']."' selected>".$ligneOffice['label']."</option>";
 						}
 						else{
@@ -100,7 +100,7 @@
 				$idUser = $_POST['idUser'];
 				echo("modification\n");
 				modification_employe($idUser, $_POST['first_name'], $_POST['second_name'], $_POST['bureau']);
-				echo "<script>alert('Suppression effectuee.')</script>";
+				echo "<script>alert('Modification effectuee.')</script>";
 			}
 			//suppression de l'employé dans la BDD
 			elseif ($_POST["option"] == "Supprimer") {
