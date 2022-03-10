@@ -72,10 +72,10 @@
 										
 
 											// https://www.creativejuiz.fr/blog/tutoriels/personnaliser-aspect-boutons-radio-checkbox-css
-											if ($ligneUtilisateur['is_admin'] !== '1') {
+											if ($office_utilisateur != NULL) {
 												echo('<tr>
 													<td>
-														<input type="checkbox" class="demo" id="demo'.$numeroLigne.'" name="office[]" value='.$ligneBureau['label'].'>
+														<input type="checkbox" class="demo" id="demo'.$numeroLigne.'" name="office[]" value='.$office_utilisateur.'>
 														<label for="demo'.$numeroLigne.'"></label>
 													</td>
 													<td>'.$office_utilisateur.'</td>
