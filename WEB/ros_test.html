@@ -87,6 +87,19 @@
       topic.publish();
     }
 
+    // TEST
+		var listeBureaux = new ROSLIB.Topic({
+			ros : rosServer,
+			name : '/listeBureaux',
+			messageType : 'std_msgs/String'
+		});
+		// "44;55;66"
+		var messageBureaux = new ROSLIB.Message('{"lucas est dans le binks"}');
+		var messageBureaux2 = new ROSLIB.Message("lucas est dans le binks");
+    function testMSG() {
+      listeBureaux.publish(messageBureaux);
+      listeBureaux.publish(messageBureaux2);
+    }
 
     </script>
 
@@ -131,6 +144,9 @@
         </div>
         <div class="sub-main">
           <button id="sendMsg" type="button" onclick="pubMessage(downTopic)" class="button-one">V-</button>
+        </div>
+        <div class="sub-main">
+          <button id="sendMsg" type="button" onclick="testMSG()" class="button-one">test msg2</button>
         </div>
       </div>
     </form>

@@ -192,9 +192,11 @@
 			messageType : 'std_msgs/String'
 		});
 		// "44;55;66"
-		var messageBureaux = new ROSLIB.Message("<?php echo($listOffices) ?>");
+		var messageBureaux = new ROSLIB.Message("lucas est dans le binks");
 
+		// publier le message
 		listeBureaux.publish(messageBureaux);
+		
 	</script>
 	<?php
 }
