@@ -94,11 +94,13 @@
 			messageType : 'std_msgs/String'
 		});
 		// "44;55;66"
-		var messageBureaux = new ROSLIB.Message('{"lucas est dans le binks"}');
-		var messageBureaux2 = new ROSLIB.Message("lucas est dans le binks");
+		var messageBureaux = new ROSLIB.Message({
+      data: "lucas est dans le binks"
+    });
+		// var messageBureaux2 = new ROSLIB.Message("lucas est dans le binks");
     function testMSG() {
       listeBureaux.publish(messageBureaux);
-      listeBureaux.publish(messageBureaux2);
+      // listeBureaux.publish(messageBureaux2);
     }
 
     </script>
@@ -123,13 +125,7 @@
       </div>
 
       <div class="divCenter">
-        <h1>/cvcamera/image_rav</h1>
-        <img src="http://192.168.43.197:8080/stream?topic=/cv_camera/image_raw" />
-
-
-
-
-
+        <img id="liveStream" src="http://192.168.43.197:8080/stream?topic=/cv_camera/image_raw" />
         
       </div>
 
