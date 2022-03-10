@@ -1,8 +1,10 @@
 <?php
 	//Les informations de la BDD
-	session_start();
-	require("logs.php");
 	require("functions.php");
+	if (!is_session_active()) {
+		header('Location: index.php');
+	}
+	require("logs.php");
 ?>
 
 

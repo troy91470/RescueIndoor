@@ -76,8 +76,8 @@ function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
         $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
         $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."',".$isAdmin.")"; 	
         $connexionBDD -> query($requeteInsertEmployes);
-        
-        //éventuelle insertion de l'employé à un bureau dans la BDD
+
+        // éventuelle insertion de l'employé à un bureau dans la BDD
         if($office != NULL){
             $requeteSelectIdUser = "SELECT * FROM user WHERE first_name='".$first_name."' and second_name='".$second_name."'";
             $resultatIdUser = $connexionBDD -> query($requeteSelectIdUser);
