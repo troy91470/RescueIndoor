@@ -34,11 +34,8 @@
             echo 'Exception  reçue: ',  $e->getMessage(), "\n";
         }
 
-        if(!headers_sent()){
-           exit(header("Refresh:0"));
-        }
-
         mysqli_close($connexionBDD);
+        header("Refresh:0");        
     }
 
 function verification_same_person($first_name, $second_name){
@@ -59,6 +56,7 @@ function modification_employe($idUser, $first_name, $second_name, $office)
         echo "ça passe !";
     }
     mysqli_close();
+    header("Refresh:0");
 }
 
 function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
@@ -71,14 +69,15 @@ function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
     }
     else{
         $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."',".$isAdmin.")"; 	
+        if($office != NULL)
+            $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,office,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."','".$office."',".$isAdmin.")"; 	
+        else
+            $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."','".$isAdmin.")"; 	
+        
         $connexionBDD -> query($requeteInsertEmployes);
-
         mysqli_close($connexionBDD);
 
-        if(!headers_sent()){
-            exit(header("Refresh:0"));
-        }
+        header("Refresh:0");
     }
 }
 

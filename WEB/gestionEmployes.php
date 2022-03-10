@@ -38,7 +38,7 @@
 				<label for="second_name">Nom:</label>
 				<input type="text" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
 				<label for="bureau">Bureau:</label>
-				<input type="text" placeholder="<?php echo $ligneUtilisateur['office']?>">
+				<input type="number" placeholder="<?php echo $ligneUtilisateur['office']?>">
 				<input type="text" value="<?php echo $idUser?>" hidden name="idUser">								
 				<input type="submit" value="Modifier" name="option">
 				<input type="submit" value="Supprimer" name="option">
@@ -57,7 +57,7 @@
 	<label for="password">Mot de passe:</label>
 	<input type="text" placeholder="Mot de passe de l'employé" name="password" required>
 	<label for="office">Bureau:</label>
-	<input type="text" placeholder="Bureau de l'employé" name="office">
+	<input type="number" placeholder="Bureau de l'employé" name="office">
 	<label for="isAdmin">Administrateur?:</label>
 	<input type="checkbox" id="is_admin" name="isAdmin">
 	<input type="submit" value="Ajouter" name="option">
@@ -69,13 +69,13 @@
 				$idUser = $_POST['idUser'];
 				echo("modification\n");
 				modification_employe($idUser, $_POST['first_name'], $_POST['second_name'], $_POST['bureau']);
-				echo "<script>alert('Modification effectuee.')</script>";
+				echo "<script>alert('Modification effectuée.')</script>";
 			}
 			//suppression de l'employé dans la BDD
 			elseif ($_POST["option"] == "Supprimer") {
 					$idUser = $_POST['idUser'];
 					suppression_employe($idUser);
-					echo "<script>alert('Suppression effectuee.')</script>";
+					echo "<script>alert('Suppression effectuée.')</script>";
 			} 
 
 			//insertion de l'employé saisi dans la BDD
@@ -89,9 +89,11 @@
 				if(!empty($_POST['office']) && isset($_POST['office']))
 				{
 					ajout_employe($_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
-				} else {
+				} 
+				else {
 					ajout_employe($_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
 				}
+				echo "<script>alert('Ajout effectué.')</script>";
 			}
 		}
 	?>
