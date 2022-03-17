@@ -61,6 +61,14 @@ function modification_employe($idUser, $email, $first_name, $second_name, $offic
         $emailModif = $connexionBDD -> query($requeteSelectFirstName);
         $emailModif = $emailModif -> fetch_array()[0];
     }
+    else
+    {
+        if(!filter_var($emailModif, FILTER_VALIDATE_EMAIL)){
+            $emailModif = -1;
+            echo "<script>alert('Adresse mail non valide.')</script>";
+        }
+    }
+
     if($firstNameModif == NULL)
     {
         $requeteSelectFirstName = "SELECT first_name FROM user WHERE id_user='".$idUser."'";
@@ -80,8 +88,12 @@ function modification_employe($idUser, $email, $first_name, $second_name, $offic
         $officeModif = $officeModif -> fetch_array()[0];
     }
 
-    $requeteUpdateEmployes = "UPDATE user SET email='".$emailModif."', first_name='".$firstNameModif."', second_name='".$secondNameModif."', office=".$officeModif." WHERE id_user=".$idUser; 	
-    $connexionBDD -> query($requeteUpdateEmployes);
+    if($emailModif != -1)
+    {    
+        $requeteUpdateEmployes = "UPDATE user SET email='".$emailModif."', first_name='".$firstNameModif."', second_name='".$secondNameModif."', office=".$officeModif." WHERE id_user=".$idUser; 	
+        $connexionBDD -> query($requeteUpdateEmployes);
+        echo "<script>alert('Modification effectuée.')</script>";		
+    }
 
     mysqli_close($connexionBDD);
     header("Refresh:0");
@@ -100,9 +112,9 @@ function ajout_employe($email, $first_name, $second_name, $office, $password, $i
     else{
         $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
         if($office != NULL)
-            $requeteInsertEmployes = "INSERT INTO user (email,first_name,second_name,password,office,is_admin) VALUES ('".$email."','".$first_name."','".$second_name."','".$hachedPassword."','".$office."',".$isAdmin.")"; 	
+            $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,email,password,office,is_admin) VALUES ('".$first_name."','".$second_name."','".$email."','".$hachedPassword."','".$office."',".$isAdmin.")"; 	
         else
-            $requeteInsertEmployes = "INSERT INTO user (email,first_name,second_name,password,is_admin) VALUES ('".$email."','".$first_name."','".$second_name."','".$hachedPassword."','".$isAdmin.")"; 	
+            $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,email,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$email."','".$hachedPassword."','".$isAdmin.")"; 	
         
         $connexionBDD -> query($requeteInsertEmployes);
         mysqli_close($connexionBDD);

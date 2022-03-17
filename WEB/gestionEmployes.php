@@ -71,7 +71,6 @@
 			if ($_POST["option"] == "Modifier") {
 				$idUser = $_POST['idUser'];
 				modification_employe($idUser, $_POST['emailModif'], $_POST['firstNameModif'], $_POST['secondNameModif'], $_POST['officeModif']);
-				echo "<script>alert('Modification effectuée.')</script>";
 			}
 			//suppression de l'employé dans la BDD
 			elseif ($_POST["option"] == "Supprimer") {
@@ -88,14 +87,20 @@
 					$isAdmin = 0;
 				}
 
-				if(!empty($_POST['office']) && isset($_POST['office']))
-				{
-					ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
-				} 
-				else {
-					ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
+				if(!filter_var($_POST['emailAjouter'], FILTER_VALIDATE_EMAIL)){
+					echo "<script>alert('Adresse mail non valide.')</script>";
 				}
-				echo "<script>alert('Ajout effectué.')</script>";
+				else
+				{
+					if(!empty($_POST['office']) && isset($_POST['office']))
+					{
+						ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
+					} 
+					else {
+						ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
+					}
+					echo "<script>alert('Ajout effectué.')</script>";
+				}
 			}
 		}
 	?>
