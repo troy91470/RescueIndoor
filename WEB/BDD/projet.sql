@@ -32,8 +32,9 @@ USE `appliprojetinterfiliere`;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id_user` int(3) NOT NULL,
-  `first_name` varchar(15) NOT NULL,
-  `second_name` varchar(15) NOT NULL,
+  `first_name` varchar(25) NOT NULL,
+  `second_name` varchar(25) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `office` varchar(25) DEFAULT NULL COMMENT 'office of a user',
   `is_admin` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'boolean: is the user an adminstrator'
@@ -43,9 +44,9 @@ CREATE TABLE `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id_user`, `first_name`, `second_name`, `password`, `office`, `is_admin`) VALUES
-(1, 'admin', 'admin', '$2y$10$cUI4sFh9c6zhqqomDa7WvunfuqsD9lGjkk0CSMTW9zjtY/baWdKOS', NULL, 1),
-(8, 'John', 'Doe', 'motdepasse', '315', 0);
+INSERT INTO `user` (`id_user`, `first_name`, `second_name`, `email`, `password`, `office`, `is_admin`) VALUES
+(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$cUI4sFh9c6zhqqomDa7WvunfuqsD9lGjkk0CSMTW9zjtY/baWdKOS', NULL, 1),
+(8, 'John', 'Doe', 'John.Doe@gmail.com', 'motdepasse', '315', 0);
 
 --
 -- Index pour la table `user`
