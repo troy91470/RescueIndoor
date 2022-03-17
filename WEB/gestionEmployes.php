@@ -37,7 +37,7 @@
 				<label for="second_name">Nom:</label>
 				<input type="text" name="secondNameModif" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
 				<label for="bureau">Bureau:</label>
-				<input type="number" name="officeModif" placeholder="<?php echo $ligneUtilisateur['office']?>">
+				<input type="number" name="officeModif" min="0" max="10240" placeholder="<?php echo $ligneUtilisateur['office']?>">
 				<input type="text" value="<?php echo $idUser?>" hidden name="idUser">								
 				<input type="submit" value="Modifier" name="option">
 				<input type="submit" value="Supprimer" name="option">
