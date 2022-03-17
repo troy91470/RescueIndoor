@@ -12,7 +12,8 @@
     <script>
       // This function connects to the rosbridge server running on the local computer on port 9090
       var rosServer = new ROSLIB.Ros({
-          url : 'ws://192.168.43.7:9090'
+          //url : 'ws://192.168.43.7:9090'
+          url : 'ws://192.168.43.197:9090'
       });
 
       // If there is an error on the backend, an 'error' emit will be emitted.
@@ -90,12 +91,11 @@
     // TEST
 		var listeBureaux = new ROSLIB.Topic({
 			ros : rosServer,
-			name : '/listeBureaux',
+			name : '/listeTopic',
 			messageType : 'std_msgs/String'
 		});
-		// "44;55;66"
 		var messageBureaux = new ROSLIB.Message({
-      data: "lucas est dans le binks"
+      data: "314;32;22"
     });
 		// var messageBureaux2 = new ROSLIB.Message("lucas est dans le binks");
     function testMSG() {
@@ -156,6 +156,9 @@
           </div>
           <div class="sub-main">
             <button id="sendMsg" type="button" onclick="pubMessage(downTopic)" class="button-one">V-</button>
+          </div>
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="testMSG()" class="button-one">Test MSG</button>
           </div>
         </div>
       </form>
