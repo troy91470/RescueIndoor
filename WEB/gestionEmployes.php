@@ -36,6 +36,8 @@
 				<input type="text" name="firstNameModif" placeholder="<?php echo $ligneUtilisateur['first_name']?>"> 
 				<label for="second_name">Nom:</label>
 				<input type="text" name="secondNameModif" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
+				<label for="emailModifier">Adresse mail:</label>
+				<input type="text" name="emailModif" placeholder="<?php echo $ligneUtilisateur['email']?>"> 
 				<label for="bureau">Bureau:</label>
 				<input type="number" name="officeModif" min="0" max="10240" placeholder="<?php echo $ligneUtilisateur['office']?>">
 				<input type="text" value="<?php echo $idUser?>" hidden name="idUser">								
@@ -53,6 +55,8 @@
 	<input type="text" placeholder="Prénom de l'employé" name="firstName" required>
 	<label for="secondName">Nom:</label>
 	<input type="text" placeholder="Nom de l'employé" name="secondName" required>
+	<label for="emailAjouter">Adresse mail:</label>
+	<input type="text" placeholder="Email de l'employé" name="emailAjouter" required>
 	<label for="password">Mot de passe:</label>
 	<input type="text" placeholder="Mot de passe de l'employé" name="password" required>
 	<label for="office">Bureau:</label>
@@ -66,10 +70,7 @@
 		if(isset($_POST["option"])){
 			if ($_POST["option"] == "Modifier") {
 				$idUser = $_POST['idUser'];
-				echo("modification\n");
-
-				modification_employe($idUser, $_POST['firstNameModif'], $_POST['secondNameModif'], $_POST['officeModif']);
-
+				modification_employe($idUser, $_POST['emailModif'], $_POST['firstNameModif'], $_POST['secondNameModif'], $_POST['officeModif']);
 				echo "<script>alert('Modification effectuée.')</script>";
 			}
 			//suppression de l'employé dans la BDD
@@ -89,10 +90,10 @@
 
 				if(!empty($_POST['office']) && isset($_POST['office']))
 				{
-					ajout_employe($_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
+					ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
 				} 
 				else {
-					ajout_employe($_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
+					ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
 				}
 				echo "<script>alert('Ajout effectué.')</script>";
 			}

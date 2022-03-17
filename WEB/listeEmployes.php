@@ -49,6 +49,7 @@
 									<th class="column2">Bureau</th>
 									<th class="column3">Prénom</th>
 									<th class="column4">Nom</th>
+									<th class="column5">Email</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -69,7 +70,7 @@
 											$first_name_utilisateur = $ligneUtilisateur['first_name'];
 											$second_name_utilisateur = $ligneUtilisateur['second_name'];
 											$office_utilisateur = $ligneUtilisateur['office'];
-										
+											$email_utilisateur = $ligneUtilisateur['email'];
 
 											// https://www.creativejuiz.fr/blog/tutoriels/personnaliser-aspect-boutons-radio-checkbox-css
 											if ($office_utilisateur !== NULL) {
@@ -81,6 +82,7 @@
 													<td>'.$office_utilisateur.'</td>
 													<td>'.$first_name_utilisateur.'</td>
 													<td>'.$second_name_utilisateur.'</td>
+													<td>'.$email_utilisateur.'</td>
 												</tr>');
 											}
 											$numeroLigne++;
