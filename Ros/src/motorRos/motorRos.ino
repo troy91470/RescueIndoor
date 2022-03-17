@@ -2,6 +2,15 @@
 #include <std_msgs/Empty.h>
 #include <std_msgs/String.h>
 #include <geometry_msgs/Vector3.h>
+#include <Servo.h>
+
+#define DROITE A0 //ir sensor Right
+#define GAUCHE A1 //ir sensor Left
+// 1 noir
+// 0 blanc
+
+Servo moteur;
+Servo moteur2;
 
 int motorSpeed = 60;
 
@@ -18,6 +27,9 @@ char MotorRight[6] = "Right";
 char MotorStop[5] = "Stop";
 char MotorUp[3] = "Up";
 char MotorDown[5] = "Down";
+char LineFollower[13] = "LineFollower";
+char OpenDoor[9] = "OpenDoor";
+char CloseDoor[10] = "CloseDoor";
 
 
 void speedUp(const std_msgs::Empty& toggle_msg)
@@ -106,6 +118,43 @@ motorAction = 0;
 printState();
 } 
 
+void OpenDoor() {
+  for(int position = 25; position < 160; position ++) {
+    moteur.write(position);
+    moteur2.write(180-position);
+    delay(10);
+  }
+}
+
+void CloseDoor() {
+  for(int position = 160; position > 25; position --) {
+    moteur.write(position);
+    moteur2.write(180-position);
+    delay(10);
+  }
+}
+
+void LineFollower() {
+  while(1) {
+    int g = digitalRead(GAUCHE);
+    int d = digitalRead(DROITE);
+    delay(500);
+  
+    if((d == 1)&&(g == 1)){
+      Forward();
+    }
+    if((d == 1)&&(g == 0)){
+      Right();
+    }
+    if((d == 0)&&(g == 1)){
+       Left(); 
+    }
+    if((d == 0)&&(g == 0)){
+      Stop();
+    }
+  }
+}
+
 ros::Subscriber<std_msgs::Empty> subForward("forward", &Forward );
 ros::Subscriber<std_msgs::Empty> subBackward("backward", &Backward );
 ros::Subscriber<std_msgs::Empty> subLeft("left", &Left );
@@ -113,6 +162,9 @@ ros::Subscriber<std_msgs::Empty> subRight("right", &Right );
 ros::Subscriber<std_msgs::Empty> subStop("stop", &Stop ); 
 ros::Subscriber<std_msgs::Empty> subUp("up", &speedUp ); 
 ros::Subscriber<std_msgs::Empty> subDown("down", &speedDown );
+ros::Subscriber<std_msgs::Empty> subLineFollow("linefollow", &LineFollower );
+ros::Subscriber<std_msgs::Empty> subOpen("opendoor", &OpenDoor );
+ros::Subscriber<std_msgs::Empty> subClose("closedoor", &CloseDoor );
 
 void setup()  
 {
@@ -125,11 +177,20 @@ nh.subscribe(subLeft);
 nh.subscribe(subRight);
 nh.subscribe(subStop);
 nh.advertise(Motorstate);
+nh.advertise(subLineFollow);
+nh.advertise(subOpen);
+nh.advertise(subClose);
+
 Serial2.begin(9600);
+pinMode(DROITE, INPUT); // declare if sensor as input  
+pinMode(GAUCHE, INPUT); // declare ir sensor as input
+moteur.attach(5);
+moteur2.attach(7);
 } 
 
 void loop()  
 {  
+  
 nh.spinOnce();  
 delay(100);  
 }
