@@ -56,7 +56,7 @@
 	<label for="password">Mot de passe:</label>
 	<input type="text" placeholder="Mot de passe de l'employé" name="password" required>
 	<label for="office">Bureau:</label>
-	<input type="number" placeholder="Bureau de l'employé" name="office">
+	<input type="number" placeholder="Bureau de l'employé" name="office"  min="0" max="10240">
 	<label for="isAdmin">Administrateur?:</label>
 	<input type="checkbox" id="is_admin" name="isAdmin">
 	<input type="submit" value="Ajouter" name="option">
