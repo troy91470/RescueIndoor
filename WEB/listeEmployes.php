@@ -15,22 +15,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/admin.ico"/>
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util_liste.css">
-	<link rel="stylesheet" type="text/css" href="css/main_liste.css">
-	<link rel="stylesheet" type="text/css" href="css/main_connexion.css">
-<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/listeEmployees.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<!--===============================================================================================-->
+
 
 </head>
 <body>
@@ -89,41 +82,10 @@
 										}	
 										mysqli_close($connexionBDD);
 									?>
-
-									<!--<tr>
-										<td>
-											<input type="checkbox" class="demo" id="demo">
-											<label for="demo"></label>
-										</td>
-										<td>115</td>
-										<td>non</td>
-										<td>oui</td>
-									</tr>
-
-									<tr>
-										<td>
-											<input type="checkbox" class="demo" id="demo1">
-											<label for="demo1"></label>
-										</td>
-										<td>1115</td>
-										<td>noooon</td>
-										<td>oui</td>
-									</tr>
-
-									<tr>
-										<td>
-											<input type="checkbox" class="demo" id="demo2">
-											<label for="demo2"></label>
-										</td>
-										<td>11555</td>
-										<td>non</td>
-										<td>ouiiiiii</td>
-									</tr>-->
-
 							</tbody>
 						</table>
-						<div class="container-login100-form-btn">
-							<input  class="login100-form-btn" type="submit" id='submit' value='Livrer ces bureaux'>
+						<div class="container-bouton">
+							<input  class="bouton" type="submit" id='submit' value='Livrer ces bureaux'>
 						</div>
 					</form>
 				</div>
@@ -131,26 +93,19 @@
 		</div>
 	</div>
 
-	<!--<input type="checkbox" class="demo5" id="demo5">
-													-->
-	
-
 <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
 	<script src="vendor/tilt/tilt.jquery.min.js"></script>
 	<script >
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
 	</script>
-<!--===============================================================================================-->
 	<script src="js/main_liste.js"></script>
+<!--===============================================================================================-->
 
 
 	<?php
