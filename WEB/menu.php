@@ -1,3 +1,11 @@
+<?php
+	require("functions.php");
+	if (!is_session_active()) {
+		header('Location: index.php');
+	}	
+    require("logs.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,42 +27,31 @@
     <div class="container">
         <form method='post' class="oui">
             <div class="container-bouton">
-                <input  class="bouton" type="submit" id='admin' value='Admin'>
+                <input  class="bouton" type="submit" name="Redirection" value="Admin">
             </div>
             <div class="container-bouton">
-                <input  class="bouton" type="submit" id='livraison' value='Livraison'>
+                <input  class="bouton" type="submit" name="Redirection" value="Livraison">
             </div>
             <div class="container-bouton">
-                <input  class="bouton" type="submit" id='gestion' value='Gestion'>
+                <input  class="bouton" type="submit" name="Redirection" value="Gestion">
             </div>
         </form>
     </div>
 </body>
 
 <?php
-    /*switch($_POST['action_button']) {
-        case 'admin' :
+    if(isset($_POST["Redirection"])){
+        if ($_POST["Redirection"] == "Admin") {
+            header('Location: ros_test.html');
+        }
+        if ($_POST["Redirection"] == "Livraison") {         
             header('Location: listeEmployes.php');
-        break;
-        case 'livraison':
-            header('Location: listeEmployes.php');
-        break;
-        case 'gestion' :
-            header('Location: listeEmployes.php');
-        break;
-        default:
-            //no option selected ?
+        }        
+        if ($_POST["Redirection"] == "Gestion") {         
+            header('Location: gestionEmployes.php');
+        }
     } 
-    if($_POST['Admin']) {
 
-    }
-    if($_POST['Livraison']) {
-        header('Location: listeEmployes.php');
-        
-    }
-    if($_POST['Gestion']) {
-        
-    }*/
 
 ?>
 </html>

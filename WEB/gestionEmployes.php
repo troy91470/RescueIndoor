@@ -58,7 +58,7 @@
 	<label for="emailAjouter">Adresse mail:</label>
 	<input type="text" placeholder="Email de l'employé" name="emailAjouter" required>
 	<label for="password">Mot de passe:</label>
-	<input type="text" placeholder="Mot de passe de l'employé" name="password" required>
+	<input type="password" placeholder="Mot de passe de l'employé" name="password" required>
 	<label for="office">Bureau:</label>
 	<input type="number" placeholder="Bureau de l'employé" name="office"  min="0" max="10240">
 	<label for="isAdmin">Administrateur?:</label>
@@ -87,20 +87,14 @@
 					$isAdmin = 0;
 				}
 
-				if(!filter_var($_POST['emailAjouter'], FILTER_VALIDATE_EMAIL)){
-					echo "<script>alert('Adresse mail non valide.')</script>";
-				}
-				else
+				if(!empty($_POST['office']) && isset($_POST['office']))
 				{
-					if(!empty($_POST['office']) && isset($_POST['office']))
-					{
-						ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
-					} 
-					else {
-						ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
-					}
-					echo "<script>alert('Ajout effectué.')</script>";
+					ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
+				} 
+				else {
+					ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
 				}
+				
 			}
 		}
 	?>
