@@ -16,7 +16,22 @@
 
 body, html {
 	height: 100%;
+    width: 100%;
 	font-family: Poppins-Regular, sans-serif;
+    background: #9053c7;
+    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -27,49 +42,12 @@ body {
 input {
     outline: none;
     border: none;
-}
-
-
-.container {
-    width: 100%;  
-    min-height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    background: #9053c7;
-    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    text-decoration:none"
 }
 
 
 
-.listeBoutons {
-    margin: 0px;
-    padding: 0px;
-    width: 300px;
-    box-sizing: border-box;
-}
 
-
-.container-bouton {
-    width: 100%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-top: 20px;
-}
 
 .bouton {
     font-family: Montserrat-Bold;
@@ -78,8 +56,10 @@ input {
     color: #fff;
     text-transform: uppercase;
 
-    width: 100%;
+    width: 20%;
     height: 50px;
+    margin-left: 40%;
+    margin-top: 30px;
     border-radius: 25px;
     background: #57b846;
     display: -webkit-box;
@@ -105,5 +85,35 @@ input {
     background: #a1a1a1;
 }
 
+
+.deconnexion {
+    font-family: Montserrat-Bold;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    width: 7%;
+    height: 40px;
+    border-radius: 25px;
+    background: #57b846;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10%;
+    margin-top: 1%;
+    margin-left:90%;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.deconnexion:hover {
+    background: #333333;
+}
+
+.deconnexion:active {
+    background: #a1a1a1;
+}
 
 

@@ -33,6 +33,19 @@
 	<link rel="stylesheet" type="text/css" href="css/gestionEmployes.css">
 	<!--===============================================================================================-->	
 	</head>
+	<div class="row">
+		<div class="colonne10">
+			<a href="menu.php">
+				<input  class="bouton-top" type="submit" value='retour'>
+			</a>
+		</div>
+		<div class="colonne11">
+			<a href="deconnexion.php">
+				<input  class="bouton-top" type="submit" value='Deconnexion'>
+			</a>
+		</div>
+	</div>
+
 	<div class="titre">Gestion des employés</div>
 	<br><br>
 	<body>
@@ -162,9 +175,9 @@
 			}
 			//suppression de l'employé dans la BDD
 			elseif ($_POST["option"] == "Supprimer") {
-					$idUser = $_POST['idUser'];
-					suppression_employe($idUser);
-					echo "<script>alert('Suppression effectuée.')</script>";
+				$idUser = $_POST['idUser'];
+				suppression_employe($idUser);
+				echo "<script>alert('Suppression effectuée.')</script>";
 			} 
 
 			//insertion de l'employé saisi dans la BDD
@@ -182,7 +195,6 @@
 				else {
 					ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
 				}
-				
 			}
 		}
 	?>
