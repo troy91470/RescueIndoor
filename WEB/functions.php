@@ -35,7 +35,8 @@
         }
 
         mysqli_close($connexionBDD);
-        header("Refresh:0");        
+        header("Refresh:0");  
+        echo "<script>alert('Suppression effectuée.')</script>";      
     }
 
 function user_exists_already($email){

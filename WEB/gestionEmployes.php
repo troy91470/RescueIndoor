@@ -90,8 +90,7 @@
 					</div>
 				</div>
 			</div>
-				<!--<input class="saisie" type="text" value="php echo $idUser?>" hidden name="idUser">-->	
-			<div class="row">
+			<input type="text" value="<?php echo $idUser?>" hidden name="idUser">											<div class="row">
 				<div class="column5">
 					<input class="bouton" type="submit" value="Modifier" name="option">
 				</div>	
@@ -177,7 +176,6 @@
 			elseif ($_POST["option"] == "Supprimer") {
 				$idUser = $_POST['idUser'];
 				suppression_employe($idUser);
-				echo "<script>alert('Suppression effectuée.')</script>";
 			} 
 
 			//insertion de l'employé saisi dans la BDD
