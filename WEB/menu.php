@@ -1,3 +1,4 @@
+                
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +27,11 @@
             <a href="gestionEmployes.php" style="text-decoration:none">
                 <div class="container-bouton">    
                     <input class="bouton" type="submit" id='gestion' value='Gestion'>
+                </div>
+            </a>
+            <a href="ros_test.html" style="text-decoration:none">
+                <div class="container-bouton">
+                    <input  class="bouton" type="submit" id='controle' value='Contrôle à distance'>
                 </div>
             </a>
         </div>

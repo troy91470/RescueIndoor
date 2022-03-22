@@ -1,7 +1,7 @@
 <?php
 require("functions.php");
 if (is_session_active()) {
-	header('Location: listeEmployes.php');
+	header('Location: menu.php');
 }
 ?>
 
@@ -35,19 +35,11 @@ if (is_session_active()) {
 						Connexion Robot Rescue Indoor
 					</span>
 					
-					<div class="wrap-input100 validate-input" data-validate = "Prénom requis">
-						<input class="input100" type="text" name="first_name" placeholder="Prénom">
+					<div class="wrap-input100 validate-input" data-validate = "Adresse mail requise">
+						<input class="input100" type="text" name="email" placeholder="Adresse mail">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-user-circle-o" aria-hidden="true"></i>
-						</span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate = "Nom requis">
-						<input class="input100" type="text" name="second_name" placeholder="Nom">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-user-circle" aria-hidden="true"></i>
 						</span>
 					</div>
 
@@ -87,7 +79,7 @@ if (is_session_active()) {
 	<?php
 		require("logs.php");
 
-		if(isset($_POST['first_name']) && isset($_POST['second_name']) && isset($_POST['password']) && !empty($_POST['first_name']) && !empty($_POST['second_name']) && !empty($_POST['password']) ) {
+		if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']) && !empty($_POST['password']) ) {
 			// Connexion à la BDD
 			$connexionBDD = new mysqli($servername,$username,$password);
 			mysqli_select_db($connexionBDD, $gw_databaseName);
@@ -95,12 +87,11 @@ if (is_session_active()) {
 			if($connexionBDD->connect_error) {
 				die("Connection failed: " . $connexionBDD->connect_error);
 			}
-			$first_name = $_POST['first_name']; 
-			$second_name = $_POST['second_name'];
+			$email = $_POST['email']; 
 			$password = $_POST['password'];
 			$login=false;
 
-			$requeteUtilisateursLogin = "SELECT * FROM user WHERE first_name='$first_name' AND second_name='$second_name'";
+			$requeteUtilisateursLogin = "SELECT * FROM user WHERE email='$email'";
 			//$result = mysqli_query($connexionBDD,$requeteUtilisateursLogin); && password_verify($password, password_hash($password, PASSWORD_DEFAULT))
 			$resultatUtilisateursLogin = $connexionBDD-> query($requeteUtilisateursLogin);
 			$total = mysqli_num_rows($resultatUtilisateursLogin);
@@ -108,10 +99,9 @@ if (is_session_active()) {
 				while ($ligneUtilisateur = $resultatUtilisateursLogin -> fetch_assoc()) {
 					if (password_verify($password, $ligneUtilisateur['password'])) {
 						session_start();
-						session_id($first_name);
+						session_id($email);
 						$_SESSION['count']=1;
-						$_SESSION[$first_name]=$first_name;
-						$_SESSION[$second_name]=$second_name;
+						$_SESSION[$email]=$email;
 						$login=true;
 					}
 				}
