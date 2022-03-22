@@ -123,7 +123,7 @@ if (is_session_active()) {
 			}
 			mysqli_close($connexionBDD);
 			if($login==true){
-				header('Location: listeEmployes.php');
+				header('Location: menu.php');
 			}
 		}
 	?>

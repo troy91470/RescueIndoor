@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Menu</title>
+    <title>Menu - Livraison Rescue INDOOR</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -17,44 +17,19 @@
 </head>
 <body>
     <div class="container">
-        <form method='post' class="oui">
-            <div class="container-bouton">
-                <input  class="bouton" type="submit" id='admin' value='Admin'>
-            </div>
-            <div class="container-bouton">
-                <input  class="bouton" type="submit" id='livraison' value='Livraison'>
-            </div>
-            <div class="container-bouton">
-                <input  class="bouton" type="submit" id='gestion' value='Gestion'>
-            </div>
-        </form>
+        <div class="listeBoutons">
+            <a href="listeEmployes.php" style="text-decoration:none">
+                <div class="container-bouton">
+                    <input  class="bouton" type="submit" id='livraison' value='Livraison'>
+                </div>
+            </a>
+            <a href="gestionEmployes.php" style="text-decoration:none">
+                <div class="container-bouton">    
+                    <input class="bouton" type="submit" id='gestion' value='Gestion'>
+                </div>
+            </a>
+        </div>
     </div>
 </body>
 
-<?php
-    /*switch($_POST['action_button']) {
-        case 'admin' :
-            header('Location: listeEmployes.php');
-        break;
-        case 'livraison':
-            header('Location: listeEmployes.php');
-        break;
-        case 'gestion' :
-            header('Location: listeEmployes.php');
-        break;
-        default:
-            //no option selected ?
-    } 
-    if($_POST['Admin']) {
-
-    }
-    if($_POST['Livraison']) {
-        header('Location: listeEmployes.php');
-        
-    }
-    if($_POST['Gestion']) {
-        
-    }*/
-
-?>
 </html>

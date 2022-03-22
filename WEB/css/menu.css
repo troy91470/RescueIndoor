@@ -51,7 +51,7 @@ input {
 
 
 
-.oui {
+.listeBoutons {
     margin: 0px;
     padding: 0px;
     width: 300px;
@@ -104,4 +104,6 @@ input {
 .bouton:active {
     background: #a1a1a1;
 }
+
+
 
