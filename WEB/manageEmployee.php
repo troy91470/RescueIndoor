@@ -29,7 +29,7 @@
 
 	<div class="row">
 		<div class="colonne10">
-			<a href="menu.php">
+			<a href="adminMenu.php">
 				<input  class="bouton-top" type="submit" value='retour'>
 			</a>
 		</div>
