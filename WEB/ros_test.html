@@ -13,7 +13,7 @@
       // This function connects to the rosbridge server running on the local computer on port 9090
       var rosServer = new ROSLIB.Ros({
           //url : 'ws://192.168.43.7:9090'
-          url : 'ws://192.168.43.197:9090'
+          url : 'ws://192.168.43.7:9090'
       });
 
       // If there is an error on the backend, an 'error' emit will be emitted.
@@ -78,6 +78,16 @@
         name : 'down',
         messageType : 'std_msgs/Empty'
     });
+    var openTopic = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'opendoor',
+        messageType : 'std_msgs/Empty'
+    });
+    var closeTopic = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'closedoor',
+        messageType : 'std_msgs/Empty'
+    });
 
     /* This function:
     - retrieves numeric values from the text boxes
@@ -95,7 +105,7 @@
 			messageType : 'std_msgs/String'
 		});
 		var messageBureaux = new ROSLIB.Message({
-      data: "314;32;22"
+      data: "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
     });
 		// var messageBureaux2 = new ROSLIB.Message("lucas est dans le binks");
     function testMSG() {
@@ -159,6 +169,14 @@
           </div>
           <div class="sub-main">
             <button id="sendMsg" type="button" onclick="testMSG()" class="button-one">Test MSG</button>
+          </div>
+          <br><br>
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="pubMessage(openTopic)" class="button-one">Ouverture</button>
+          </div>
+          <br><br>
+          <div class="sub-main">
+            <button id="sendMsg" type="button" onclick="pubMessage(closeTopic)" class="button-one">Fermeture</button>
           </div>
         </div>
       </form>

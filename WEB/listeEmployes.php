@@ -78,9 +78,10 @@
 
 												// https://www.creativejuiz.fr/blog/tutoriels/personnaliser-aspect-boutons-radio-checkbox-css
 												if ($office_utilisateur !== NULL) {
+													$valeur_utilisateur="(".$office_utilisateur.",".$email_utilisateur.")";
 													echo('<tr>
 														<td>
-															<input type="checkbox" class="demo" id="demo'.$numeroLigne.'" name="office[]" value='.$office_utilisateur.'>
+															<input type="checkbox" class="demo" id="demo'.$numeroLigne.'" name="office[]" value='.$valeur_utilisateur.'>
 															<label for="demo'.$numeroLigne.'"></label>
 														</td>
 														<td>'.$office_utilisateur.'</td>
@@ -120,7 +121,7 @@
 
 
 	<?php
-	if(isset($_POST['office']) && is_array($_POST['office'])){
+	if(isset($_POST['office']) && is_array($_POST['office']) && !empty($_POST['office'])){
 		$listOffices="";
 		$flag=0;
 		foreach($_POST['office'] as $valeur){
@@ -132,7 +133,26 @@
 			}
 			//echo("<script>alert('aaa |{$valeur}|')</script>");
 		}
-		echo("<script>alert('Le bureau|$listOffices|')</script>");
+	?>
+	<script>
+		var ouvertureRemorque = new ROSLIB.Topic({
+			ros : rosServer,
+			name : '/OUVERTUREREMORQUE',
+			messageType : 'std_msgs/Empty'
+		});
+		var listeBureaux = new ROSLIB.Topic({
+			ros : rosServer,
+			name : '/listeTopic',
+			messageType : 'std_msgs/String'
+		});
+		var messageBureaux = new ROSLIB.Message({
+      		data: <?php echo($listOffices); ?> // "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
+    	});
+      	listeBureaux.publish(messageBureaux);
+		ouvertureRemorque.publish();
+	</script>
+	<?php
+		echo("<script>alert('Envois des bureaux suivants : {$listOffices}')</script>");
 	}
 	?>
 
