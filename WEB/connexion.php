@@ -77,7 +77,7 @@
 			</div>
 		</div>
 
-		<?php
+		<?php 
 			if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']) && !empty($_POST['password']) ) 
 			{
 				// Connexion à la BDD
@@ -99,12 +99,12 @@
 				$lbLogin = false; //variable stockant le booléen indiquant si l'utilisateur s'est bien connecté ou non
 
 				$lsRequestLogin = "SELECT * FROM user WHERE email='$lwEmail'"; //Requête SQL permettant de récupérer les utilisateurs avec l'adresse email spécifiée
-				$lsResultUsersLogin = $lsConnexionBDD -> query($lwRequeteLogin); //variable indiquant ????????????????????????????????
+				$lsResultUsersLogin = $lsConnexionBDD -> query($lsRequestLogin); //variable récupérant le résultat de la requête lsRequestLogin
 				$lnNumberUser = mysqli_num_rows($lsResultUsersLogin); //variable indiquant le nombre d'utilisateurs avec l'adresse mail indiquée (ça ne sera jamais 2)
 
 				if($lnNumberUser != 0)
 				{
-					while ($lsLineUser = $lsResultUsersLogin -> fetch_assoc()) //lsLineUser récupère ligne par ligne les données ??????????????????????????????????????????
+					while ($lsLineUser = $lsResultUsersLogin -> fetch_assoc()) //lsLineUser récupère ligne par ligne les données de lsResultUsersLogin
 					{
 						//L'utilisateur est connecté
 						if (password_verify($lwPassword, $lsLineUser['password'])) 

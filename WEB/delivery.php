@@ -12,7 +12,8 @@
 	require("functions.php");
 	require("logs.php");
 
-	if (!is_session_active()) {
+	if (!is_session_active()) 
+	{
 		header('Location: index.php');
 	}
 ?>
@@ -23,7 +24,9 @@
 		<title>Livraison</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--===============================================================================================-->	
+
+		<!-- Packages CSS -->
+		<!--===============================================================================================-->	
 		<link rel="icon" type="image/png" href="images/icons/admin.ico"/>
 		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -32,22 +35,28 @@
 		<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 		<link rel="stylesheet" type="text/css" href="css/delivery.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-	<!--===============================================================================================-->
+		<!--===============================================================================================-->
 	</head>
 		
 	<body>
 		<div class="row">
+
+			<!-- Bouton de retour au menu -->
 			<div class="colonne1">
 				<a href="menu.php">
 					<input  class="bouton-top" type="submit" value='retour'>
 				</a>
 			</div>
+
+        	<!-- Bouton de déconnexion -->
 			<div class="colonne2">
 				<a href="deconnexion.php">
 					<input  class="bouton-top" type="submit" value='Deconnexion'>
 				</a>
 			</div>
+
 		</div>
+
 		<div class="limiter">
 			<div class="container-table100">
 				<div class="wrap-table100">
@@ -68,53 +77,64 @@
 								</thead>
 								<tbody>
 										<?php	
-											// Connexion à la BDDs 
-											$connexionBDD = new mysqli($servername,$username,$password);
-											mysqli_select_db($connexionBDD, $gw_databaseName);
-
+											// Connexion à la BDD
+											$lsConnexionBDD = new mysqli($gwServername, $gwUsername, $gwPassword); //variable permettant d'avoir la connexion au serveur SQL
+											mysqli_select_db($lsConnexionBDD, $gwDatabaseName);
 
 											// Vérifier la connexion
-											if($connexionBDD->connect_error) {
-												die("Connection failed: " . $connexionBDD->connect_error);
+											if($lsConnexionBDD -> connect_error) 
+											{
+												die("Connection failed: " . $lsConnexionBDD -> connect_error);
 											}
-											$requeteUtilisateurs = "SELECT * FROM user";
-											$resultatUtilisateurs = $connexionBDD -> query($requeteUtilisateurs);
-											$numeroLigne = 1;
-											while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) {
-												$first_name_utilisateur = $ligneUtilisateur['first_name'];
-												$second_name_utilisateur = $ligneUtilisateur['second_name'];
-												$office_utilisateur = $ligneUtilisateur['office'];
-												$email_utilisateur = $ligneUtilisateur['email'];
+											else
+											{
+												//S'il n'y a pas d'erreur à la connexion, on peut continuer normalement
+											}
 
-												// https://www.creativejuiz.fr/blog/tutoriels/personnaliser-aspect-boutons-radio-checkbox-css
-												if ($office_utilisateur !== NULL) {
-													$valeur_utilisateur="(".$office_utilisateur.",".$email_utilisateur.")";
+											$lsRequestUsers = "SELECT * FROM user"; //Requête SQL récupérant toutes les lignes de la BDD
+											$lsResultUsers = $lsConnexionBDD -> query($lsRequestUsers); //variable récupérant le résultat de la requête lsRequestUsers
+											$lnNumeroLigne = 1; //Variable permettant de donner le numéro de ligne aux checkboxs, et donc de les dissocier dans les fonctions
+											while ($lsLineUser = $lsResultUsers -> fetch_assoc()) //lsLineUser récupère ligne par ligne les données de lsResultUsers
+											{
+												$lnOffice = $lsLineUser['office']; //Variable stockant l'éventuel numéro de bureau de l'utilisateur correspondant à la ligne lue
+												$lwFirstName = $lsLineUser['first_name']; //Variable stockant le prénom de l'utilisateur correspondant à la ligne lue
+												$lwSecondName = $lsLineUser['second_name']; //Variable stockant le nom de l'utilisateur correspondant à la ligne lue
+												$lwEmail = $lsLineUser['email']; //Variable stockant l'email de l'utilisateur correspondant à la ligne lue
+
+												if ($lnOffice !== NULL) 
+												{
+													$valeur_utilisateur="(".$lnOffice.",".$lwEmail.")";
 													echo('<tr>
 														<td>
-															<input type="checkbox" class="demo" id="demo'.$numeroLigne.'" name="office[]" value='.$valeur_utilisateur.'>
-															<label for="demo'.$numeroLigne.'"></label>
+															<input type="checkbox" class="demo" id="demo'.$lnNumeroLigne.'" name="office[]" value='.$valeur_utilisateur.'>
+															<label for="demo'.$lnNumeroLigne.'"></label>
 														</td>
-														<td>'.$office_utilisateur.'</td>
-														<td>'.$first_name_utilisateur.'</td>
-														<td>'.$second_name_utilisateur.'</td>
-														<td>'.$email_utilisateur.'</td>
+														<td>'.$lnOffice.'</td>
+														<td>'.$lwFirstName.'</td>
+														<td>'.$lwSecondName.'</td>
+														<td>'.$lwEmail.'</td>
 													</tr>');
 												}
-												$numeroLigne++;
+												$lnNumeroLigne++;
 											}	
-											mysqli_close($connexionBDD);
+											mysqli_close($lsConnexionBDD);
 										?>
 								</tbody>
 							</table>
+
+							<!-- Bouton pour livrer les bureaux sélectionnés -->
 							<div class="container-bouton">
 								<input  class="bouton" type="submit" id='submit' value='Livrer ces bureaux'>
 							</div>
+
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 
+
+<!-- Packages JavaScript pour le CSS-->
 <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<script src="vendor/bootstrap/js/popper.js"></script>
