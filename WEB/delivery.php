@@ -103,10 +103,10 @@
 
 												if ($lnOffice !== NULL) 
 												{
-													$valeur_utilisateur="(".$lnOffice.",".$lwEmail.")";
+													$lwValueUser = "(".$lnOffice.",".$lwEmail.")"; //Couple bureau et email, exemple: "(314,a@mail.com)"
 													echo('<tr>
 														<td>
-															<input type="checkbox" class="demo" id="demo'.$lnNumeroLigne.'" name="office[]" value='.$valeur_utilisateur.'>
+															<input type="checkbox" class="demo" id="demo'.$lnNumeroLigne.'" name="office[]" value='.$lwValueUser.'>
 															<label for="demo'.$lnNumeroLigne.'"></label>
 														</td>
 														<td>'.$lnOffice.'</td>
@@ -115,6 +115,11 @@
 														<td>'.$lwEmail.'</td>
 													</tr>');
 												}
+												else
+												{
+													//Si l'utilisateur n'a pas de bureau, on ne peut pas le livrer, il ne faut donc pas l'afficher
+												}
+
 												$lnNumeroLigne++;
 											}	
 											mysqli_close($lsConnexionBDD);
@@ -151,39 +156,43 @@
 
 
 	<?php
-	if(isset($_POST['office']) && is_array($_POST['office']) && !empty($_POST['office'])){
-		$listOffices="";
-		$flag=0;
-		foreach($_POST['office'] as $valeur){
-			if ($flag==0) {
-				$listOffices = $listOffices."$valeur";
-				$flag=1;
-			} else {
-				$listOffices = $listOffices.";$valeur";
+		if(isset($_POST['office']) && is_array($_POST['office']) && !empty($_POST['office']))
+		{
+			$lvListOffices = ""; //liste de couples de valeurs d'utilisateurs, liste qui sera envoyée sur le RosBridge, exemple: "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
+			foreach($_POST['office'] as $valeur)
+			{
+					$lvListOffices = $lvListOffices."$valeur";
 			}
-			//echo("<script>alert('aaa |{$valeur}|')</script>");
-		}
 	?>
+
 	<script>
 		var ouvertureRemorque = new ROSLIB.Topic({
 			ros : rosServer,
 			name : '/OUVERTUREREMORQUE',
 			messageType : 'std_msgs/Empty'
 		});
+
 		var listeBureaux = new ROSLIB.Topic({
 			ros : rosServer,
 			name : '/listeTopic',
 			messageType : 'std_msgs/String'
 		});
+
 		var messageBureaux = new ROSLIB.Message({
-      		data: <?php echo($listOffices); ?> // "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
+      		data: <?php echo($lvListOffices); ?> 
     	});
+
       	listeBureaux.publish(messageBureaux);
 		ouvertureRemorque.publish();
 	</script>
+
 	<?php
-		echo("<script>alert('Envois des bureaux suivants : {$listOffices}')</script>");
-	}
+			echo("<script>alert('Envois des bureaux suivants : {$lvListOffices}')</script>");
+		}
+		else
+		{
+			//Sinon aucun bouton n'est cliqué et il ne se passe rien.
+		}
 	?>
 
 </body>
