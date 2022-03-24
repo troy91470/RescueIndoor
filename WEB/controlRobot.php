@@ -88,6 +88,11 @@
         name : 'closedoor',
         messageType : 'std_msgs/Empty'
     });
+    var lineFolllower = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'linefollow',
+        messageType : 'std_msgs/Empty'
+    });
 
     /* This function:
     - retrieves numeric values from the text boxes
@@ -105,7 +110,7 @@
 			messageType : 'std_msgs/String'
 		});
 		var messageBureaux = new ROSLIB.Message({
-      data: "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
+      data: "314;315;999;5;456"
     });
 		// var messageBureaux2 = new ROSLIB.Message("lucas est dans le binks");
     function testMSG() {
@@ -190,6 +195,9 @@
           </div>
           <div class="sub-main">
             <input class="bouton" type="submit" value="Fermeture"  id="sendMsg"  onclick="pubMessage(closeTopic)">
+          </div>
+          <div class="sub-main">
+            <input class="bouton" type="submit" value="Fermeture"  id="lineFolllower"  onclick="pubMessage(lineFolllower)">
           </div>
       </form>
     </div>
