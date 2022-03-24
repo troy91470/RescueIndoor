@@ -133,8 +133,6 @@
 			//echo("<script>alert('aaa |{$valeur}|')</script>");
 		}
 		echo("<script>alert('Le bureau|$listOffices|')</script>");
-	} else {
-		echo("<script>alert('|$listOffices|')</script>");
 	}
 	?>
 
