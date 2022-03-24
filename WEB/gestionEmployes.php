@@ -107,7 +107,7 @@
 <br>
 <br>
 <details>
-		<summary class="ajoutBackground">Ajout d'un nouvel employé</summary>
+	<summary class="ajoutBackground">Ajout d'un nouvel employé</summary>
 		
 
 	<form method="post">
@@ -148,7 +148,7 @@
 				<label for="password">Mot de passe</label>
 			</div>
 			<div class="column2">
-				<input class="saisie" type="text" placeholder="Mot de passe	" name="password" required>
+				<input class="saisie" type="password" placeholder="Mot de passe" name="password" required>
 			</div>
 			<div class="column3">
 				<label for="isAdmin">Administrateur</label>	
