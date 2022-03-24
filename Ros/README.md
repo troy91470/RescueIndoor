@@ -92,3 +92,4 @@ pkg-config opencv --cflags
 
 sudo apt-get install libopencv-dev
 
+sudo mkdir /usr/local/lib/pkgconfig && sudo nano /usr/local/lib/pkgconfig/opencv.pc
