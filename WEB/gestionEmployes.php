@@ -61,13 +61,13 @@
 		<form method="post">
 			<div class="row">
 				<div class="column1">
-					<label for="first_name">Prénom :</label>
+					<label for="first_name">Prénom</label>
 				</div>					
 				<div class="column2">
 					<input class="saisie" type="text" name="firstNameModif" placeholder="<?php echo $ligneUtilisateur['first_name']?>"> 
 				</div>		
 				<div class="column1">
-					<label for="second_name">Nom :</label>
+					<label for="second_name">Nom</label>
 				</div>	
 				<div class="column2">
 					<input class="saisie" type="text" name="secondNameModif" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
@@ -76,13 +76,13 @@
 
 			<div class="row">
 				<div class="column3">
-					<label for="emailModifier">Adresse mail :</label>
+					<label for="emailModifier">Adresse mail</label>
 				</div>
 				<div class="column4">
 					<input class="saisie" type="text" name="emailModif" placeholder="<?php echo $ligneUtilisateur['email']?>"> 
 				</div>
 				<div class="column1">
-					<label for="bureau">Bureau :</label>
+					<label for="bureau">Bureau</label>
 				</div>
 				<div class="column2">	
 					<div class="quantity">

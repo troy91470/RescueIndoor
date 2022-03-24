@@ -1,139 +1,160 @@
+<!-- 
+	Auteurs: Marwane BARAHOUI (IATIC4), Clément ROBIN (IATIC4), et Thomas ROY (IATIC4)
+
+	Nom du projet: Rescue Indoor
+
+	But de la page: 
+		Sur cette page, l'utilisateur saisi un email et un mot de passe afin de se connecter. Si la connexion est réussie, la session de l'utilisateur est démarrée et l'utilisateur est redirigé sur la page menu.php. 
+-->
+
+
 <?php
-require("functions.php");
-if (is_session_active()) {
-	header('Location: menu.php');
-}
+	require("logs.php");
+	require("functions.php");
+
+	if (is_session_active()) 
+	{
+		header('Location: menu.php');
+	}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Connexion Robot</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-	<link rel="stylesheet" type="text/css" href="css/connexion.css">
-<!--===============================================================================================-->
-</head>
-<body>
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<div class="login100-pic js-tilt" data-tilt>
-					<img src="images/img-01.png" alt="IMG">
+	<head>
+		<title>Connexion Robot</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Packages CSS -->
+		<!--===============================================================================================-->	
+			<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+			<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+			<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+			<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+			<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+			<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+			<link rel="stylesheet" type="text/css" href="css/connexion.css">
+		<!--===============================================================================================-->
+	</head>
+	<body>
+		<div class="limiter">
+			<div class="container-login100">
+				<div class="wrap-login100">
+					<div class="login100-pic js-tilt" data-tilt>
+						<img src="images/img-01.png" alt="IMG">
+					</div>
+
+					<!-- Formulaire de connexion -->
+					<form method='post' class="login100-form validate-form">
+						<span class="login100-form-title">
+							Connexion Robot Rescue Indoor
+						</span>
+						
+						<!-- Email -->
+						<div class="wrap-input100 validate-input" data-validate = "Adresse mail requise">
+							<input class="input100" type="text" name="email" placeholder="Adresse mail">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-user-circle-o" aria-hidden="true"></i>
+							</span>
+						</div>
+
+						<!-- Mot de passe -->
+						<div class="wrap-input100 validate-input" data-validate = "Mot de passe requis">
+							<input class="input100" type="password" name="password" placeholder="Mot de passe">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-lock" aria-hidden="true"></i>
+							</span>
+						</div>
+						
+						<!-- Bouton de confirmation -->
+						<div class="container-login100-form-btn">
+							<input  class="login100-form-btn" type="submit" id='submit' value='LOGIN'>
+						</div>
+					</form>
 				</div>
-
-				<form method='post' class="login100-form validate-form">
-					<span class="login100-form-title">
-						Connexion Robot Rescue Indoor
-					</span>
-					
-					<div class="wrap-input100 validate-input" data-validate = "Adresse mail requise">
-						<input class="input100" type="text" name="email" placeholder="Adresse mail">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-user-circle-o" aria-hidden="true"></i>
-						</span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate = "Mot de passe requis">
-						<input class="input100" type="password" name="password" placeholder="Mot de passe">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<input  class="login100-form-btn" type="submit" id='submit' value='LOGIN'>
-					</div>
-					
-
-					<!--<div class="text-center p-t-12">
-						<span class="txt1">
-							Forgot
-						</span>
-						<a class="txt2" href="#">
-							Username / Password?
-						</a>
-					</div>
-
-					<div class="text-center p-t-136">
-						<a class="txt2" href="#">
-							Create your Account
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div>-->
-				</form>
 			</div>
 		</div>
-	</div>
 
-	<?php
-		require("logs.php");
+		<?php
+			if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']) && !empty($_POST['password']) ) 
+			{
+				// Connexion à la BDD
+				$lsConnexionBDD = new mysqli($gwServername, $gwUsername, $gwPassword); //variable permettant d'avoir la connexion au serveur SQL
+				mysqli_select_db($lsConnexionBDD, $gwDatabaseName);
 
-		if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']) && !empty($_POST['password']) ) {
-			// Connexion à la BDD
-			$connexionBDD = new mysqli($servername,$username,$password);
-			mysqli_select_db($connexionBDD, $gw_databaseName);
-			// Vérifier la connexion
-			if($connexionBDD->connect_error) {
-				die("Connection failed: " . $connexionBDD->connect_error);
-			}
-			$email = $_POST['email']; 
-			$password = $_POST['password'];
-			$login=false;
+				// Vérifier la connexion
+				if($lsConnexionBDD -> connect_error) 
+				{
+					die("Connection failed: " . $lsConnexionBDD -> connect_error);
+				}
+				else
+				{
+					//S'il n'y a pas d'erreur à la connexion, on peut continuer normalement
+				}
 
-			$requeteUtilisateursLogin = "SELECT * FROM user WHERE email='$email'";
-			//$result = mysqli_query($connexionBDD,$requeteUtilisateursLogin); && password_verify($password, password_hash($password, PASSWORD_DEFAULT))
-			$resultatUtilisateursLogin = $connexionBDD-> query($requeteUtilisateursLogin);
-			$total = mysqli_num_rows($resultatUtilisateursLogin);
-			if ($total!=0) {
-				while ($ligneUtilisateur = $resultatUtilisateursLogin -> fetch_assoc()) {
-					if (password_verify($password, $ligneUtilisateur['password'])) {
-						session_start();
-						session_id($email);
-						$_SESSION['count']=1;
-						$_SESSION[$email]=$email;
-						$login=true;
+				$lwEmail = $_POST['email'];  //variable stockant l'email saisi par l'utilisateur pour se connecter
+				$lwPassword = $_POST['password']; //variable stockant le mot de passe saisi par l'utilisateur pour se connecter
+				$lbLogin = false; //variable stockant le booléen indiquant si l'utilisateur s'est bien connecté ou non
+
+				$lsRequestLogin = "SELECT * FROM user WHERE email='$lwEmail'"; //Requête SQL permettant de récupérer les utilisateurs avec l'adresse email spécifiée
+				$lsResultUsersLogin = $lsConnexionBDD -> query($lwRequeteLogin); //variable indiquant ????????????????????????????????
+				$lnNumberUser = mysqli_num_rows($lsResultUsersLogin); //variable indiquant le nombre d'utilisateurs avec l'adresse mail indiquée (ça ne sera jamais 2)
+
+				if($lnNumberUser != 0)
+				{
+					while ($lsLineUser = $lsResultUsersLogin -> fetch_assoc()) //lsLineUser récupère ligne par ligne les données ??????????????????????????????????????????
+					{
+						//L'utilisateur est connecté
+						if (password_verify($lwPassword, $lsLineUser['password'])) 
+						{
+							$lbLogin = true;
+
+							session_start();
+							session_id($lwEmail);
+							$_SESSION['count'] = 1;
+							$_SESSION[$email] = $lwEmail;
+
+							mysqli_close($lsConnexionBDD);
+							header('Location: menu.php');
+						}
 					}
-				}
-				if ($login==false) {
-					echo("<script>alert('mot de passe incorrect ')</script>");
-				}
-			} else {
-				echo("<script>alert('identifiants incorrects')</script>");
-			}
-			mysqli_close($connexionBDD);
-			if($login==true){
-				header('Location: menu.php');
-			}
-		}
-	?>
-	
-	
 
-	
-<!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="vendor/select2/select2.min.js"></script>
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
-	<script src="js/main_connexion.js"></script>
-<!--===============================================================================================-->
+					//L'utilisateur ne s'est pas connecté
+					if ( $lbLogin == false ) 
+					{
+						echo("<script>alert('mot de passe incorrect ')</script>");
+					}
+					else
+					{
+						//On ne rentre jamais ici car sinon cela veut dire que l'utilisateur est connecté
+					}
+				} 
+				else
+				{
+					echo("<script>alert('identifiants incorrects')</script>");
+				}
 
-</body>
+				mysqli_close($lsConnexionBDD);
+			}
+		?>
+		
+
+		<!-- Packages JavaScript pour le CSS-->
+		<!-- ===============================================================================================-->	
+			<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+			<script src="vendor/bootstrap/js/popper.js"></script>
+			<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+			<script src="vendor/select2/select2.min.js"></script>
+			<script src="vendor/tilt/tilt.jquery.min.js"></script>
+			<script>
+				$('.js-tilt').tilt({
+					scale: 1.1
+				})
+			</script>
+			<script src="js/main_connexion.js"></script>
+		<!--===============================================================================================-->
+
+	</body>
 </html>

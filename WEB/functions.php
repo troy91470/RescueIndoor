@@ -149,17 +149,6 @@ function send_route($content){
 
     $ssh->exec("echo 'aaa' > ssh_fonctionne.txt");
     echo "<br/>evrything done";
-
-/*
-echo "route donnng";
-$connection = ssh2_connect('192.168.43.7', 22);
-$o = shell_exec("pwd");
-echo "<br/>oui: $o<br/>";
-ssh2_auth_password($connection, 'pi', 'raspberry');
-
-ssh2_scp_send($connection, './deliveryRoute.txt', '/home/pi', 0664);
-echo "faim pizza burger manger";
-*/
 }
 
 ?>
