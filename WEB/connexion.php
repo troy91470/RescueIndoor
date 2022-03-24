@@ -4,17 +4,16 @@
 	Nom du projet: Rescue Indoor
 
 	But de la page: 
-		Sur cette page, l'utilisateur saisi un email et un mot de passe afin de se connecter. Si la connexion est réussie, la session de l'utilisateur est démarrée et l'utilisateur est redirigé sur la page menu.php. 
+		Sur cette page, l'utilisateur saisi un email et un mot de passe afin de se connecter. Si la connexion est réussie, la session de l'utilisateur est démarrée et l'utilisateur est redirigé sur la page adminMenu.php. 
 -->
 
 
 <?php
-	require("logs.php");
 	require("functions.php");
 
-	if (is_session_active()) 
+	if (isSessionActive()) 
 	{
-		header('Location: menu.php');
+		header('Location: adminMenu.php');
 	}
 ?>
 
@@ -80,19 +79,7 @@
 		<?php 
 			if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']) && !empty($_POST['password']) ) 
 			{
-				// Connexion à la BDD
-				$lsConnexionBDD = new mysqli($gwServername, $gwUsername, $gwPassword); //variable permettant d'avoir la connexion au serveur SQL
-				mysqli_select_db($lsConnexionBDD, $gwDatabaseName);
-
-				// Vérifier la connexion
-				if($lsConnexionBDD -> connect_error) 
-				{
-					die("Connection failed: " . $lsConnexionBDD -> connect_error);
-				}
-				else
-				{
-					//S'il n'y a pas d'erreur à la connexion, on peut continuer normalement
-				}
+				$lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
 
 				$lwEmail = $_POST['email'];  //variable stockant l'email saisi par l'utilisateur pour se connecter
 				$lwPassword = $_POST['password']; //variable stockant le mot de passe saisi par l'utilisateur pour se connecter
@@ -112,12 +99,21 @@
 							$lbLogin = true;
 
 							session_start();
-							session_id($lwEmail);
+							session_id($lsLineUser['id_user']);
 							$_SESSION['count'] = 1;
-							$_SESSION[$email] = $lwEmail;
+							$_SESSION['email'] = $lwEmail;
+							$_SESSION['isAdmin'] = $lsLineUser['is_admin'];
 
 							mysqli_close($lsConnexionBDD);
-							header('Location: menu.php');
+
+							if($_SESSION['isAdmin'] == 1)
+							{
+								header('Location: adminMenu.php');
+							}
+							else
+							{
+								header('Location: userMenu.php');
+							}
 						}
 					}
 

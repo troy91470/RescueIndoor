@@ -1,3 +1,12 @@
+<?php
+	require("functions.php");
+	
+	if (!isSessionActive() || $_SESSION['isAdmin'] !== 1) 
+	{
+		header('Location: index.php');
+	}
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -88,6 +97,11 @@
         name : 'closedoor',
         messageType : 'std_msgs/Empty'
     });
+    var lineFolllower = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'linefollow',
+        messageType : 'std_msgs/Empty'
+    });
 
     /* This function:
     - retrieves numeric values from the text boxes
@@ -105,7 +119,7 @@
 			messageType : 'std_msgs/String'
 		});
 		var messageBureaux = new ROSLIB.Message({
-      data: "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
+      data: "314;315;999;5;456"
     });
 		// var messageBureaux2 = new ROSLIB.Message("lucas est dans le binks");
     function testMSG() {
@@ -121,7 +135,7 @@
     <div class="divBoutons">
       <div class="row">
         <div class="colonne10">
-          <a href="menu.php">
+          <a href="adminMenu.php">
             <input  class="bouton-top" type="submit" value='retour'>
           </a>
         </div>
@@ -190,6 +204,9 @@
           </div>
           <div class="sub-main">
             <input class="bouton" type="submit" value="Fermeture"  id="sendMsg"  onclick="pubMessage(closeTopic)">
+          </div>
+          <div class="sub-main">
+            <input class="bouton" type="submit" value="lineFolllower"  id="sendMsg"  onclick="pubMessage(lineFolllower)">
           </div>
       </form>
     </div>
