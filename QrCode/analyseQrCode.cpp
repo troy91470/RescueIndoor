@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	if (argc > 1)
 		inputImage = imread(argv[1]);
 	else
-		inputImage = imread("png_random.png");
+		inputImage = imread("png_random.pngg");
 
 	QRCodeDetector qrDecoder = QRCodeDetector();
 
@@ -82,6 +82,11 @@ int main(int argc, char *argv[])
 		{
 		cout << "Esc key is pressed by user. Stoppig the video" << endl;
 		break;
+		}
+		std::string data = qrDecoder.detectAndDecode(frame, bbox, rectifiedImage);
+		if (is_office(data))
+		{
+			cout << "office:" << data << endl;
 		}
 	}
 
