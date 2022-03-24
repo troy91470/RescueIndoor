@@ -9,17 +9,24 @@
 // 1 noir
 // 0 blanc
 
+// Variables pour les moteurs de la remorques
 Servo moteur;
 Servo moteur2;
 
+int statusQrCode = 1;
+
+// Variable pour la vitesse moteur
 int motorSpeed = 60;
 
+// Declaration du noeud Ros
 ros::NodeHandle  nh;
 
+// Variables pour les actions moteur
 int motorAction = 0; // 0 : Stop ; 1 : Forward ; 2 : BackWard ; 3 : Left ; 4 : Right ; 
 std_msgs::String OurMotorState;
 ros::Publisher Motorstate("state", &OurMotorState);
 
+// Tableaux des messages pour les actions moteurs
 char MotorForward[8] = "Forward";
 char MotorBackward[9] = "Backward";
 char MotorLeft[5] = "Left";
@@ -27,11 +34,24 @@ char MotorRight[6] = "Right";
 char MotorStop[5] = "Stop";
 char MotorUp[3] = "Up";
 char MotorDown[5] = "Down";
-char LineFollower[13] = "LineFollower";
-char OpenDoor[9] = "OpenDoor";
-char CloseDoor[10] = "CloseDoor";
 
+// Tableau message pour le line follower
+char LineFollowerAlgo[13] = "LineFollower";
 
+// Tableau message pour la remorque
+char ServoOpenDoor[9] = "OpenDoor";
+char ServoCloseDoor[10] = "CloseDoor";
+
+// Variables pour la liste des bureaux
+std_msgs::String OurListe;
+std_msgs::String OurTab;
+ros::Publisher Listestate("stateliste", &OurListe);
+ros::Publisher Tabstate("valueBureau", &OurTab);
+char ListeBureau[100] = "";
+int TabBureau[100];
+int nb_bureau;
+
+// Fonction callback pour augmenter la vitesse du robot
 void speedUp(const std_msgs::Empty& toggle_msg)
 {
  if (motorSpeed < 110){
@@ -42,6 +62,7 @@ void speedUp(const std_msgs::Empty& toggle_msg)
  printState();
 }
 
+// Fonction callback pour diminuer la vitesse du robot
 void speedDown(const std_msgs::Empty& toggle_msg)
 {
  if (motorSpeed > 20){
@@ -52,6 +73,7 @@ void speedDown(const std_msgs::Empty& toggle_msg)
   printState();
 }
 
+// Permet de re afficher
 void restartCommande(){
   std_msgs::Empty toggle_msg;
   switch (motorAction) {
@@ -118,15 +140,8 @@ motorAction = 0;
 printState();
 } 
 
-void OpenDoor() {
-  for(int position = 25; position < 160; position ++) {
-    moteur.write(position);
-    moteur2.write(180-position);
-    delay(10);
-  }
-}
-
-void CloseDoor() {
+void OpenDoor( const std_msgs::Empty& toggle_msg) {
+  
   for(int position = 160; position > 25; position --) {
     moteur.write(position);
     moteur2.write(180-position);
@@ -134,27 +149,68 @@ void CloseDoor() {
   }
 }
 
-void LineFollower() {
-  while(1) {
+void CloseDoor( const std_msgs::Empty& toggle_msg) {
+  for(int position = 25; position < 160; position ++) {
+    moteur.write(position);
+    moteur2.write(180-position);
+    delay(10);
+  }
+}
+
+void LineFollower( const std_msgs::Empty& toggle_msg) {
+  while(statusQrCode) {
     int g = digitalRead(GAUCHE);
     int d = digitalRead(DROITE);
     delay(500);
   
-    if((d == 1)&&(g == 1)){
-      Forward();
-    }
-    if((d == 1)&&(g == 0)){
-      Right();
+    if((d == 0)&&(g == 0)){
+      Forward(toggle_msg);
     }
     if((d == 0)&&(g == 1)){
-       Left(); 
+      Right(toggle_msg);
     }
-    if((d == 0)&&(g == 0)){
-      Stop();
+    if((d == 1)&&(g == 0)){
+       Left(toggle_msg); 
+    }
+    if((d == 1)&&(g == 1)){
+      Stop(toggle_msg);
     }
   }
 }
 
+void initListe( const std_msgs::String& msg)
+{
+  OurListe.data = msg.data;
+  strcpy(ListeBureau, msg.data);
+  char * liste = ListeBureau;
+  char * str_number;
+  nb_bureau = 0;
+  while ((str_number = strsep(&liste,";"))) {
+        TabBureau[nb_bureau] = atoi(str_number);
+        nb_bureau++;
+  }
+  printStateTab();
+  printStateListe();
+}
+
+void analyseQrCode(const std_msgs::String& msg)
+{
+  for(int i = 0; i < nb_bureau; i++)
+  {
+    if (atoi(msg.data) == TabBureau[i])
+    {
+      statusQrCode = 0;
+      const std_msgs::Empty toggle_msg;
+      OpenDoor(toggle_msg);
+      delay(5000);
+      CloseDoor(toggle_msg);
+      //statusQrCode = 1;
+
+    }
+  }
+}
+
+// Subscriber pour les deplacements
 ros::Subscriber<std_msgs::Empty> subForward("forward", &Forward );
 ros::Subscriber<std_msgs::Empty> subBackward("backward", &Backward );
 ros::Subscriber<std_msgs::Empty> subLeft("left", &Left );
@@ -162,13 +218,26 @@ ros::Subscriber<std_msgs::Empty> subRight("right", &Right );
 ros::Subscriber<std_msgs::Empty> subStop("stop", &Stop ); 
 ros::Subscriber<std_msgs::Empty> subUp("up", &speedUp ); 
 ros::Subscriber<std_msgs::Empty> subDown("down", &speedDown );
-ros::Subscriber<std_msgs::Empty> subLineFollow("linefollow", &LineFollower );
-ros::Subscriber<std_msgs::Empty> subOpen("opendoor", &OpenDoor );
-ros::Subscriber<std_msgs::Empty> subClose("closedoor", &CloseDoor );
+
+// Subscriber pour le suiveur de ligne
+ros::Subscriber<std_msgs::Empty> subLineFollower("linefollow", &LineFollower );
+
+// Subscriber pour les actions de la remorque
+ros::Subscriber<std_msgs::Empty> subServoOpen("opendoor", &OpenDoor );
+ros::Subscriber<std_msgs::Empty> subServoClose("closedoor", &CloseDoor );
+
+// Subscriber pour la liste des bureaux
+ros::Subscriber<std_msgs::String> subListe("listeTopic", &initListe );
+
+// Subscriber pour la valeur du QR Code
+ros::Subscriber<std_msgs::String> subQrCode("qrCodeData", &analyseQrCode );
+
 
 void setup()  
 {
 nh.initNode();
+
+// noeud nh qui s'abonne aux actions déplacements
 nh.subscribe(subUp);
 nh.subscribe(subDown);
 nh.subscribe(subForward);
@@ -177,9 +246,20 @@ nh.subscribe(subLeft);
 nh.subscribe(subRight);
 nh.subscribe(subStop);
 nh.advertise(Motorstate);
-nh.advertise(subLineFollow);
-nh.advertise(subOpen);
-nh.advertise(subClose);
+
+// noeud nh qui s'abonne line follower
+nh.subscribe(subLineFollower);
+
+// noeud nh qui s'abonne aux actions de la remorque
+nh.subscribe(subServoOpen);
+nh.subscribe(subServoClose);
+
+nh.subscribe (subQrCode);
+
+// noeud nh qui s'abonne pour la liste des bureaux
+nh.subscribe(subListe);
+nh.advertise(Listestate);
+nh.advertise(Tabstate);
 
 Serial2.begin(9600);
 pinMode(DROITE, INPUT); // declare if sensor as input  
@@ -197,6 +277,23 @@ delay(100);
 
 void printState(){
   Motorstate.publish( &OurMotorState );
+}
+
+void printStateListe(){
+  Listestate.publish( &OurListe );
+}
+
+void printStateTab(){
+  for (int i = 0; i < nb_bureau; i++){
+      if (TabBureau[i] == 1){
+        OurTab.data = "oui";
+        Tabstate.publish( &OurTab );
+      }
+      else {
+        OurTab.data = "non";
+        Tabstate.publish( &OurTab );
+      }
+  }
 }
 
 void transferData(int val, byte mode)
