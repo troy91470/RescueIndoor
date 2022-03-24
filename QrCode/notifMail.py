@@ -17,6 +17,9 @@ def send_email(subject, receiver, plain_text, html_text):
     server.send_message(msg)
     server.quit()
 
+# "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
+data="(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
+
 mailDestinataire="thomas.roy91470@gmail.com"
 bureau="415"
 msgHtml="Vous venez de recevoir une nouvelle livraison devant votre bureau : "+bureau+".<br/>Veuillez venir le chercher dans moins de 5 minutes si vous le pouvez.\
