@@ -1,7 +1,17 @@
+<!-- 
+	Auteurs: Marwane BARAHOUI (IATIC4), et Thomas ROY (IATIC4)
+
+	Nom du projet: Rescue Indoor
+
+	But du fichier: 
+		Ce fichier comporte diverses fonctions. 
+-->
+
+
 <?php
 
-
-    function is_session_active()
+    //Fonction renvoyant le booléen vrai si la session de l'utilisateur est active, et faux sinon
+    function isSessionActive()
     {
         session_start();
         if (isset($_SESSION['count'])) return TRUE;
@@ -12,43 +22,58 @@
         }
     }
 
-    function connexion_bd(){
+
+    //Fonction renvoyant la connexion à la base de données
+    function connexionBDD(){
         require("logs.php");
-        $lsConnexionBDD = new mysqli($gwServername,$username,$password);
+
+        $lsConnexionBDD = new mysqli($gwServername, $gwUsername, $gwPassword); //variable permettant d'avoir la connexion au serveur SQL
         mysqli_select_db($lsConnexionBDD, $gwDatabaseName);
+
         // Vérifier la connexion
-        if($lsConnexionBDD->connect_error) {
-            die("Connection failed: " . $lsConnexionBDD->connect_error);
+        if($lsConnexionBDD -> connect_error) 
+        {
+            die("Connection failed: " . $lsConnexionBDD -> connect_error);
         }
+        else
+        {
+            //S'il n'y a pas d'erreur à la connexion, on peut continuer normalement
+        }
+
         return $lsConnexionBDD;
     }
 
-    function suppression_employe($idUser)
+
+    //Fonction supprimant l'employé dans la BDD grâce à son id
+    function deleteEmployee($pnIdUser)
     {
-        $lsConnexionBDD = connexion_bd();
+        $lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
         
-        try {
-            $requeteDeleteEmployee = "DELETE FROM user WHERE id_user=".$idUser; 	
+        try 
+        {
+            $requestDeleteEmployee = "DELETE FROM user WHERE id_user=".$pnIdUser; 
             $lsConnexionBDD -> query($requeteDeleteEmployee);
-        } catch (Exception $e) {
-            echo 'Exception  reçue: ',  $e->getMessage(), "\n";
+        } 
+        catch (Exception $e) 
+        {
+            echo 'Exception  reçue: ',  $e -> getMessage(), "\n";
         }
 
         mysqli_close($lsConnexionBDD);
         echo "<script>window.location=window.location;</script>";
     }
 
-function user_exists_already($email){
-    $lsConnexionBDD = connexion_bd();
+function isUserAlreadyExists($email){
+    $lsConnexionBDD = connexionBDD();
     $requeteUserExists = "SELECT count(*) FROM user WHERE email='".$email."'";
     $result = $lsConnexionBDD -> query($requeteUserExists);
     $result = $result -> fetch_array();
     return (bool) ($result[0]);
 }
 
-function modification_employe($idUser, $email, $first_name, $second_name, $office)
+function editEmployee($idUser, $email, $first_name, $second_name, $office)
 {
-    $lsConnexionBDD = connexion_bd();
+    $lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
 
     $emailModif = $email;
     $firstNameModif = $first_name;
@@ -63,13 +88,15 @@ function modification_employe($idUser, $email, $first_name, $second_name, $offic
     }
     else
     {
-        if(!filter_var($emailModif, FILTER_VALIDATE_EMAIL)){
+        if(!filter_var($emailModif, FILTER_VALIDATE_EMAIL))
+        {
             $emailModif = -1;
             echo "<script>alert('Adresse mail non valide.')</script>";
         }
 
-        $existsAlready = user_exists_already($emailModif);
-        if($existsAlready){
+        $existsAlready = isUserAlreadyExists($emailModif);
+        if($existsAlready)
+        {
             $emailModif = -1;
             echo "<script>alert('Cette adresse mail est déjà utilisée.')</script>";
         }
@@ -81,12 +108,14 @@ function modification_employe($idUser, $email, $first_name, $second_name, $offic
         $firstNameModif = $lsConnexionBDD -> query($requeteSelectFirstName);
         $firstNameModif = $firstNameModif -> fetch_array()[0];
     }
+
     if($secondNameModif == NULL)
     {
         $requeteSelectSecondName = "SELECT second_name FROM user WHERE id_user='".$idUser."'";
         $secondNameModif = $lsConnexionBDD -> query($requeteSelectSecondName);
         $secondNameModif = $secondNameModif -> fetch_array()[0];
     }
+
     if($officeModif == NULL)
     {
         $requeteSelectOffice = "SELECT office FROM user WHERE id_user='".$idUser."'";
@@ -104,20 +133,21 @@ function modification_employe($idUser, $email, $first_name, $second_name, $offic
     mysqli_close($lsConnexionBDD);
 }
 
-function ajout_employe($email, $first_name, $second_name, $office, $password, $isAdmin)
+function addEmployee($email, $first_name, $second_name, $office, $password, $isAdmin)
 {
-    $lsConnexionBDD = connexion_bd();
+    $lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
 
-    //TODO -> test mail
-
-    $existsAlready = user_exists_already($email);
-    if($existsAlready){
+    $existsAlready = isUserAlreadyExists($email);
+    if($existsAlready)
+    {
         echo "<script>alert('Cette adresse mail est déjà utilisée.')</script>";
     }
-    else if(!filter_var($_POST['emailAjouter'], FILTER_VALIDATE_EMAIL)){
+    else if(!filter_var($_POST['emailAjouter'], FILTER_VALIDATE_EMAIL))
+    {
         echo "<script>alert('Adresse mail non valide.')</script>";
     }
-    else{
+    else
+    {
         $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
         if($office != NULL)
         {
@@ -135,7 +165,8 @@ function ajout_employe($email, $first_name, $second_name, $office, $password, $i
     }
 }
 
-function send_route($content){
+function sendRoute($content)
+{
     set_include_path(get_include_path() . PATH_SEPARATOR . 'phplibs/phpseclib');
     require('phplibs/phpseclib/Net/SSH2.php');
     require('logs.php');
@@ -143,11 +174,16 @@ function send_route($content){
     $ssh = new Net_SSH2($ros_ip);
     echo "<br/>connection done";
 
-    if (!$ssh->login($ros_username, $ros_password)) {
+    if (!$ssh -> login($ros_username, $ros_password)) 
+    {
         exit('Login Failed');
     }
+    else
+    {
+        //
+    }
 
-    $ssh->exec("echo 'aaa' > ssh_fonctionne.txt");
+    $ssh -> exec("echo 'aaa' > ssh_fonctionne.txt");
     echo "<br/>evrything done";
 }
 

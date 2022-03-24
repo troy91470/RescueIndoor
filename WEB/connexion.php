@@ -9,10 +9,9 @@
 
 
 <?php
-	require("logs.php");
 	require("functions.php");
 
-	if (is_session_active()) 
+	if (isSessionActive()) 
 	{
 		header('Location: menu.php');
 	}
@@ -80,19 +79,7 @@
 		<?php 
 			if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']) && !empty($_POST['password']) ) 
 			{
-				// Connexion à la BDD
-				$lsConnexionBDD = new mysqli($gwServername, $gwUsername, $gwPassword); //variable permettant d'avoir la connexion au serveur SQL
-				mysqli_select_db($lsConnexionBDD, $gwDatabaseName);
-
-				// Vérifier la connexion
-				if($lsConnexionBDD -> connect_error) 
-				{
-					die("Connection failed: " . $lsConnexionBDD -> connect_error);
-				}
-				else
-				{
-					//S'il n'y a pas d'erreur à la connexion, on peut continuer normalement
-				}
+				$lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
 
 				$lwEmail = $_POST['email'];  //variable stockant l'email saisi par l'utilisateur pour se connecter
 				$lwPassword = $_POST['password']; //variable stockant le mot de passe saisi par l'utilisateur pour se connecter

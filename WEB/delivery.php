@@ -12,7 +12,7 @@
 	require("functions.php");
 	require("logs.php");
 
-	if (!is_session_active()) 
+	if (!isSessionActive()) 
 	{
 		header('Location: index.php');
 	}
@@ -77,19 +77,7 @@
 								</thead>
 								<tbody>
 										<?php	
-											// Connexion à la BDD
-											$lsConnexionBDD = new mysqli($gwServername, $gwUsername, $gwPassword); //variable permettant d'avoir la connexion au serveur SQL
-											mysqli_select_db($lsConnexionBDD, $gwDatabaseName);
-
-											// Vérifier la connexion
-											if($lsConnexionBDD -> connect_error) 
-											{
-												die("Connection failed: " . $lsConnexionBDD -> connect_error);
-											}
-											else
-											{
-												//S'il n'y a pas d'erreur à la connexion, on peut continuer normalement
-											}
+											$lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
 
 											$lsRequestUsers = "SELECT * FROM user"; //Requête SQL récupérant toutes les lignes de la BDD
 											$lsResultUsers = $lsConnexionBDD -> query($lsRequestUsers); //variable récupérant le résultat de la requête lsRequestUsers

@@ -1,25 +1,12 @@
 <?php
 	require("functions.php");
-	require("logs.php");
 	
-	if (!is_session_active()) 
+	if (!isSessionActive()) 
 	{
 		header('Location: index.php');
 	}
 	
-	// Connexion à la BDD
-	$lsConnexionBDD = new mysqli($gwServername, $gwUsername, $gwPassword); //variable permettant d'avoir la connexion au serveur SQL
-	mysqli_select_db($lsConnexionBDD, $gwDatabaseName);
-
-	// Vérifier la connexion
-	if($lsConnexionBDD -> connect_error) 
-	{
-		die("Connection failed: " . $lsConnexionBDD -> connect_error);
-	}
-	else
-	{
-		//S'il n'y a pas d'erreur à la connexion, on peut continuer normalement
-	}
+	$lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
 					
 	$lsRequestUsers = "SELECT * FROM user";
 	$resultatUtilisateurs = $lsConnexionBDD -> query($lsRequestUsers);
@@ -32,7 +19,7 @@
 		<title>Gestion</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
+
 		<!-- Packages CSS -->
 		<!--===============================================================================================-->	
 		<link rel="icon" type="image/png" href="images/icons/admin.ico"/>
@@ -98,7 +85,8 @@
 								</div>
 							</div>
 						</div>
-						<input type="text" value="<?php echo $idUser?>" hidden name="idUser">											<div class="row">
+						<input type="text" value="<?php echo $idUser?>" hidden name="idUser">
+						<div class="row">
 							<div class="column5">
 								<input class="bouton" type="submit" value="Modifier" name="option">
 							</div>	
@@ -179,13 +167,13 @@
 					if ($_POST["option"] == "Modifier") 
 					{
 						$idUser = $_POST['idUser'];
-						modification_employe($idUser, $_POST['emailModif'], $_POST['firstNameModif'], $_POST['secondNameModif'], $_POST['officeModif']);
+						editEmployee($idUser, $_POST['emailModif'], $_POST['firstNameModif'], $_POST['secondNameModif'], $_POST['officeModif']);
 					}
 					//suppression de l'employé dans la BDD
 					elseif ($_POST["option"] == "Supprimer") 
 					{
 						$idUser = $_POST['idUser'];
-						suppression_employe($idUser);
+						deleteEmployee($idUser);
 					} 
 
 					//insertion de l'employé saisi dans la BDD
@@ -202,11 +190,11 @@
 
 						if(!empty($_POST['office']) && isset($_POST['office']))
 						{
-							ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
+							addEmployee($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
 						} 
 						else 
 						{
-							ajout_employe($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
+							addEmployee($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
 						}
 					}
 				}
