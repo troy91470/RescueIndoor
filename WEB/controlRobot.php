@@ -1,7 +1,7 @@
 <?php
 	require("functions.php");
 	
-	if (!isSessionActive() || $_SESSION['isAdmin'] !== 1) 
+	if (!isSessionActive()) 
 	{
 		header('Location: index.php');
 	}
