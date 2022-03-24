@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	else
 		inputImage = imread("png_random.pngg");
 
-	QRCodeDetector qrDecoder = QRCodeDetector();
+	QRCodeDetector qrDecoder = QRCodeDetector::QRCodeDetector();
 
 	Mat bbox, rectifiedImage;
 
