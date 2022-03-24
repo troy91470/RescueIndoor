@@ -164,42 +164,10 @@
 			}
 			//echo("<script>alert('aaa |{$valeur}|')</script>");
 		}
-		echo("<script>alert('oui|$listOffices|')</script>");
-?>
-
-	<script src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
-	<script>
-
-		var rosServer = new ROSLIB.Ros({
-			url : 'ws://192.168.43.7:9090'
-		});
-
-		rosServer.on('connection', function() {
-			console.log('Connected to websocket server.');
-		});
-
-		rosServer.on('error', function(error) {
-			console.log('Error connecting to websocket server: ', error);
-		});
-
-		rosServer.on('close', function() {
-			console.log('Connection to websocket server closed.');
-		});
-
-		var listeBureaux = new ROSLIB.Topic({
-			ros : rosServer,
-			name : '/listeBureaux',
-			messageType : 'std_msgs/String'
-		});
-		// "44;55;66"
-		var messageBureaux = new ROSLIB.Message("lucas est dans le binks");
-
-		// publier le message
-		listeBureaux.publish(messageBureaux);
-		
-	</script>
-	<?php
-}
+		echo("<script>alert('Le bureau|$listOffices|')</script>");
+	} else {
+		echo("<script>alert('|$listOffices|')</script>");
+	}
 	?>
 
 </body>
