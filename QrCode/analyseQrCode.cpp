@@ -2,6 +2,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <unistd.h>
 #include <iostream>
 #include <regex>
 
@@ -49,8 +50,12 @@ int main(int argc, char *argv[])
 
 
 	VideoCapture cap(0);
+	
+	// decommenter pour afficher la video
+	/*
 	string window_name = "My Camera Feed";
 	namedWindow(window_name); //create a window called "My Camera Feed"
+	*/
 	if (cap.isOpened() == false)  
 	{
 		cout << "Cannot open the video camera" << endl;
@@ -71,9 +76,10 @@ int main(int argc, char *argv[])
 		break;
 		}
 
-		//show the frame in the created window
-		imshow(window_name, frame);
-
+		// decommenter pour afficher la video
+		/*
+		imshow();
+		*/
 		//wait for for 10 ms until any key is pressed.  
 		//If the 'Esc' key is pressed, break the while loop.
 		//If the any other key is pressed, continue the loop 
@@ -88,6 +94,7 @@ int main(int argc, char *argv[])
 		{
 			cout << "office:" << data << endl;
 		}
+		usleep(500);
 	}
 
 }
