@@ -20,7 +20,7 @@ def send_email(subject, receiver, plain_text, html_text):
 mailDestinataire="thomas.roy91470@gmail.com"
 bureau="415"
 msgHtml="Vous venez de recevoir une nouvelle livraison devant votre bureau : "+bureau+".<br/>Veuillez venir le chercher dans moins de 5 minutes si vous le pouvez.\
-    <br/>Vous pouvez venir le chercher plus tard au bureau de l'administrateur selon ses horaires.\
+    <br/>Dans le cas contraire, vous pouvez venir le chercher plus tard au bureau de l'administrateur selon ses horaires.\
     <br/><br/>--<br/>Cordialement,<br/>entreprise XXX"
 
 send_email("[DELIVERY] Livraison au bureau "+bureau,mailDestinataire,"livraison effectuee",msgHtml)
