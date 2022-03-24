@@ -9,12 +9,11 @@
 
 
 <?php
-	require("functions.php");
-	require("logs.php");
+	require("../functions.php");
 
 	if (!isSessionActive()) 
 	{
-		header('Location: index.php');
+		header('Location: ../index.php');
 	}
 ?>
 
@@ -27,13 +26,13 @@
 
 		<!-- Packages CSS -->
 		<!--===============================================================================================-->	
-		<link rel="icon" type="image/png" href="images/icons/admin.ico"/>
-		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-		<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-		<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-		<link rel="stylesheet" type="text/css" href="css/delivery.css">
+		<link rel="icon" type="image/png" href="../images/icons/admin.ico"/>
+		<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+		<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+		<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/delivery.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 		<!--===============================================================================================-->
 	</head>
@@ -43,14 +42,14 @@
 
 			<!-- Bouton de retour au menu -->
 			<div class="colonne1">
-				<a href="adminMenu.php">
+				<a href="menu.php">
 					<input  class="bouton-top" type="submit" value='retour'>
 				</a>
 			</div>
 
 			<!-- Bouton de déconnexion -->
 			<div class="colonne2">
-				<a href="deconnexion.php">
+				<a href="../deconnexion.php">
 					<input  class="bouton-top" type="submit" value='Deconnexion'>
 				</a>
 			</div>
@@ -129,17 +128,17 @@
 
 <!-- Packages JavaScript pour le CSS-->
 <!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="vendor/select2/select2.min.js"></script>
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="../vendor/bootstrap/js/popper.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../vendor/select2/select2.min.js"></script>
+	<script src="../vendor/tilt/tilt.jquery.min.js"></script>
 	<script >
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
 	</script>
-	<script src="js/main_liste.js"></script>
+	<script src="../js/main_liste.js"></script>
 <!--===============================================================================================-->
 
 

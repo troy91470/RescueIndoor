@@ -29,11 +29,11 @@
 	{
 		if($_SESSION['isAdmin'] == 1) //S'il y a une session admin d'active, on va sur la page adminMenu.php
 		{
-			header('Location: adminMenu.php');
+			header('Location: admin/menu.php');
 		}
 		else //Sinon si c'est une session d'utilisateur 'classique', on va sur la page userMenu.php
 		{
-			header('Location: userMenu.php');
+			header('Location: user/menu.php');
 		}
 	}
 ?>

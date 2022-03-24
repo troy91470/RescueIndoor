@@ -15,21 +15,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" type="image/png" href="images/icons/menu.ico"/>
+        <link rel="icon" type="image/png" href="../images/icons/menu.ico"/>
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="css/userMenu.css">
+        <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/userMenu.css">
     <!--===============================================================================================-->
     </head>
 
     <body>
-        <a href="deconnexion.php">
+        <a href="../deconnexion.php">
             <input  class="deconnexion" type="submit" value='Deconnexion'>
         </a>
         <div class="message">
             <div class="row">
                 <div class="column1">
-                    <img class="image" src="images/icon-user.png" alt="IMG">
+                    <img class="image" src="../images/icon-user.png" alt="IMG">
                 </div>
                 <div class="column2">    
                     Votre compte est bien enregistré dans le service de livraison.
@@ -46,7 +46,7 @@
                     <br>
                 </div>
             </div>
-            <img class="image" src="images/logoISTY.png" alt="IMG">
+            <img class="image" src="../images/logoISTY.png" alt="IMG">
         </div>
     </body>
 </html>
