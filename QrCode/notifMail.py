@@ -24,17 +24,3 @@ msgHtml="Vous venez de recevoir une nouvelle livraison devant votre bureau : "+b
     <br/><br/>--<br/>Cordialement,<br/>entreprise XXX"
 
 send_email("[DELIVERY] Livraison au bureau "+bureau,mailDestinataire,"livraison effectuee",msgHtml)
-'''
-server=smtplib.SMTP('smtp.gmail.com',587)
-server.starttls()
-addresseMail2="wawane951@gmail.com"
-addresseMail="rescue.indoor.noreply@gmail.com"
-msg="ca va ou quoi chakal ?"
-msg['Message-ID'] = make_msgid()
-#addresseMail2=addresseMail
-mdp="cwlsvvcgxsalrvik"
-
-server.login(addresseMail,mdp)
-server.sendmail(addresseMail,addresseMail2,msg)
-server.quit()
-'''
