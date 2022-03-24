@@ -56,7 +56,7 @@ if __name__ == '__main__':
         listeBureauxPublisher()
     except rospy.ROSInterruptException:
         pass
-
+'''
 while True:
     # get the image
     _, img = cap.read()
@@ -79,3 +79,4 @@ while True:
     # pseudo-code   break
 # free camera object and exit
 cap.release()
+'''
