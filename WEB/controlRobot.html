@@ -118,6 +118,21 @@
   </head>
 
   <body>
+    <div class="divBoutons">
+      <div class="row">
+        <div class="colonne10">
+          <a href="menu.php">
+            <input  class="bouton-top" type="submit" value='retour'>
+          </a>
+        </div>
+        <div class="colonne11">
+          <a href="deconnexion.php">
+            <input  class="bouton-top" type="submit" value='Deconnexion'>
+          </a>
+        </div>
+      </div>
+    </div>
+
     <div class="divTop">
       <div id="statusIndicator">
         <p id="connecting">
@@ -133,6 +148,8 @@
           Connection closed.
         </p>
       </div>
+      
+
 
       <div class="divCenter">
         <img id="liveStream" src="http://192.168.43.197:8080/stream?topic=/cv_camera/image_raw" />
@@ -143,42 +160,37 @@
       </div>
 
     <div class="divBottom">
-      <form name="ctrlPanel">
-        <div class="main">
+      <form >
           <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="pubMessage(forwardTopic)" class="button-one">Avancer</button>
+            <input class="bouton" type="submit" value="Avancer"  id="sendMsg"  onclick="pubMessage(forwardTopic)">
           </div>
           <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="pubMessage(backwardTopic)" class="button-one">Reculer</button>
+            <input class="bouton" type="submit" value="Reculer"  id="sendMsg"  onclick="pubMessage(backwardTopic)">
           </div>
           <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="pubMessage(stopTopic)" class="button-one button-stop">Stop</button>
+            <input class="bouton" type="submit" value="Stop"  id="sendMsg" style="background:red" onclick="pubMessage(stopTopic)">
           </div>
           <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="pubMessage(leftTopic)" class="button-one">Gauche</button>
+            <input class="bouton" type="submit" value="Gauche"  id="sendMsg"  onclick="pubMessage(leftTopic)">
           </div>
           <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="pubMessage(rightTopic)" class="button-one">Droite</button>
-          </div>
-          <br><br>
-          <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="pubMessage(upTopic)" class="button-one">V+</button>
+            <input class="bouton" type="submit" value="Droite"  id="sendMsg"  onclick="pubMessage(rightTopic)">
           </div>
           <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="pubMessage(downTopic)" class="button-one">V-</button>
+            <input class="bouton" type="submit" value="V+"  id="sendMsg"  onclick="pubMessage(upTopic)">
           </div>
           <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="testMSG()" class="button-one">Test MSG</button>
+            <input class="bouton" type="submit" value="V-"  id="sendMsg"  onclick="pubMessage(downTopic)">
           </div>
-          <br><br>
           <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="pubMessage(openTopic)" class="button-one">Ouverture</button>
+            <input class="bouton" type="submit" value="Test MSG"  id="sendMsg"  onclick="testMSG()">
           </div>
-          <br><br>
           <div class="sub-main">
-            <button id="sendMsg" type="button" onclick="pubMessage(closeTopic)" class="button-one">Fermeture</button>
+            <input class="bouton" type="submit" value="Ouverture"  id="sendMsg"  onclick="pubMessage(openTopic)">
           </div>
-        </div>
+          <div class="sub-main">
+            <input class="bouton" type="submit" value="Fermeture"  id="sendMsg"  onclick="pubMessage(closeTopic)">
+          </div>
       </form>
     </div>
   </body>

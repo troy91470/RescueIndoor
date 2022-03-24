@@ -22,12 +22,12 @@ $officesTest='320;415';
 
 // Example
 
-if ( is_session_active() === FALSE ){
+if ( isSessionActive() === FALSE ){
     echo "session is not started !";
 } else {
     echo "session is started !";
 }
-//send_route($officesTest);
+//sendRoute($officesTest);
 ?>
 <button><a href="deconnexion.php">deco</a></button>
 </body>

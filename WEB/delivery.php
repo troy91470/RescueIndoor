@@ -12,7 +12,7 @@
 	require("functions.php");
 	require("logs.php");
 
-	if (!is_session_active()) 
+	if (!isSessionActive()) 
 	{
 		header('Location: index.php');
 	}
@@ -48,7 +48,7 @@
 				</a>
 			</div>
 
-        	<!-- Bouton de déconnexion -->
+			<!-- Bouton de déconnexion -->
 			<div class="colonne2">
 				<a href="deconnexion.php">
 					<input  class="bouton-top" type="submit" value='Deconnexion'>
@@ -77,19 +77,7 @@
 								</thead>
 								<tbody>
 										<?php	
-											// Connexion à la BDD
-											$lsConnexionBDD = new mysqli($gwServername, $gwUsername, $gwPassword); //variable permettant d'avoir la connexion au serveur SQL
-											mysqli_select_db($lsConnexionBDD, $gwDatabaseName);
-
-											// Vérifier la connexion
-											if($lsConnexionBDD -> connect_error) 
-											{
-												die("Connection failed: " . $lsConnexionBDD -> connect_error);
-											}
-											else
-											{
-												//S'il n'y a pas d'erreur à la connexion, on peut continuer normalement
-											}
+											$lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
 
 											$lsRequestUsers = "SELECT * FROM user"; //Requête SQL récupérant toutes les lignes de la BDD
 											$lsResultUsers = $lsConnexionBDD -> query($lsRequestUsers); //variable récupérant le résultat de la requête lsRequestUsers
@@ -103,10 +91,10 @@
 
 												if ($lnOffice !== NULL) 
 												{
-													$valeur_utilisateur="(".$lnOffice.",".$lwEmail.")";
+													$lwValueUser = "(".$lnOffice.",".$lwEmail.")"; //Couple bureau et email, exemple: "(314,a@mail.com)"
 													echo('<tr>
 														<td>
-															<input type="checkbox" class="demo" id="demo'.$lnNumeroLigne.'" name="office[]" value='.$valeur_utilisateur.'>
+															<input type="checkbox" class="demo" id="demo'.$lnNumeroLigne.'" name="office[]" value='.$lwValueUser.'>
 															<label for="demo'.$lnNumeroLigne.'"></label>
 														</td>
 														<td>'.$lnOffice.'</td>
@@ -115,6 +103,11 @@
 														<td>'.$lwEmail.'</td>
 													</tr>');
 												}
+												else
+												{
+													//Si l'utilisateur n'a pas de bureau, on ne peut pas le livrer, il ne faut donc pas l'afficher
+												}
+
 												$lnNumeroLigne++;
 											}	
 											mysqli_close($lsConnexionBDD);
@@ -151,39 +144,43 @@
 
 
 	<?php
-	if(isset($_POST['office']) && is_array($_POST['office']) && !empty($_POST['office'])){
-		$listOffices="";
-		$flag=0;
-		foreach($_POST['office'] as $valeur){
-			if ($flag==0) {
-				$listOffices = $listOffices."$valeur";
-				$flag=1;
-			} else {
-				$listOffices = $listOffices.";$valeur";
+		if(isset($_POST['office']) && is_array($_POST['office']) && !empty($_POST['office']))
+		{
+			$lvListOffices = ""; //liste de couples de valeurs d'utilisateurs, liste qui sera envoyée sur le RosBridge, exemple: "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
+			foreach($_POST['office'] as $valeur)
+			{
+					$lvListOffices = $lvListOffices."$valeur";
 			}
-			//echo("<script>alert('aaa |{$valeur}|')</script>");
-		}
 	?>
+
 	<script>
 		var ouvertureRemorque = new ROSLIB.Topic({
 			ros : rosServer,
 			name : '/OUVERTUREREMORQUE',
 			messageType : 'std_msgs/Empty'
 		});
+
 		var listeBureaux = new ROSLIB.Topic({
 			ros : rosServer,
 			name : '/listeTopic',
 			messageType : 'std_msgs/String'
 		});
+
 		var messageBureaux = new ROSLIB.Message({
-      		data: <?php echo($listOffices); ?> // "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
+      		data: <?php echo($lvListOffices); ?> 
     	});
+
       	listeBureaux.publish(messageBureaux);
 		ouvertureRemorque.publish();
 	</script>
+
 	<?php
-		echo("<script>alert('Envois des bureaux suivants : {$listOffices}')</script>");
-	}
+			echo("<script>alert('Envois des bureaux suivants : {$lvListOffices}')</script>");
+		}
+		else
+		{
+			//Sinon aucun bouton n'est cliqué et il ne se passe rien.
+		}
 	?>
 
 </body>
