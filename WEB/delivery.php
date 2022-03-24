@@ -48,7 +48,7 @@
 				</a>
 			</div>
 
-        	<!-- Bouton de déconnexion -->
+			<!-- Bouton de déconnexion -->
 			<div class="colonne2">
 				<a href="deconnexion.php">
 					<input  class="bouton-top" type="submit" value='Deconnexion'>
