@@ -4,7 +4,7 @@
 	Nom du projet: Rescue Indoor
 
 	But de la page: 
-		Sur cette page, l'utilisateur saisi un email et un mot de passe afin de se connecter. Si la connexion est réussie, la session de l'utilisateur est démarrée et l'utilisateur est redirigé sur la page menu.php. 
+		Sur cette page, l'utilisateur saisi un email et un mot de passe afin de se connecter. Si la connexion est réussie, la session de l'utilisateur est démarrée et l'utilisateur est redirigé sur la page adminMenu.php. 
 -->
 
 
@@ -13,7 +13,7 @@
 
 	if (isSessionActive()) 
 	{
-		header('Location: menu.php');
+		header('Location: adminMenu.php');
 	}
 ?>
 
@@ -40,7 +40,7 @@
 			<div class="container-login100">
 				<div class="wrap-login100">
 					<div class="login100-pic js-tilt" data-tilt>
-						<img src="images/img-01.png" alt="IMG">
+						<img src="images/logoISTY.png" alt="IMG">
 					</div>
 
 					<!-- Formulaire de connexion -->
@@ -99,12 +99,21 @@
 							$lbLogin = true;
 
 							session_start();
-							session_id($lwEmail);
+							session_id($lsLineUser['id_user']);
 							$_SESSION['count'] = 1;
-							$_SESSION[$email] = $lwEmail;
+							$_SESSION['email'] = $lwEmail;
+							$_SESSION['isAdmin'] = $lsLineUser['is_admin'];
 
 							mysqli_close($lsConnexionBDD);
-							header('Location: menu.php');
+
+							if($_SESSION['isAdmin'] == 1)
+							{
+								header('Location: adminMenu.php');
+							}
+							else
+							{
+								header('Location: userMenu.php');
+							}
 						}
 					}
 

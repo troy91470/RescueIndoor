@@ -43,7 +43,7 @@
 
 			<!-- Bouton de retour au menu -->
 			<div class="colonne1">
-				<a href="menu.php">
+				<a href="adminMenu.php">
 					<input  class="bouton-top" type="submit" value='retour'>
 				</a>
 			</div>

@@ -8,9 +8,8 @@
 	
 	$lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
 					
-	$lsRequestUsers = "SELECT * FROM user";
-	$resultatUtilisateurs = $lsConnexionBDD -> query($lsRequestUsers);
-	$users=array();
+	$lsRequestSelectUsers = "SELECT * FROM user"; //requête selectionnant les utilisateurs
+	$lsResultUsers = $lsConnexionBDD -> query($lsRequestSelectUsers); //résultat de la requête lsRequestSelectUsers
 ?>
 
 <!DOCTYPE html>
@@ -28,11 +27,15 @@
 	</head>
 
 	<div class="row">
+
+		<!-- Bouton de retour au menu -->
 		<div class="colonne10">
-			<a href="menu.php">
+			<a href="adminMenu.php">
 				<input  class="bouton-top" type="submit" value='retour'>
 			</a>
 		</div>
+
+		<!-- Bouton de déconnexion -->
 		<div class="colonne11">
 			<a href="deconnexion.php">
 				<input  class="bouton-top" type="submit" value='Deconnexion'>
@@ -45,54 +48,65 @@
 	<body>
 
 		<?php
-			while ($ligneUtilisateur = $resultatUtilisateurs -> fetch_assoc()) 
+			while ($lsLineUser = $lsResultUsers -> fetch_assoc()) //lsLineUser récupère ligne par ligne les données de lsResultUsers
 			{
-				$idUser = $ligneUtilisateur['id_user'];
-				$bureauUtilisateur = $ligneUtilisateur['id_user'];
+				$lnIdUser = $lsLineUser['id_user']; //id de l'utilisateur correspondant à la ligne lue
 		?>
 
+        		<!-- Liste des utilisateurs existants déjà dans la BDD -->
 				<details>
-					<summary><?php echo $ligneUtilisateur['first_name'].'  '.$ligneUtilisateur['second_name'] ?></summary>
+					<summary><?php echo $lsLineUser['first_name'].'  '.$lsLineUser['second_name'] ?></summary>
 					<form method="post">
 						<div class="row">
+						    <!-- Prénom de l'utilisateur déplié -->
 							<div class="column1">
 								<label for="first_name">Prénom</label>
-							</div>					
-							<div class="column2">
-								<input class="saisie" type="text" name="firstNameModif" placeholder="<?php echo $ligneUtilisateur['first_name']?>"> 
 							</div>		
+							<div class="column2">
+								<input class="saisie" type="text" name="firstNameModif" placeholder="<?php echo $lsLineUser['first_name']?>"> 
+							</div>	
+							
+							 <!-- Nom de l'utilisateur déplié -->
 							<div class="column1">
 								<label for="second_name">Nom</label>
 							</div>	
 							<div class="column2">
-								<input class="saisie" type="text" name="secondNameModif" placeholder="<?php echo $ligneUtilisateur['second_name']?>">
+								<input class="saisie" type="text" name="secondNameModif" placeholder="<?php echo $lsLineUser['second_name']?>">
 							</div>
 						</div>
 
 						<div class="row">
+							<!-- Email de l'utilisateur déplié -->
 							<div class="column3">
 								<label for="emailModifier">Adresse mail</label>
 							</div>
 							<div class="column4">
-								<input class="saisie" type="text" name="emailModif" placeholder="<?php echo $ligneUtilisateur['email']?>"> 
+								<input class="saisie" type="text" name="emailModif" placeholder="<?php echo $lsLineUser['email']?>"> 
 							</div>
+
+							<!-- Numéro de bureau de l'utilisateur déplié -->
 							<div class="column1">
 								<label for="bureau">Bureau</label>
 							</div>
 							<div class="column2">	
 								<div class="quantity">
-									<input type="number" name="officeModif" min="1" max="10240" step="1" value="<?php echo $ligneUtilisateur['office']?>">
+									<input type="number" name="officeModif" min="1" max="10240" step="1" value="<?php echo $lsLineUser['office']?>">
 								</div>
 							</div>
 						</div>
-						<input type="text" value="<?php echo $idUser?>" hidden name="idUser">
+						<input type="text" value="<?php echo $lnIdUser?>" hidden name="idUser">
+
 						<div class="row">
+							<!-- Bouton de modification de l'utilisateur déplié -->
 							<div class="column5">
 								<input class="bouton" type="submit" value="Modifier" name="option">
-							</div>	
+							</div>
+
+							<!-- Bouton de suppression de l'utilisateur déplié -->
 							<div class="column5">
 								<input class="bouton" type="submit" value="Supprimer" name="option">
 							</div>
+
 						</div>
 					</form>
 				</details>
@@ -107,12 +121,15 @@
 
 			<form method="post">
 				<div class="row">
+					<!-- Prénom de l'employé à ajouter -->
 					<div class="column1">
 						<label for="firstName">Prénom</label>
 					</div>
 					<div class="column2">
 						<input class="saisie" type="text" placeholder="Prénom de l'employé" name="firstName" required>
 					</div>
+
+					<!-- Nom de l'employé à ajouter -->
 					<div class="column1">
 						<label for="secondName">Nom</label>
 					</div>
@@ -121,13 +138,17 @@
 					</div>
 				</div>
 
+
 				<div class="row">
+					<!-- Adresse mail de l'employé à ajouter -->
 					<div class="column3">
 						<label for="emailAjouter">Adresse mail</label>
 					</div>
 					<div class="column4">
 						<input class="saisie" type="text" placeholder="Email de l'employé" name="emailAjouter" required>
 					</div>
+
+					<!-- Numéro de bureau de l'employé à ajouter -->
 					<div class="column1">
 						<label for="office">Bureau</label>
 					</div>
@@ -138,13 +159,17 @@
 					</div>
 				</div>
 
+
 				<div class="row">
+					<!-- Mot de passe de l'employé à ajouter -->
 					<div class="column3">
 						<label for="password">Mot de passe</label>
 					</div>
 					<div class="column2">
 						<input class="saisie" type="password" placeholder="Mot de passe" name="password" required>
 					</div>
+
+					<!-- Booléen indiquant si l'employé à ajouter est un administrateur ou non -->
 					<div class="column3">
 						<label for="isAdmin">Administrateur</label>	
 					</div>
@@ -153,12 +178,16 @@
 						<label for="demo1"></label>
 					</div>
 				</div>
+
+
 				<div class="row">
+					<!-- Bouton d'ajout de l'utilisateur -->
 					<div class="column6">
 						<input class="bouton" type="submit" value="Ajouter" name="option">
-						</div>
 					</div>
 				</div>
+			</div>
+
 
 			<?php
 				//modification de l'employé dans la BDD
