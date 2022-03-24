@@ -88,6 +88,11 @@
         name : 'closedoor',
         messageType : 'std_msgs/Empty'
     });
+    var lineFolllower = new ROSLIB.Topic({
+        ros : rosServer,
+        name : 'linefollow',
+        messageType : 'std_msgs/Empty'
+    });
 
     /* This function:
     - retrieves numeric values from the text boxes
@@ -190,6 +195,9 @@
           </div>
           <div class="sub-main">
             <input class="bouton" type="submit" value="Fermeture"  id="sendMsg"  onclick="pubMessage(closeTopic)">
+          </div>
+          <div class="sub-main">
+            <input class="bouton" type="submit" value="Fermeture"  id="lineFolllower"  onclick="pubMessage(lineFolllower)">
           </div>
       </form>
     </div>
