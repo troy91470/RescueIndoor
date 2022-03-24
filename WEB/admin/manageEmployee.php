@@ -1,9 +1,9 @@
 <?php
-	require("functions.php");
+	require("../functions.php");
 	
 	if (!isSessionActive()) 
 	{
-		header('Location: index.php');
+		header('Location: ../index.php');
 	}
 	
 	$lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
@@ -21,8 +21,8 @@
 
 		<!-- Packages CSS -->
 		<!--===============================================================================================-->	
-		<link rel="icon" type="image/png" href="images/icons/admin.ico"/>
-		<link rel="stylesheet" type="text/css" href="css/manageEmployee.css">
+		<link rel="icon" type="image/png" href="../images/icons/admin.ico"/>
+		<link rel="stylesheet" type="text/css" href="../css/manageEmployee.css">
 		<!--===============================================================================================-->	
 	</head>
 
@@ -30,14 +30,14 @@
 
 		<!-- Bouton de retour au menu -->
 		<div class="colonne10">
-			<a href="adminMenu.php">
+			<a href="menu.php">
 				<input  class="bouton-top" type="submit" value='retour'>
 			</a>
 		</div>
 
 		<!-- Bouton de déconnexion -->
 		<div class="colonne11">
-			<a href="deconnexion.php">
+			<a href="../deconnexion.php">
 				<input  class="bouton-top" type="submit" value='Deconnexion'>
 			</a>
 		</div>
@@ -230,7 +230,7 @@
 			?>
 			</form> <!-- ajout employe -->
 		</details>
-		<script src="js/manageEmployee.js"></script>
+		<script src="../js/manageEmployee.js"></script>
 	</body>
 </html>
 

@@ -15,16 +15,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" type="image/png" href="images/icons/menu.ico"/>
+        <link rel="icon" type="image/png" href="../images/icons/menu.ico"/>
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="css/menu.css">
+        <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/menu.css">
     <!--===============================================================================================-->
     </head>
 
     <body>
         	<!-- Bouton de déconnexion -->
-            <a href="deconnexion.php">
+            <a href="../deconnexion.php">
                 <input  class="deconnexion" type="submit" value='Deconnexion'>
             </a>
 
@@ -39,8 +39,8 @@
             </a>
 
             <!-- Bouton pour aller sur la page de contrôle du robot -->
-            <a href="controlRobot.php" style="text-decoration:none">
-                <input  class="bouton" type="submit" value='Contrôle à distance'>
+            <a href="controlRobot.php" style="text-decoration:none">    
+                <input class="bouton" type="submit" value='Contrôle à distance'>
             </a>
     </body>
 </html>

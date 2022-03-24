@@ -13,7 +13,14 @@
 
 	if (isSessionActive()) 
 	{
-		header('Location: adminMenu.php');
+		if($_SESSION['isAdmin'] == 1)
+		{
+			header('Location: admin/menu.php');
+		}
+		else
+		{
+			header('Location: user/menu.php');
+		}
 	}
 ?>
 
@@ -108,11 +115,11 @@
 
 							if($_SESSION['isAdmin'] == 1)
 							{
-								header('Location: adminMenu.php');
+								header('Location: admin/menu.php');
 							}
 							else
 							{
-								header('Location: userMenu.php');
+								header('Location: user/menu.php');
 							}
 						}
 					}

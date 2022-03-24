@@ -1,9 +1,9 @@
 <?php
-	require("functions.php");
+	require("../functions.php");
 	
-	if (!isSessionActive() || $_SESSION['isAdmin'] !== 1) 
+	if (!isSessionActive()) 
 	{
-		header('Location: index.php');
+		header('Location: ../index.php');
 	}
 ?>
 
@@ -12,7 +12,7 @@
   <head>
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="css/control_ros.css">
+    <link rel="stylesheet" type="text/css" href="../css/control_ros.css">
 
     <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
     <script src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
@@ -135,12 +135,12 @@
     <div class="divBoutons">
       <div class="row">
         <div class="colonne10">
-          <a href="adminMenu.php">
+          <a href="menu.php">
             <input  class="bouton-top" type="submit" value='retour'>
           </a>
         </div>
         <div class="colonne11">
-          <a href="deconnexion.php">
+          <a href="../deconnexion.php">
             <input  class="bouton-top" type="submit" value='Deconnexion'>
           </a>
         </div>
