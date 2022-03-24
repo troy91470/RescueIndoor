@@ -34,12 +34,12 @@
             </a>
 
             <!-- Bouton pour aller sur la page de gestion d'employés -->
-            <a href="managementEmployee.php" style="text-decoration:none">    
+            <a href="manageEmployee.php" style="text-decoration:none">    
                 <input class="bouton" type="submit" value='Gestion'>
             </a>
 
             <!-- Bouton pour aller sur la page de contrôle du robot -->
-            <a href="robotControl.html" style="text-decoration:none">
+            <a href="controlRobot.html" style="text-decoration:none">
                 <input  class="bouton" type="submit" value='Contrôle à distance'>
             </a>
     </body>
