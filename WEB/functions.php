@@ -53,7 +53,7 @@
     {
         $lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
         $lsRequestEmailExists = "SELECT count(*) FROM user WHERE email='".$pwEmail."'"; //requête comptant le nombre de fois où l'email spécifié est dans la BDD (est censé être 0 ou 1)
-        $lsResult = $lsConnexionBDD -> query($requeteUserExists); //résultat de la requête lsRequestEmailExists
+        $lsResult = $lsConnexionBDD -> query($lsRequestEmailExists); //résultat de la requête lsRequestEmailExists
         $lsResult = $lsResult -> fetch_array();
         return (bool) ($lsResult[0]);
     }
@@ -148,7 +148,8 @@
     {
         $lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
 
-        $lbEmailAlreadyExists = isEmailAlreadyExists($lwEmail); //Variable qui contient le booléen vrai si l'email existe dans la BDD, sinon renvoie faux
+        $lbEmailAlreadyExists = isEmailAlreadyExists($pwEmail); //Variable qui contient le booléen vrai si l'email existe dans la BDD, sinon renvoie faux
+
         if($lbEmailAlreadyExists) //si l'email existe déjà dans la BDD
         {
             echo "<script>alert('Cette adresse mail est déjà utilisée.')</script>";
@@ -160,16 +161,16 @@
         else //sinon on crée l'utilisateur
         {
             $lwHachedPassword = password_hash($pwPassword, PASSWORD_DEFAULT); //hache le mot de passe du nouvel utilisateur
-            if($pbIsAdmin != NULL)
+            if($pnOffice != NULL)
             {
-                $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,email,password,office,is_admin) VALUES ('".$pwFirstName."','".$pwSecondName."','".$pwEmail."','".$lwHachedPassword."','".$pnOffice."','".$pbIsAdmin."')"; 
+                $lwRequestInsertEmployee = "INSERT INTO user (first_name,second_name,email,password,office,is_admin) VALUES ('".$pwFirstName."','".$pwSecondName."','".$pwEmail."','".$lwHachedPassword."','".$pnOffice."','".$pbIsAdmin."')"; //insère un nouvel utilisateur avec bureau
             }
             else
             {
-                $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,email,password,is_admin) VALUES ('".$pwFirstName."','".$pwSecondName."','".$pwEmail."','".$lwHachedPassword."','".$pbIsAdmin."')"; 	
+                $lwRequestInsertEmployee = "INSERT INTO user (first_name,second_name,email,password,is_admin) VALUES ('".$pwFirstName."','".$pwSecondName."','".$pwEmail."','".$lwHachedPassword."','".$pbIsAdmin."')"; //insère un nouvel utilisateur sans bureau
             }
             
-            $lsConnexionBDD -> query($requeteInsertEmployes);
+            $lsConnexionBDD -> query($lwRequestInsertEmployee);
             mysqli_close($lsConnexionBDD);
 
             echo "<script>window.location=window.location;</script>";
