@@ -39,7 +39,7 @@
             </a>
 
             <!-- Bouton pour aller sur la page de contrôle du robot -->
-            <a href="controlRobot.html" style="text-decoration:none">
+            <a href="controlRobot.php" style="text-decoration:none">
                 <input  class="bouton" type="submit" value='Contrôle à distance'>
             </a>
     </body>
