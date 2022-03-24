@@ -28,16 +28,14 @@ import cv2
 import rospy
 from std_msgs.msg import String
 
-memo = ""
-
-# set up camera object
-cap = cv2.VideoCapture(0)
-
-# QR code detection object
-detector = cv2.QRCodeDetector()
 
 
 def listeBureauxPublisher():
+    memo = ""
+    # set up camera object
+    cap = cv2.VideoCapture(0)
+    # QR code detection object
+    detector = cv2.QRCodeDetector()
     pub = rospy.Publisher('listeTopic', String, queue_size=10)
     rospy.init_node('talker', anonymous=True)
     rate = rospy.Rate(1) # 1hz
@@ -51,6 +49,7 @@ def listeBureauxPublisher():
                     rospy.loginfo(data)
                     pub.publish(data)
                     rate.sleep()
+
 if __name__ == '__main__':
     try:
         listeBureauxPublisher()
