@@ -1,3 +1,13 @@
+<!-- 
+	Auteurs: Marwane BARAHOUI (IATIC4), Clément ROBIN (IATIC4), et Thomas ROY (IATIC4)
+
+	Nom du projet: Rescue Indoor
+
+	But de la page: 
+		Sur cette page, l'utilisateur peut choisir d'aller sur la page de livraison, de gestion d'employés, ou de contrôle du robot. L'utilisateur peut aussi se déconnecter.
+-->
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,17 +23,23 @@
     </head>
 
     <body>
-
+        	<!-- Bouton de déconnexion -->
             <a href="deconnexion.php">
                 <input  class="deconnexion" type="submit" value='Deconnexion'>
             </a>
-            <a href="listeEmployes.php" style="text-decoration:none">
+
+            <!-- Bouton pour aller sur la page de livraison -->
+            <a href="delivery.php" style="text-decoration:none">
                     <input  class="bouton" type="submit" value='Livraison'>
             </a>
-            <a href="gestionEmployes.php" style="text-decoration:none">    
+
+            <!-- Bouton pour aller sur la page de gestion d'employés -->
+            <a href="manageEmployee.php" style="text-decoration:none">    
                 <input class="bouton" type="submit" value='Gestion'>
             </a>
-            <a href="ros_test.html" style="text-decoration:none">
+
+            <!-- Bouton pour aller sur la page de contrôle du robot -->
+            <a href="controlRobot.html" style="text-decoration:none">
                 <input  class="bouton" type="submit" value='Contrôle à distance'>
             </a>
     </body>
