@@ -1,0 +1,390 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap");
+
+@font-face {
+    font-family: OpenSans-Regular;
+    src: url('../fonts/OpenSans/OpenSans-Regular.ttf'); 
+}
+
+@font-face {
+    font-family: Montserrat-Bold;
+    src: url('../fonts/montserrat/Montserrat-Bold.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-Medium;
+  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+}
+
+
+
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+	font-size: 15px;
+	font-family: OpenSans-Regular;
+  background: #9053c7;
+  background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  display: block;
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: block;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+
+}
+
+
+input {
+    outline: none;
+    border: none;
+}
+
+
+
+
+details {
+    width: 33%;
+    margin: auto;
+    padding: 0px;
+    background: white;
+    margin-bottom: .5rem;
+    box-shadow: 0 .1rem 1rem -.5rem rgba(0, 0, 0, 0);
+    border-radius: 10px; 
+    overflow: hidden;
+  }
+  
+summary {
+  padding: 1rem;
+  display: block;
+  background: #36304a;
+  padding-left: 2.2rem;
+  position: relative; 
+  cursor: pointer;
+  color: white;
+}
+
+  
+summary:before {
+  content: '';
+  border-width: .4rem;
+  border-style: solid;
+  border-color: transparent transparent transparent white;
+  position: absolute;
+  top: 1.3rem;
+  left: 1rem;
+  transform: rotate(0);
+  transform-origin: .2rem 50%;
+  transition: .25s transform ease;
+}
+  
+details[open] > summary:before {
+    transform: rotate(90deg);
+}
+  
+  
+details summary::-webkit-details-marker {
+  display:none;
+}
+  
+details > ul {
+  padding-bottom: 1rem;
+  margin-bottom: 0;
+}
+
+
+
+.saisie {
+    font-family: Poppins-Medium;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #666666;
+    display: inline-flex;
+    width: 150px;
+    background: #e6e6e6;
+    height: 40px;
+    border-radius: 20px;
+    padding: 0 0px 0 15px;
+}
+
+
+
+.ajoutBackground {
+  background-color: #57b846;;
+}
+
+
+/*** BOUTON **/
+
+.bouton {
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    background: #57b846;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2px;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.bouton:hover {
+    background: #333333;
+}
+
+.bouton:active {
+    background: #a1a1a1;
+}
+
+
+/*/////////////////////////////*/
+.quantity {
+  position: relative;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number]
+{
+  -moz-appearance: textfield;
+}
+
+.quantity input {
+  width: 60px;
+  height: 42px;
+  line-height: 1.65;
+  float: left;
+  display: block;
+  padding: 0;
+  margin: 0;
+  padding-left: 20px;
+  background-color: #e6e6e6;
+  color: #666666;
+  border-radius: 20px;
+}
+
+.quantity input:focus {
+  outline: 0;
+}
+
+.quantity-nav {
+  float: left;
+  position: relative;
+  height: 42px;
+}
+
+.quantity-button {
+  position: relative;
+  cursor: pointer;
+  border-left: 1px solid #eee;
+  width: 20px;
+  text-align: center;
+  color: #333;
+  font-size: 13px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+  line-height: 1.7;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.quantity-button.quantity-up {
+  position: absolute;
+  height: 50%;
+  top: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.quantity-button.quantity-down {
+  position: absolute;
+  bottom: -1px;
+  height: 50%;
+}
+
+
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Checkbox ]*/
+
+input[type="checkbox"].demo {
+  display: none;
+}
+input[type="checkbox"].demo + label {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 1.5rem;
+  padding:2px;
+  background-color: #808080 ;
+  transition: all 0.5s ;
+}
+input[type="checkbox"].demo + label::before {
+  box-sizing: border-box;
+  display: block;
+  content: "";
+  height: calc(1.5rem - 4px);
+  width: calc(1.5rem - 4px);
+  border-radius: 50%;
+  background-color: #fff;
+  transition: all 0.5s ;
+}
+input[type="checkbox"].demo:checked + label {
+  background-color: #57b846 ;
+}
+input[type="checkbox"].demo:checked + label::before {
+  margin-left: 1.5rem ;
+}
+
+
+.column1 {
+  float: left;
+  width: 14%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.column2 {
+  float: left;
+  width: 22%;
+  padding: 0px;
+  margin: 10px;
+}
+
+.column3 {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.column4 {
+  float: left;
+  width: 25%;
+  padding: 0px;
+  margin: 10px;
+}
+
+.column5 {
+  float: left;
+  width: 25%;
+  padding: 10px;
+  margin: 10px;
+}
+
+
+.column6 {
+  float: left;
+  width: 5%;
+  padding: 10px;
+  margin: 0px;
+}
+
+.column7 {
+  float: left;
+  width: 10%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.column8 {
+  float: left;
+  width: 8%;
+  padding: 10px;
+  margin: 0px;
+}
+
+.column9 {
+  float: left;
+  width: 8%;
+  padding: 10px;
+  margin: 10px;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.titre {
+  font-family: Montserrat-Bold;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  padding-top: 20px;
+}
+
+
+.bouton-top   {
+  font-family: Montserrat-Bold;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+  width: 100px;
+  height: 40px;
+  border-radius: 25px;
+  background: #57b846;
+  justify-content: center;
+  align-items: center;
+  
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  margin-left: 5%;
+  
+}
+
+.bouton-top:hover {
+  background: #333333;
+}
+
+.bouton-top:active {
+  background: #a1a1a1;
+}
+
+.colonne10 {
+  float: left;
+  width: 90%;
+  margin-top: 0%;
+}
+.colonne11 {
+  float: left;
+  width: 10%;
+  margin-top: 0%;
+}

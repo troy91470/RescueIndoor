@@ -1,0 +1,31 @@
+Ros
+
+elemnt de base de ros
+
+installer le pack d'extension + vm 15
+
+roscore
+
+rostopic
+
+topic = variables partager , permet d'echanger des donne et aussi d'appeler des fonctions
+
+publier sur le topic / Lire sur le topic
+
+mettre tous les prog dans catkin_ws
+
+roslaunch : permet de lancer plusieurs rosrun (+-= Make)
+
+service fonction que l'on peut metre a disposition des autres
+
+catkin create package
+
+cmakelist + package
+
+compil : catkin nompackage
+
+subcribe("topic",1,functon Call bacck) : file d'attente
+
+advertise ("topic",1) 1 : file d'attente
+
+publish("jsp")

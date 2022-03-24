@@ -35,24 +35,45 @@
         }
 
         mysqli_close($connexionBDD);
-        header("Refresh:0");        
+        echo "<script>window.location=window.location;</script>";
     }
 
-function verification_same_person($first_name, $second_name){
+function user_exists_already($email){
     $connexionBDD = connexion_bd();
-    $requeteSelectSamePerson = "SELECT count(*) FROM user WHERE first_name='".$first_name."' and second_name='".$second_name."'";
-    $result = $connexionBDD -> query($requeteSelectSamePerson);
+    $requeteUserExists = "SELECT count(*) FROM user WHERE email='".$email."'";
+    $result = $connexionBDD -> query($requeteUserExists);
     $result = $result -> fetch_array();
     return (bool) ($result[0]);
 }
 
-function modification_employe($idUser, $first_name, $second_name, $office)
+function modification_employe($idUser, $email, $first_name, $second_name, $office)
 {
     $connexionBDD = connexion_bd();
 
+    $emailModif = $email;
     $firstNameModif = $first_name;
     $secondNameModif = $second_name;
     $officeModif = $office;
+
+    if($emailModif == NULL)
+    {
+        $requeteSelectFirstName = "SELECT email FROM user WHERE id_user='".$idUser."'";
+        $emailModif = $connexionBDD -> query($requeteSelectFirstName);
+        $emailModif = $emailModif -> fetch_array()[0];
+    }
+    else
+    {
+        if(!filter_var($emailModif, FILTER_VALIDATE_EMAIL)){
+            $emailModif = -1;
+            echo "<script>alert('Adresse mail non valide.')</script>";
+        }
+
+        $existsAlready = user_exists_already($emailModif);
+        if($existsAlready){
+            $emailModif = -1;
+            echo "<script>alert('Cette adresse mail est déjà utilisée.')</script>";
+        }
+    }
 
     if($firstNameModif == NULL)
     {
@@ -73,32 +94,44 @@ function modification_employe($idUser, $first_name, $second_name, $office)
         $officeModif = $officeModif -> fetch_array()[0];
     }
 
-    $requeteUpdateEmployes = "UPDATE user SET first_name='".$firstNameModif."', second_name='".$secondNameModif."', office=".$officeModif." WHERE id_user=".$idUser; 	
-    $connexionBDD -> query($requeteUpdateEmployes);
+    if($emailModif != -1)
+    {    
+        $requeteUpdateEmployes = "UPDATE user SET email='".$emailModif."', first_name='".$firstNameModif."', second_name='".$secondNameModif."', office=".$officeModif." WHERE id_user=".$idUser; 	
+        $connexionBDD -> query($requeteUpdateEmployes);
+        echo "<script>window.location=window.location;</script>";
+    }
 
     mysqli_close($connexionBDD);
-    header("Refresh:0");
 }
 
-function ajout_employe($first_name, $second_name, $office, $password, $isAdmin)
+function ajout_employe($email, $first_name, $second_name, $office, $password, $isAdmin)
 {
     $connexionBDD = connexion_bd();
 
-    $existsAlready = verification_same_person($first_name, $second_name);
+    //TODO -> test mail
+
+    $existsAlready = user_exists_already($email);
     if($existsAlready){
-        echo "<script>alert('Cette personne existe déjà dans la base de donnée.')</script>";
+        echo "<script>alert('Cette adresse mail est déjà utilisée.')</script>";
+    }
+    else if(!filter_var($_POST['emailAjouter'], FILTER_VALIDATE_EMAIL)){
+        echo "<script>alert('Adresse mail non valide.')</script>";
     }
     else{
         $hachedPassword = password_hash($password, PASSWORD_DEFAULT);
         if($office != NULL)
-            $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,office,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."','".$office."',".$isAdmin.")"; 	
+        {
+            $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,email,password,office,is_admin) VALUES ('".$first_name."','".$second_name."','".$email."','".$hachedPassword."','".$office."','".$isAdmin."')"; 
+        }
         else
-            $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$hachedPassword."','".$isAdmin.")"; 	
+        {
+            $requeteInsertEmployes = "INSERT INTO user (first_name,second_name,email,password,is_admin) VALUES ('".$first_name."','".$second_name."','".$email."','".$hachedPassword."','".$isAdmin."')"; 	
+        }
         
         $connexionBDD -> query($requeteInsertEmployes);
         mysqli_close($connexionBDD);
 
-        header("Refresh:0");
+        echo "<script>window.location=window.location;</script>";
     }
 }
 
