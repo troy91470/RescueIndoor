@@ -4,7 +4,7 @@
 	Nom du projet: Rescue Indoor
 
 	But de la page: 
-		Sur cette page, l'utilisateur peut choisir d'aller sur la page de livraison, de gestion d'employés, ou de contrôle du robot. L'utilisateur peut aussi se déconnecter.
+		Sur cette page, l'utilisateur peut choisir savoir qu'il est inscrit dans le système. L'utilisateur peut aussi se déconnecter.
 -->
 
 
@@ -37,14 +37,14 @@
                     <br>
                     - Vous venez de recevoir un mail pour vous indiquez que vous avez 5 minutes pour récupérer votre colis devant votre bureau.
                     <br>
-                    - Vous n'avons pas de livraison programmer pour le moment.
+                    - Vous n'avons pas de livraison programmé pour le moment.
                     <br>
                     <br> <br> <br>
                     <div class="remarque">   
                         Remarque : Si vous avez manquez la livraison de votre colis, vous pouvez venir le chercher plus tard au bureau de l'administrateur selon ses horaires.
                     </div>
                     <br>
-            <img class="image1" src="../images/logoIsty.png" alt="IMG">
+            <img class="image1" src="../images/logoIsty.png" alt="logo_isty">
         </div>
     </body>
 </html>
