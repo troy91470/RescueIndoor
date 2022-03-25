@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Testing QR code</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            function generateBarCode()
+            {
+                var nric = $('#text').val();
+                var url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + nric + '&amp;size=50x50';
+                $('#barcode').attr('src', url);
+                $('#barcode').attr('title', nric);
+            }
+        </script>
+    </head>
+    <body>
+        <h1>génération de qr code</h1>
+        <form method="post">
+            <input id="text" type="text" 
+                placeholder="NRIC or Work Permit" style="Width:20%" value="<?php echo($data); ?>"
+                onkeypress='generateBarCode();' onblur='generateBarCode();'/> 
+        </form>
+
+        <img id='barcode' 
+            src="https://api.qrserver.com/v1/create-qr-code/?data=314&amp;size=100x100" 
+            alt="" 
+            title="HELLO" 
+            width="100" 
+            height="100" />
+    </body>
+</html>
