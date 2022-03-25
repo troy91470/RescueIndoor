@@ -7,6 +7,7 @@ Pour configurer le serveur web, il faut :
 - ensuite, lancer lampp : `sudo /opt/lampp/lampp start`,
 - effectuer le code SQL de BDD/projet.sql avec le service MySQL 
     -   Avec lampp, le service phpMyAdmin (`http://localhost/phpmyadmin/`) permet une importation plus facile avec toujours le fichier BDD/projet.sql
+-   modifier la valeur de l'adresse IP en ligne 35 de `admin/controlRobot.php` avec celle de la raspberry pour se connecter au rosbridge
 ## Dossier conf
 
 Ensemble des fichiers de configurations necessaires.
