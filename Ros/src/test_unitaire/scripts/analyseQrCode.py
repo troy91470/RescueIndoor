@@ -3,7 +3,7 @@
 import qrcode
 import cv2
 
-# QR code detection object
+# QR code detection objet
 detector = cv2.QRCodeDetector()
 
 img = cv2.imread("png_random2.jpg")

@@ -5,8 +5,14 @@ from email.message import EmailMessage
 from email.headerregistry import Address
 from email.utils import make_msgid
 
+'''
+subject : objet du mail
+receiver : adresse de destination du mail
+plain_text : message sans formatage html
+html_text : message avec formatage html
+'''
 def send_email(subject, receiver, plain_text, html_text):
-    msg = EmailMessage()
+    msg = EmailMessage() % subject
     msg['Message-ID'] = make_msgid()
     msg['Subject'] = subject
     msg['From'] = Address("delivery robot", "robot", 'gmail.com')
@@ -19,16 +25,17 @@ def send_email(subject, receiver, plain_text, html_text):
     server.send_message(msg)
     server.quit()
 
-# "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
-data="(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
-
+# mail de destination
 mailDestinataire="thomas.roy91470@gmail.com"
+# bureau de la personne destinataire
 bureau="415"
+# message avec un formatage html
 msgHtml="Vous venez de recevoir une nouvelle livraison devant votre bureau : "+bureau+".<br/>Veuillez venir le chercher dans moins de 5 minutes si vous le pouvez.\
     <br/>Dans le cas contraire, vous pouvez venir le chercher plus tard au bureau de l'administrateur selon ses horaires.\
-    <br/><br/>--<br/>Cordialement,<br/>entreprise XXX"
+    <br/><br/>--<br/>Cordialement,<br/>l'administration"
+# message sans format html
 msgTxt="Vous venez de recevoir une nouvelle livraison devant votre bureau : "+bureau+".<br/>Veuillez venir le chercher dans moins de 5 minutes si vous le pouvez.\
     \nDans le cas contraire, vous pouvez venir le chercher plus tard au bureau de l'administrateur selon ses horaires.\
-    \n\n--\nCordialement,\nentreprise XXX"
+    \n\n--\nCordialement,\nl'administration"
 
 send_email("[DELIVERY] Livraison au bureau "+bureau,mailDestinataire, msgTxt, msgHtml)
