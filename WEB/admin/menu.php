@@ -50,5 +50,11 @@ if (!isSessionActive() || $_SESSION['isAdmin'] != 1)
             <a href="controlRobot.php" style="text-decoration:none">    
                 <input class="bouton" type="submit" value='Contrôle à distance'>
             </a>
+
+            <!-- Bouton pour aller sur la page de génération de QR code pour les bureaux -->
+            <a href="qrcode.php" style="text-decoration:none">    
+                <input class="bouton" type="submit" value='Generer un qrcode'>
+            </a>
+
     </body>
 </html>
