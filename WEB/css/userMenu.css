@@ -51,7 +51,7 @@ input {
 }
 
 .message {
-    font-size: 18px;
+    font-size: 24px;
     color: #fff;
     justify-content: center;
     align-items: center;
@@ -60,14 +60,24 @@ input {
     display: block;
 }
 
-.image {
+.image1 {
     width:50%;
     height:50%;
     padding-left: 25%;
+    margin-top: 10%;
+}
+
+.image2 {
+    width:284px;
+    height:260px;
+    padding-left: 20%;
+    float: left;
+    margin: 0 10px 10px 0;
+    margin-right: 10%;
 }
 
 .column1 {
-    width: 20%;
+    width: 10%;
     text-align: left;
 }
 .column2 {
@@ -79,4 +89,8 @@ input {
     content: "";
     display: table;
     clear: both;
+}
+
+.remarque {
+    font-size: 15px;
 }
