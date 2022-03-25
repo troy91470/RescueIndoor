@@ -1,9 +1,14 @@
+/* Clément ROBIN */
+
+
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap");
 
 @font-face {
     font-family: OpenSans-Regular;
     src: url('../fonts/OpenSans/OpenSans-Regular.ttf'); 
 }
+
+/* Font */
 
 @font-face {
     font-family: Montserrat-Bold;
@@ -15,7 +20,7 @@
   src: url('../fonts/poppins/Poppins-Medium.ttf'); 
 }
 
-
+/* /////// */
 
 * {
 	margin: 0px; 
@@ -53,8 +58,7 @@ input {
     border: none;
 }
 
-
-
+/* Détails et summary */
 
 details {
     width: 33%;
@@ -105,7 +109,9 @@ details > ul {
   margin-bottom: 0;
 }
 
+/* /////// */
 
+/* Zone de saisie input */
 
 .saisie {
     font-family: Poppins-Medium;
@@ -125,6 +131,7 @@ details > ul {
 .ajoutBackground {
   background-color: #57b846;;
 }
+/* /////// */
 
 
 /*** BOUTON **/
