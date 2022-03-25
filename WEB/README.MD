@@ -3,7 +3,7 @@
 Application web d'administration de l'environnemet du robot.
 Pour configurer le serveur web, il faut :
 - installer le package lampp,
-- ajouter au fichier de configuration d'apache (/opt/lampp/apache2/conf/httpd.conf), le contenu de conf/apache.conf,
+- ajouter au fichier de configuration d'apache `/opt/lampp/apache2/conf/httpd.conf`, le contenu de `conf/apache.conf` trouvable dans ce répertoire,
 - ensuite, lancer lampp : `sudo /opt/lampp/lampp start`,
 - effectuer le code SQL de BDD/projet.sql avec le service MySQL 
     -   Avec lampp, le service phpMyAdmin permet une importation plus facile avec toujours le fichier BDD/projet.sql
