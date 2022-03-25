@@ -1,6 +1,6 @@
 # RescueIndoor
 
-Projet inter-filières sur le robot "rescue-indoor".
+Groupe 3 : Projet inter-filières sur le robot "rescue-indoor".
 
 ## Dossiers
 
@@ -8,8 +8,8 @@ Voici l'explication pour chaque dossier:
 
 * ### WEB
 
-Ce dossier comprend le site web pour l'administrateur qui sera en mesure de gérer le robot livreur, de suivre son avancement et gérer ses utilisateurs.
+Ce dossier contient tous le code web (html/css, php et scripts js) et la base de donnée.
 
 * ### Ros
 
-Ros.
+Ce dossier contient tous les codes present dans le robot (carte arduino et raspberry) et il contient egalement tous les fichiers de test.
