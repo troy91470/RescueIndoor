@@ -27,5 +27,8 @@ bureau="415"
 msgHtml="Vous venez de recevoir une nouvelle livraison devant votre bureau : "+bureau+".<br/>Veuillez venir le chercher dans moins de 5 minutes si vous le pouvez.\
     <br/>Dans le cas contraire, vous pouvez venir le chercher plus tard au bureau de l'administrateur selon ses horaires.\
     <br/><br/>--<br/>Cordialement,<br/>entreprise XXX"
+msgTxt="Vous venez de recevoir une nouvelle livraison devant votre bureau : "+bureau+".<br/>Veuillez venir le chercher dans moins de 5 minutes si vous le pouvez.\
+    \nDans le cas contraire, vous pouvez venir le chercher plus tard au bureau de l'administrateur selon ses horaires.\
+    \n\n--\nCordialement,\nentreprise XXX"
 
-send_email("[DELIVERY] Livraison au bureau "+bureau,mailDestinataire,"livraison effectuee",msgHtml)
+send_email("[DELIVERY] Livraison au bureau "+bureau,mailDestinataire, msgTxt, msgHtml)

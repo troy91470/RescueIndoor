@@ -5,7 +5,6 @@ import rospy
 from std_msgs.msg import String
 
 
-
 def listeBureauxPublisher():
     memo = ""
     # set up camera object
