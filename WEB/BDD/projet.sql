@@ -45,8 +45,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `first_name`, `second_name`, `email`, `password`, `office`, `is_admin`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$cUI4sFh9c6zhqqomDa7WvunfuqsD9lGjkk0CSMTW9zjtY/baWdKOS', NULL, 1),
-(8, 'John', 'Doe', 'John.Doe@gmail.com', 'motdepasse', '315', 0);
+(1, 'admin', 'admin', 'admin@gmail.com', '$2y$10$XzjZPndFZZpHJP251jxPJuk9x5IgNaGfvhtXfUmeB0Q39Ba/cELz2', '112', 1),
+(2, 'admin2', 'admin2', 'admin2@gmail.com', '$2y$10$AcMYIVGBzpfBA2rM.RnMbuYCaNyFyjaF.BMZTDSgDGYw45woK/yQq', '113', 1),
+(3, 'admin3', 'admin3', 'admin3@gmail.com', '$2y$10$.DqiliyADPFsz//w4k1kyems4/rDwYv/WmLrBe2btaV7gT2nxs1BC', '118', 1),
+(4, 'John', 'Doe', 'John.Doe@yahoo.fr', '$2y$10$lTAMdZMwE6gouu46V8E7Gexi72jOMqbifVW1tngIaqCVxBNO1qtSa', '212', 0),
+(5, 'Theo', 'Iniest', 'Theo.Iniest@gmail.com', '$2y$10$ackuCSivfTmGqftS2fB7juuGZxTGfoYCGA2p9.6zv8Qdr0zw.ThFm', '218', 0),
+(6, 'Claude', 'Amel', 'Claude.Amel@gmail.com', '$2y$10$q5A8izXkD7NWw5.3d3f/Eeu212Ex8OvlTOPITNyWG.Lc1VQD8qmba', '220', 0),
+(7, 'Irène', 'Joliot', 'Irene.Joliot@yahoo.fr', '$2y$10$d3BWI2Ih.BqYyqfHMVUe7u7MEj6re.tpmyUE1y3DrqdH.CDqRNvcS', '221', 0);
 
 --
 -- Index pour la table `user`
@@ -57,7 +62,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_user` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
