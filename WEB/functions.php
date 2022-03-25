@@ -80,7 +80,7 @@
                     }
                 </script>";
 
-                $lbIsToDeletedMyselfPHP = '<script>document.write(lbIsToDeletedMyselfJS)</script>';
+                $lbIsToDeletedMyselfPHP = echo "<script>document.write(lbIsToDeletedMyselfJS)</script>";
                 echo $lbIsToDeletedMyselfPHP;
                 if($lbIsToDeletedMyselfPHP == "1")
                 {
