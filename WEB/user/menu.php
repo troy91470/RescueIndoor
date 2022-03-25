@@ -47,7 +47,7 @@
                     <br>
                 </div>
             </div>
-            <img class="image" src="../images/logoISTY.png" alt="IMG">
+            <img class="image" src="../images/logoIsty.png" alt="IMG">
         </div>
     </body>
 </html>
