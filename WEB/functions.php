@@ -59,6 +59,30 @@
     }
 
 
+    //Fonction vérifiant l'url pour savoir si l'administrateur veut supprimer son compte ou non, executé à chaque chargement de manageEmployee.php
+    function verifMyselfToDelete()
+    {
+        //si l'admnistrateur connecté veut supprimer son compte, on le supprime et on le déconnecte
+        if(isset($_GET['del']) && $_GET['del'] == "1") 
+        {
+            $lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
+            $lsRequestDeleteEmployee = "DELETE FROM user WHERE id_user=".$_SESSION['idUser'];  //Requête SQL permettant de supprimer les utilisateurs avec l'id spécifié
+            $lsConnexionBDD -> query($lsRequestDeleteEmployee);
+            mysqli_close($lsConnexionBDD);
+            echo "<script>document.location.href = '../deconnexion.php'</script>";
+        }
+        //si l'admnistrateur connecté ne veut pas supprimer son compte, on nettoie l'url
+        else if(isset($_GET['del']) && $_GET['del'] == "0")
+        {
+            echo "<script>document.location.href = 'manageEmployee.php'</script>";
+        }
+        else
+        {
+                //sinon il n'y a rien à faire (mettre une redirection ici ferait des redirections infinies)
+        }
+    }
+
+
     //Fonction supprimant l'employé dans la BDD grâce à son id
     function deleteEmployee($pnIdUser)
     {
@@ -68,32 +92,18 @@
         {
             if($_SESSION['idUser'] == $pnIdUser) //si l'administrateur essaie de se supprimer lui-même, une confirmation lui est proposée
             {  
+                mysqli_close($lsConnexionBDD);
                 echo 
                 "<script>
                     if(window.confirm('Voulez-vous vraiment supprimer votre compte ?'))
                     {
-                        var lbIsToDeletedMyselfJS = 1;
+                        window.location.href = 'manageEmployee.php?del=1';
                     }
                     else
                     {
-                        var lbIsToDeletedMyselfJS = 0;
+                        window.location.href = 'manageEmployee.php?del=0';
                     }
                 </script>";
-
-               /* $lbIsToDeletedMyselfPHP = echo "<script>document.write(lbIsToDeletedMyselfJS)</script>";
-                echo $lbIsToDeletedMyselfPHP;
-                if($lbIsToDeletedMyselfPHP == "1")
-                {
-                    echo "<script> alert('enfinnnnnnnnnnnnnnnn');</script>";
-                    $lsRequestDeleteEmployee = "DELETE FROM user WHERE id_user=".$pnIdUser;  //Requête SQL permettant de supprimer les utilisateurs avec l'id spécifié
-                    $lsConnexisonBDD -> query($lsRequestDeleteEmployee);
-                    mysqli_close($lsConnexionBDD);
-                    echo "<script>document.location.href = '../deconnexion.php'</script>";
-                }
-                else
-                {
-                    echo  "<script> alert('ooooooooooooooooo'); </script>";
-                }   */
             }
             else
             {
