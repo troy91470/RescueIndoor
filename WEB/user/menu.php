@@ -27,12 +27,9 @@
         <a href="../deconnexion.php">
             <input  class="deconnexion" type="submit" value='Deconnexion'>
         </a>
+        <img class="image2" src="../images/icon-user.png" alt="IMG">
+
         <div class="message">
-            <div class="row">
-                <div class="column1">
-                    <img class="image" src="../images/icon-user.png" alt="IMG">
-                </div>
-                <div class="column2">    
                     Votre compte est bien enregistré dans le service de livraison.
                     <br>
                     <br>
@@ -42,12 +39,12 @@
                     <br>
                     - Vous n'avons pas de livraison programmer pour le moment.
                     <br>
+                    <br> <br> <br>
+                    <div class="remarque">   
+                        Remarque : Si vous avez manquez la livraison de votre colis, vous pouvez venir le chercher plus tard au bureau de l'administrateur selon ses horaires.
+                    </div>
                     <br>
-                    Si vous avez manquez la livraison de votre colis, vous pouvez venir le chercher plus tard au bureau de l'administrateur selon ses horaires.
-                    <br>
-                </div>
-            </div>
-            <img class="image" src="../images/logoIsty.png" alt="IMG">
+            <img class="image1" src="../images/logoIsty.png" alt="IMG">
         </div>
     </body>
 </html>
