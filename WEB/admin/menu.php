@@ -8,6 +8,13 @@
 -->
 
 
+<?php
+require("../functions.php");
+if (!isSessionActive() || $_SESSION['isAdmin'] != 1) 
+{
+    header('Location: ../index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,6 +30,7 @@
     </head>
 
     <body>
+    
         	<!-- Bouton de déconnexion -->
             <a href="../deconnexion.php">
                 <input  class="deconnexion" type="submit" value='Deconnexion'>

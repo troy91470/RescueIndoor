@@ -11,7 +11,7 @@ def listeBureauxPublisher():
     # QR code detection object
     detector = cv2.QRCodeDetector()
     pub = rospy.Publisher('listeTopic', String, queue_size=10)
-    rospy.init_node('talker', anonymous=True)
+    rospy.init_node('listeBureauxNode', anonymous=True)
     rate = rospy.Rate(1) # 1hz
     while not rospy.is_shutdown():
         _, img = cap.read()
