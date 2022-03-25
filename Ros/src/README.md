@@ -5,7 +5,7 @@ Ce dossier est composé de deux sous dossiers /carteIno qui contient les deux fi
 
 codeRos.ino est téléversé dans une carte arduino mega
 
-analyseQrCode.py est le module d'analyse de Qr code qui est lancer sur la raspberry
+analyseQrCode.py est le module d'analyse de Qr code qui est lancé sur la raspberry
 
 Commandes a executer sur la raspberry
 
