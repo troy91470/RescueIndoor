@@ -30,5 +30,4 @@ Ensemble des fichiers reliés à la base données
 
 ## Fichiers "*.php"
 
-Ensemble de fichiers php correspondant à la mise en application du back-end et du front-end
-afin de proposer une interface ergonomique et fonctionnelle.
+Chaque fichier dispose d'un en-tête expliquant ce qu'il réalise.
