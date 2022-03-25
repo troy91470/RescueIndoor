@@ -1,3 +1,13 @@
+<!-- 
+	Auteurs: Marwane BARAHOUI (IATIC4), Clément ROBIN (IATIC4), et Thomas ROY (IATIC4)
+
+	Nom du projet: Rescue Indoor
+
+	But de la page: 
+		Sur cette page, l'administrateur peut ajouter, modifier ou supprimer un utilisateur dans la base de données.
+-->
+
+
 <?php
 	require("../functions.php");
 	
@@ -195,14 +205,14 @@
 				{
 					if ($_POST["option"] == "Modifier") 
 					{
-						$idUser = $_POST['idUser'];
-						editEmployee($idUser, $_POST['emailModif'], $_POST['firstNameModif'], $_POST['secondNameModif'], $_POST['officeModif']);
+						$lnIdUserModified = $_POST['idUser']; //id de l'utilisateur à modifier
+						editEmployee($lnIdUserModified, $_POST['emailModif'], $_POST['firstNameModif'], $_POST['secondNameModif'], $_POST['officeModif']);
 					}
 					//suppression de l'employé dans la BDD
 					elseif ($_POST["option"] == "Supprimer") 
 					{
-						$idUser = $_POST['idUser'];
-						deleteEmployee($idUser);
+						$lnIdUserDeleted = $_POST['idUser']; //id de l'utilisateur à supprimer
+						deleteEmployee($lnIdUserDeleted);
 					} 
 
 					//insertion de l'employé saisi dans la BDD
@@ -210,20 +220,20 @@
 					{  
 						if(isset($_POST['isAdmin']))
 						{
-							$isAdmin = 1;
+							$lbIsAdmin = 1;  //booléen indiquant si le nouvel utilisateur est un administrateur (1) ou non (0)
 						} 
 						else 
 						{
-							$isAdmin = 0;
+							$lbIsAdmin = 0;
 						}
 
 						if(!empty($_POST['office']) && isset($_POST['office']))
 						{
-							addEmployee($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$isAdmin);
+							addEmployee($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],$_POST['office'],$_POST['password'],$lbIsAdmin);
 						} 
 						else 
 						{
-							addEmployee($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$isAdmin);
+							addEmployee($_POST['emailAjouter'], $_POST['firstName'],$_POST['secondName'],NULL,$_POST['password'],$lbIsAdmin);
 						}
 					}
 				}

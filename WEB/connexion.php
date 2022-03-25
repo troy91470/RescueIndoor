@@ -4,7 +4,7 @@
 	Nom du projet: Rescue Indoor
 
 	But de la page: 
-		Sur cette page, l'utilisateur saisi un email et un mot de passe afin de se connecter. Si la connexion est réussie, la session de l'utilisateur est démarrée et l'utilisateur est redirigé sur la page adminMenu.php. 
+		Sur cette page, l'utilisateur saisi un email et un mot de passe afin de se connecter. Si la connexion est réussie, la session de l'utilisateur est démarrée et l'utilisateur est redirigé sur la page de menu. 
 -->
 
 

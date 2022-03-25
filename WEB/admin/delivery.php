@@ -4,7 +4,7 @@
 	Nom du projet: Rescue Indoor
 
 	But de la page: 
-		Sur cette page, l'utilisateur peut choisir quels utilisateurs livrer.
+		Sur cette page, l'administrateur peut lancer une livraison en choisissant quels employés livrer.
 -->
 
 
@@ -16,6 +16,7 @@
 		header('Location: ../index.php');
 	}
 ?>
+
 
 <!DOCTYPE html>
 <html>

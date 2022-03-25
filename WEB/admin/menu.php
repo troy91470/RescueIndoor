@@ -4,7 +4,7 @@
 	Nom du projet: Rescue Indoor
 
 	But de la page: 
-		Sur cette page, l'utilisateur peut choisir d'aller sur la page de livraison, de gestion d'employés, ou de contrôle du robot. L'utilisateur peut aussi se déconnecter.
+		Sur cette page, l'administrateur peut choisir d'aller sur la page de livraison, de gestion d'employés, ou de contrôle du robot. L'utilisateur peut aussi se déconnecter.
 -->
 
 

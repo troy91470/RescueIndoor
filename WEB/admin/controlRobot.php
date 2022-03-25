@@ -1,3 +1,13 @@
+<!-- 
+	Auteurs: Marwane BARAHOUI (IATIC4), Clément ROBIN (IATIC4), et Thomas ROY (IATIC4)
+
+	Nom du projet: Rescue Indoor
+
+	But de la page: 
+		Sur cette page, l'administrateur peut visualiser ce que voit la caméra du robot. Il peut aussi contrôler la vitesse, la rotation et l'avancement du robot, et l'ouverture/fermeture de la remorque.
+-->
+
+
 <?php
 	require("../functions.php");
 	
@@ -6,6 +16,7 @@
 		header('Location: ../index.php');
 	}
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -19,13 +30,12 @@
 
 
     <script>
-      // This function connects to the rosbridge server running on the local computer on port 9090
+      // Cette fonction se connecte à la passerelle Ros fonctionnant sur l'ordinateur local sur le port 9090
       var rosServer = new ROSLIB.Ros({
-          //url : 'ws://192.168.43.7:9090'
           url : 'ws://192.168.43.7:9090'
       });
 
-      // If there is an error on the backend, an 'error' emit will be emitted.
+      // Cette fonction émet un message d'erreur s'il y a une erreur au niveau du backend
       rosServer.on('error', function(error) {
         document.getElementById('connecting').style.display = 'none';
         document.getElementById('connected').style.display = 'none';
@@ -34,7 +44,7 @@
         console.log(error);
       });
 
-      // Find out exactly when we made a connection.
+      // Cette fonction trouve le moment exact où la connexion est établie
       rosServer.on('connection', function() {
         console.log('Connection made!');
         document.getElementById('connecting').style.display = 'none';
@@ -43,6 +53,7 @@
         document.getElementById('connected').style.display = 'inline';
       });
 
+      // Cette fonction trouve quand la connexion est fermée
       rosServer.on('close', function() {
         console.log('Connection closed.');
         document.getElementById('connecting').style.display = 'none';
@@ -51,102 +62,124 @@
       });
 
 
-    // These lines create a topic object as defined by roslibjs
-    var forwardTopic = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'forward',
-        messageType : 'std_msgs/Empty'
-    });
-    var backwardTopic = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'backward',
-        messageType : 'std_msgs/Empty'
-    });
-    var rightTopic = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'right',
-        messageType : 'std_msgs/Empty'
-    });
-    var leftTopic = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'left',
-        messageType : 'std_msgs/Empty'
-    });
-    var stopTopic = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'stop',
-        messageType : 'std_msgs/Empty'
-    });
-    var upTopic = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'up',
-        messageType : 'std_msgs/Empty'
-    });
-    var downTopic = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'down',
-        messageType : 'std_msgs/Empty'
-    });
-    var openTopic = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'opendoor',
-        messageType : 'std_msgs/Empty'
-    });
-    var closeTopic = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'closedoor',
-        messageType : 'std_msgs/Empty'
-    });
-    var lineFolllower = new ROSLIB.Topic({
-        ros : rosServer,
-        name : 'linefollow',
-        messageType : 'std_msgs/Empty'
-    });
+      // These lines create a topic object as defined by roslibjs:
+      // Topic permettant de faire avancer le robot
+      var forwardTopic = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'forward',
+          messageType : 'std_msgs/Empty'
+      });
 
-    /* This function:
-    - retrieves numeric values from the text boxes
-    - assigns these values to the appropriate values in the twist message
-    - publishes the message to the cmd_vel topic.
-    */
-    function pubMessage(topic) {
-      topic.publish();
-    }
+      // Topic permettant de faire reculer le robot
+      var backwardTopic = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'backward',
+          messageType : 'std_msgs/Empty'
+      });
 
-    // TEST
-		var listeBureaux = new ROSLIB.Topic({
-			ros : rosServer,
-			name : '/listeTopic',
-			messageType : 'std_msgs/String'
-		});
-		var messageBureaux = new ROSLIB.Message({
-      data: "314;315;999;5;456"
-    });
-		// var messageBureaux2 = new ROSLIB.Message("lucas est dans le binks");
-    function testMSG() {
-      listeBureaux.publish(messageBureaux);
-      // listeBureaux.publish(messageBureaux2);
-    }
+      // Topic permettant de faire une rotation droite au robot
+      var rightTopic = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'right',
+          messageType : 'std_msgs/Empty'
+      });
+
+      // Topic permettant de faire une rotation gauche au robot
+      var leftTopic = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'left',
+          messageType : 'std_msgs/Empty'
+      });
+
+      // Topic permettant d'arrêter le robot
+      var stopTopic = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'stop',
+          messageType : 'std_msgs/Empty'
+      });
+
+      // Topic permettant d'accélérer la vitesse de déplacement du robot
+      var upTopic = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'up',
+          messageType : 'std_msgs/Empty'
+      });
+
+      // Topic permettant de ralentir la vitesse de déplacement du robot
+      var downTopic = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'down',
+          messageType : 'std_msgs/Empty'
+      });
+
+      // Topic permettant d'ouvrir la remorque du robot
+      var openTopic = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'opendoor',
+          messageType : 'std_msgs/Empty'
+      });
+
+      // Topic permettant de fermer la remorque du robot
+      var closeTopic = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'closedoor',
+          messageType : 'std_msgs/Empty'
+      });
+
+      // Topic permettant d'activer le suivi de ligne du robot
+      var lineFollower = new ROSLIB.Topic({
+          ros : rosServer,
+          name : 'linefollow',
+          messageType : 'std_msgs/Empty'
+      });
+
+      //Cette fonction publie le topic donné en entrée sur cmd_vel
+      function pubMessage(topic) {
+        topic.publish();
+      }
+
+
+      // TESTS d'envoi de chaîne de caractères
+      var listeBureaux = new ROSLIB.Topic({
+        ros : rosServer,
+        name : '/listeTopic',
+        messageType : 'std_msgs/String'
+      });
+
+      var messageBureaux = new ROSLIB.Message({
+        data: "314;315;999;5;456"
+      });
+
+      function testMSG() {
+        listeBureaux.publish(messageBureaux);
+      }
 
     </script>
-
   </head>
+
 
   <body>
     <div class="divBoutons">
       <div class="row">
+
+        <!-- Bouton de retour au menu -->
         <div class="colonne10">
           <a href="menu.php">
             <input  class="bouton-top" type="submit" value='retour'>
           </a>
         </div>
+
+        <!-- Bouton de deconnexion -->
         <div class="colonne11">
           <a href="../deconnexion.php">
             <input  class="bouton-top" type="submit" value='Deconnexion'>
           </a>
         </div>
+
       </div>
     </div>
 
+     <!-- Inidique l'état de la connexion à la passerelle Ros -->
     <div class="divTop">
       <div id="statusIndicator">
         <p id="connecting">
@@ -164,10 +197,9 @@
       </div>
       
 
-
+      <!-- Live affichant ce que voit la caméra du robot -->
       <div class="divCenter">
-        <img id="liveStream" src="http://192.168.43.197:8080/stream?topic=/cv_camera/image_raw" />
-        
+        <img id="liveStream" src="http://192.168.43.197:8080/stream?topic=/cv_camera/image_raw" /> 
       </div>
 
       <br>
@@ -175,39 +207,61 @@
 
     <div class="divBottom">
       <form >
+          <!-- Bouton permettant de faire avancer le robot -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="Avancer"  id="sendMsg"  onclick="pubMessage(forwardTopic)">
           </div>
+
+         <!-- Bouton permettant de faire reculer le robot -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="Reculer"  id="sendMsg"  onclick="pubMessage(backwardTopic)">
           </div>
+
+          <!-- Bouton permettant d'arrêter le robot -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="Stop"  id="sendMsg" style="background:red" onclick="pubMessage(stopTopic)">
           </div>
+
+           <!-- Bouton permettant de faire une rotation gauche au robot -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="Gauche"  id="sendMsg"  onclick="pubMessage(leftTopic)">
           </div>
+
+          <!-- Bouton permettant de faire une rotation droite au robot -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="Droite"  id="sendMsg"  onclick="pubMessage(rightTopic)">
           </div>
+
+          <!-- Bouton permettant d'augmenter la vitesse de déplacement le robot -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="V+"  id="sendMsg"  onclick="pubMessage(upTopic)">
           </div>
+
+          <!-- Bouton permettant de diminuer la vitesse de déplacement le robot -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="V-"  id="sendMsg"  onclick="pubMessage(downTopic)">
           </div>
+
+          <!-- Bouton permettant d'envoyer un message test -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="Test MSG"  id="sendMsg"  onclick="testMSG()">
           </div>
+
+          <!-- Bouton permettant d'ouvrir la remorque du robot -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="Ouverture"  id="sendMsg"  onclick="pubMessage(openTopic)">
           </div>
+
+          <!-- Bouton permettant de fermer la remorque du robot -->
           <div class="sub-main">
             <input class="bouton" type="submit" value="Fermeture"  id="sendMsg"  onclick="pubMessage(closeTopic)">
           </div>
+
+           <!-- Bouton permettant d'activer le suivi de ligne du robot -->
           <div class="sub-main">
-            <input class="bouton" type="submit" value="lineFolllower"  id="sendMsg"  onclick="pubMessage(lineFolllower)">
+            <input class="bouton" type="submit" value="lineFollower"  id="sendMsg"  onclick="pubMessage(lineFollower)">
           </div>
+
       </form>
     </div>
   </body>

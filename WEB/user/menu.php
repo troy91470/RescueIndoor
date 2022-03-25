@@ -23,6 +23,7 @@
     </head>
 
     <body>
+        <!-- Bouton de deconnexion -->
         <a href="../deconnexion.php">
             <input  class="deconnexion" type="submit" value='Deconnexion'>
         </a>
