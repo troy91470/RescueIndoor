@@ -11,7 +11,7 @@
 <?php
 	require("../functions.php");
 
-	if (!isSessionActive()) 
+	if (!isSessionActive() || $_SESSION['isAdmin'] !== 1) 
 	{
 		header('Location: ../index.php');
 	}
