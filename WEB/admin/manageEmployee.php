@@ -245,5 +245,6 @@
 </html>
 
 <?php	
+	verifMyselfToDelete();
 	mysqli_close($lsConnexionBDD);
 ?>
