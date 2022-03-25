@@ -80,20 +80,20 @@
                     }
                 </script>";
 
-                $lbIsToDeletedMyselfPHP = echo "<script>document.write(lbIsToDeletedMyselfJS)</script>";
+               /* $lbIsToDeletedMyselfPHP = echo "<script>document.write(lbIsToDeletedMyselfJS)</script>";
                 echo $lbIsToDeletedMyselfPHP;
                 if($lbIsToDeletedMyselfPHP == "1")
                 {
                     echo "<script> alert('enfinnnnnnnnnnnnnnnn');</script>";
-                    /*$lsRequestDeleteEmployee = "DELETE FROM user WHERE id_user=".$pnIdUser;  //Requête SQL permettant de supprimer les utilisateurs avec l'id spécifié
-                    $lsConnexionBDD -> query($lsRequestDeleteEmployee);
+                    $lsRequestDeleteEmployee = "DELETE FROM user WHERE id_user=".$pnIdUser;  //Requête SQL permettant de supprimer les utilisateurs avec l'id spécifié
+                    $lsConnexisonBDD -> query($lsRequestDeleteEmployee);
                     mysqli_close($lsConnexionBDD);
-                    echo "<script>document.location.href = '../deconnexion.php'</script>";*/
+                    echo "<script>document.location.href = '../deconnexion.php'</script>";
                 }
                 else
                 {
                     echo  "<script> alert('ooooooooooooooooo'); </script>";
-                }   
+                }   */
             }
             else
             {
