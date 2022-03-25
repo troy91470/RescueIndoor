@@ -156,7 +156,7 @@
 	<script>
 		var ouvertureRemorque = new ROSLIB.Topic({
 			ros : rosServer,
-			name : '/OUVERTUREREMORQUE',
+			name : '/opendoor',
 			messageType : 'std_msgs/Empty'
 		});
 
