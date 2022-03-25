@@ -108,7 +108,7 @@
 							session_start();
 							session_id($lsLineUser['id_user']);
 							$_SESSION['count'] = 1;
-							$_SESSION['email'] = $lwEmail;
+							$_SESSION['idUser'] = $lsLineUser['id_user'];
 							$_SESSION['isAdmin'] = $lsLineUser['is_admin'];
 
 							mysqli_close($lsConnexionBDD);

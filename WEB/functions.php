@@ -63,11 +63,45 @@
     function deleteEmployee($pnIdUser)
     {
         $lsConnexionBDD = connexionBDD(); //variable permettant d'avoir la connexion au serveur SQL
-        
+
         try 
         {
-            $lsRequestDeleteEmployee = "DELETE FROM user WHERE id_user=".$pnIdUser;  //Requête SQL permettant de supprimer les utilisateurs avec l'id spécifié
-            $lsConnexionBDD -> query($lsRequestDeleteEmployee);
+            if($_SESSION['idUser'] == $pnIdUser) //si l'administrateur essaie de se supprimer lui-même, une confirmation lui est proposée
+            {  
+                echo 
+                "<script>
+                    if(window.confirm('Voulez-vous vraiment supprimer votre compte ?'))
+                    {
+                        var lbIsToDeletedMyselfJS = 1;
+                    }
+                    else
+                    {
+                        var lbIsToDeletedMyselfJS = 0;
+                    }
+                </script>";
+
+                $lbIsToDeletedMyselfPHP = '<script>document.write(lbIsToDeletedMyselfJS)</script>';
+                echo $lbIsToDeletedMyselfPHP;
+                if($lbIsToDeletedMyselfPHP == "1")
+                {
+                    echo "<script> alert('enfinnnnnnnnnnnnnnnn');</script>";
+                    /*$lsRequestDeleteEmployee = "DELETE FROM user WHERE id_user=".$pnIdUser;  //Requête SQL permettant de supprimer les utilisateurs avec l'id spécifié
+                    $lsConnexionBDD -> query($lsRequestDeleteEmployee);
+                    mysqli_close($lsConnexionBDD);
+                    echo "<script>document.location.href = '../deconnexion.php'</script>";*/
+                }
+                else
+                {
+                    echo  "<script> alert('ooooooooooooooooo'); </script>";
+                }   
+            }
+            else
+            {
+                $lsRequestDeleteEmployee = "DELETE FROM user WHERE id_user=".$pnIdUser;  //Requête SQL permettant de supprimer les utilisateurs avec l'id spécifié
+                $lsConnexionBDD -> query($lsRequestDeleteEmployee);
+                mysqli_close($lsConnexionBDD);
+                echo "<script>window.location=window.location;</script>";  
+            }
         } 
         catch (Exception $e) 
         {
@@ -75,7 +109,6 @@
         }
 
         mysqli_close($lsConnexionBDD);
-        echo "<script>window.location=window.location;</script>";
     }
 
 
