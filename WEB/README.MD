@@ -4,7 +4,7 @@ Application web d'administration de l'environnemet du robot.
 
 ## Dossier conf
 
-Ensemble des fichiers de configurations necessaires tel qu'apache.
+Ensemble des fichiers de configurations necessaires.
 
 * ### apache.conf :
 
