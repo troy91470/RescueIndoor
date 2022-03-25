@@ -10,17 +10,6 @@
 <?php
 	require("functions.php");
 
-	/*
-	$afficher_erreurs = TRUE;
-
-	if ($afficher_erreurs) 
-	{
-		ini_set('display_errors', 1);
-		ini_set('display_startup_errors', 1);
-		error_reporting(E_ALL);
-	}
-	*/
-
 	if (!isSessionActive()) //S'il n'y a pas de session active, on va sur la page connexion.php
 	{
 		header('Location: connexion.php');
