@@ -52,7 +52,7 @@ if (!isSessionActive() || $_SESSION['isAdmin'] != 1)
         <div class="titre">Génération de QRcode</div>
         <div class="reste">
             <!--zone de saisie du numero de bureau -->
-            <input class="saisie" id="text" type="text" style="Width:20%" value="Numéro de bureau"  onkeypress='generateBarCode();' onblur='generateBarCode();'/> 
+            <input class="saisie" id="text" type="text" style="Width:20%" value="Numéro de bureau"  onkeyup='generateBarCode();'/> 
             <!-- Image du QRcode généré -->
             <img class="qrcode" id='barcode' src="https://api.qrserver.com/v1/create-qr-code/?data=314&amp;size=100x100" alt="" title="qrCode" />
         </div>
