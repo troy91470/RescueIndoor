@@ -79,12 +79,12 @@ a:hover{
 
   .bouton {
     font-family: Montserrat-Bold;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.5;
     color: #fff;
 
-    width: 150px;
-    height: 55px;
+    width: 250px;
+    height: 90px;
     border-radius: 25px;
     background: #57b846;
     justify-content: center;

@@ -32,7 +32,7 @@
     <script>
       // Cette fonction se connecte à la passerelle Ros fonctionnant sur l'ordinateur local sur le port 9090
       var rosServer = new ROSLIB.Ros({
-          url : 'ws://192.168.43.7:9090'
+          url : 'ws://192.168.43.197:9090'
       });
 
       // Cette fonction émet un message d'erreur s'il y a une erreur au niveau du backend
@@ -147,7 +147,7 @@
       });
 
       var messageBureaux = new ROSLIB.Message({
-        data: "314;315;999;5;456"
+        data: "314;John.Doe@yahoo.fr;999;bahraoui.marwane@gmail.com;78;admin@gmail.com"
       });
 
       function testMSG() {
