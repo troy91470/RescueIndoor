@@ -17,7 +17,7 @@ def listeBureauxPublisher():
     # QR code detection objet
     detector = cv2.QRCodeDetector()
     # abonnement au topic listeTopic
-    pub = rospy.Publisher('listeTopic', String, queue_size=10)
+    pub = rospy.Publisher('qrCodeData', String, queue_size=10)
     # creation du noeud listeBureauxReader
     rospy.init_node('listeBureauxReader', anonymous=True)
     # initialisation de l'attente entre chaque iteration de 1seconde

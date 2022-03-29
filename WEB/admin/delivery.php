@@ -91,7 +91,7 @@
 
 												if ($lnOffice !== NULL) 
 												{
-													$lwValueUser = "(".$lnOffice.",".$lwEmail.")"; //Couple bureau et email, exemple: "(314,a@mail.com)"
+													$lwValueUser = $lnOffice.";".$lwEmail; //Couple bureau et email, exemple: "(314,a@mail.com)"
 													echo('<tr>
 														<td>
 															<input type="checkbox" class="demo" id="demo'.$lnNumeroLigne.'" name="office[]" value='.$lwValueUser.'>
@@ -146,14 +146,25 @@
 	<?php
 		if(isset($_POST['office']) && is_array($_POST['office']) && !empty($_POST['office']))
 		{
+			$flag=0;
 			$lvListOffices = ""; //liste de couples de valeurs d'utilisateurs, liste qui sera envoyée sur le RosBridge, exemple: "(314,a@mail.com);(415,b@mail.com);(785,c@mail.com)"
 			foreach($_POST['office'] as $valeur)
 			{
+				if ($flag==0) {
 					$lvListOffices = $lvListOffices."$valeur";
+					$flag=1;
+				} else {
+					$lvListOffices = $lvListOffices.";$valeur";
+				}
 			}
 	?>
 
 	<script>
+		/*
+		var rosServer = new ROSLIB.Ros({
+          url : '<?php require("../logs.php"); echo($gwRosBridge); ?>'
+      	});
+
 		var ouvertureRemorque = new ROSLIB.Topic({
 			ros : rosServer,
 			name : '/opendoor',
@@ -172,6 +183,7 @@
 
       	listeBureaux.publish(messageBureaux);
 		ouvertureRemorque.publish();
+		*/
 	</script>
 
 	<?php
